@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Search University Leipzig"</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body style="background-color: #DCDCDC;">
+		<div class="container-fluid" style="padding: 0px 15% 25px 15%; background-color: white;">
+			<div class="row">
+				<h1 class="text-center">Search University Leipzig</h1>
+				<form class="input-group col-md-12" action="/" method="get">
+					<input type="text" class="form-control" placeholder="Search" name="originalQuery" th:value="${originalQuery}"/>
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="submit">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</form>
+			</div>
+		</div>
+		<p th:if="${not #strings.isEmpty(originalQuery)}" style="padding-left: 10px;">
+			<span th:text="${totalHits}"></span> Results (<span th:text="${durationInMilliseconds}"></span> ms)
+		</p>
+		<div class="container-fluid" style="padding: 0px 15% 25px 15%">
+			<div style="background-color: red; width: 100%; border-radius: 25px;"
+				th:if="${#lists.isEmpty(resultsOnPage) and not #strings.isEmpty(originalQuery) }">
+				<div style="margin: 15px">
+					<h3>No Results</h3>
+					<p>For Query "<span th:text="${originalQuery}"></span>"</p>
+				</div>
+			</div>
+			<div style="background-color: white; width: 100%; border-radius: 25px;" th:each="result : ${resultsOnPage}">
+				<div style="margin: 15px">
+					<h3><a th:href="${result.targetUrl.href}" th:text="${result.title}"></a></h3>
+					<p th:text="${result.snippet}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" th:if="${nextPage != null or previousPage != null or (namedPageLinks != null and not #lists.isEmpty(namedPageLinks))}">
+			<ul class="pager">
+    			<li th:if="${previousPage != null}" class="previous">
+    				<a th:href="${previousPage.href}">&larr; Previous</a>
+    			</li>
+    			
+    			<li th:if="${firstPageLink != null}">
+    				<a th:href="${firstPageLink.href}">1</a>
+    			</li>
+    			<li th:if="${firstPageLink != null}">...</li>
+    			
+    			<li th:each="namedPageLink: ${namedPageLinksBefore}">
+    				<a th:href="${namedPageLink.href}" th:text="${namedPageLink.rel}"></a>
+    			</li>
+    			
+    			<li th:text="${page}"></li>
+    			
+    			<li th:each="namedPageLink: ${namedPageLinksAfter}">
+    				<a th:href="${namedPageLink.href}" th:text="${namedPageLink.rel}"></a>
+    			</li>
+
+				<li th:if="${lastPageLink != null}">...</li>
+    			<li th:if="${lastPageLink != null}">
+    				<a th:href="${lastPageLink.href}" th:text="${lastPageLink.rel}"></a>
+    			</li>
+    			
+    			<li th:if="${nextPage != null}" class="next">
+    				<a th:href="${nextPage.href}">Next &rarr;</a>
+    			</li>
+			</ul>
+		</div>
+	</body>
+</html>
