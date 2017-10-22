@@ -12,6 +12,8 @@ You could start the development version of the search engine by leveraging one o
 * `mvn clean install spring-boot:run`
   * For a arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that.
 
+Then you could point your browser to `localhost:8080` to see the user interface of the search engine.
+
 ## Onboarding
 
 If you want to work on the project you find some important tools that are used for the development here.
