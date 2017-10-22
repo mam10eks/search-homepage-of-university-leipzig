@@ -1,0 +1,1 @@
+SearchResultPage(originalQuery=null, page=0, resultsOnPage=null, totalHits=0, nextPage=null, previousPage=null, firstPageLink=null, lastPageLink=null, namedPageLinksBefore=null, namedPageLinksAfter=null)
