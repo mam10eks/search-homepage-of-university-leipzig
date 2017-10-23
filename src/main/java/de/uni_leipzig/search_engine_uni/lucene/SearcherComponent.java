@@ -13,6 +13,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 
+import de.uni_leipzig.search_engine_uni.dto.SearchResult;
 import lombok.SneakyThrows;
 
 @Component
@@ -29,7 +30,7 @@ public class SearcherComponent
 	{
 		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("lucene_index")));
 		searcher = new IndexSearcher(indexReader);
-		queryParser = new MultiFieldQueryParser(new String[] {"title", "content"}, 
+		queryParser = new MultiFieldQueryParser(new String[] {SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_CONTENT}, 
 					new StandardAnalyzer());
 		queryParser.setFuzzyMinSim(0.1f);
 	}

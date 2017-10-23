@@ -30,7 +30,7 @@ public class EnrichResponsesWithViewAspect
 	
 	private static final MappingJackson2JsonView MAPPING_TO_JACKSON_VIEW = new MappingJackson2JsonView();
 	
-	private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	
 	private static Map<String, ?> proceedJointPointAndParseReturnValueAsModel(ProceedingJoinPoint proceedingJointPoint) throws Throwable
 	{

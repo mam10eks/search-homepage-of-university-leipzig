@@ -15,6 +15,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain=true)
 public class SearchResult
 {
+	public static final String INDEX_FIELD_TITLE = "title";
+	
+	public static final String INDEX_FIELD_CONTENT = "content";
+	
+	public static final String INDEX_FIELD_LINK = "link";
+	
 	private String title;
 	
 	private String snippet;
@@ -23,8 +29,8 @@ public class SearchResult
 	
 	public SearchResult(Pair<Document, Integer> result)
 	{
-		setTitle(result.getLeft().get("title"));
-		setSnippet(result.getLeft().get("content"));
+		setTitle(result.getLeft().get(INDEX_FIELD_TITLE));
+		setSnippet(result.getLeft().get(INDEX_FIELD_CONTENT));
 		setTargetUrl(createTargetLink(result.getRight()));
 	}
 	

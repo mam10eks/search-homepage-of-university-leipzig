@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import de.uni_leipzig.search_engine_uni.dto.SearchResult;
 import de.uni_leipzig.search_engine_uni.lucene.SearcherComponent;
 
 @Controller
@@ -18,6 +19,6 @@ public class RedirectController
 	@RequestMapping(method=RequestMethod.GET, path="/url")
 	public RedirectView redirect(@RequestParam Integer documentId)
 	{
-		return new RedirectView(searcherComponent.doc(documentId).get("link"));
+		return new RedirectView(searcherComponent.doc(documentId).get(SearchResult.INDEX_FIELD_LINK));
 	}
 }

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Order(1)
 public class LoggingAspect
 {
-	Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 	
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* *(..))")
 	public Object logExecutionTimeOfRequests(ProceedingJoinPoint thisJointPoint) throws Throwable
