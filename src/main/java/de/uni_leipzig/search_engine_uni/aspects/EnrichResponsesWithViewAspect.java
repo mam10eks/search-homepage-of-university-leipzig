@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +13,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -24,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Order(2)
 public class EnrichResponsesWithViewAspect
 {
-	private static final List<MediaType> JSON_TYPES = Collections.unmodifiableList(Arrays.asList(MediaType.APPLICATION_JSON_UTF8, MediaType.APPLICATION_JSON));
+	private static final List<String> JSON_TYPES = Collections.unmodifiableList(jsonContentTypeNames());
 	
 	private static final MappingJackson2JsonView MAPPING_TO_JACKSON_VIEW = new MappingJackson2JsonView();
 	
@@ -35,28 +37,23 @@ public class EnrichResponsesWithViewAspect
 		return OBJECT_MAPPER.convertValue(proceedingJointPoint.proceed(), new TypeReference<Map<String, Object>>() {});
 	}
 	
-	private static final HttpHeaders extractHttpHeaderArgument(JoinPoint thisJointPoint)
+	private static List<String> jsonContentTypeNames()
 	{
-		return Arrays.asList(thisJointPoint.getArgs()).stream()
-			.filter(o -> o instanceof HttpHeaders).
-			map(o -> (HttpHeaders)o)
-			.findFirst().orElse(null);
+		return Arrays.asList(MediaType.APPLICATION_JSON_UTF8, MediaType.APPLICATION_JSON).stream()
+			.map(Object::toString)
+			.collect(Collectors.toList());
 	}
 	
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* *(..))"
 		+ " && ! execution(* de.uni_leipzig.search_engine_uni.controller.RedirectController.redirect(..))")
 	public Object renderResponseRegardingToRequestedContentType(ProceedingJoinPoint thisJointPoint) throws Throwable
 	{
-		HttpHeaders headers = extractHttpHeaderArgument(thisJointPoint);
-		
-		if(headers == null)
-		{
-			throw new RuntimeException();
-		}
+		String contentType = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest()
+			.getHeader(HttpHeaders.CONTENT_TYPE);
 		
 		Map<String, ?> returnModel = proceedJointPointAndParseReturnValueAsModel(thisJointPoint);
 		
-		if(headers != null && JSON_TYPES.contains(headers.getContentType()))
+		if(contentType != null && JSON_TYPES.contains(contentType))
 		{
 			return new ModelAndView(MAPPING_TO_JACKSON_VIEW, returnModel);
 		}

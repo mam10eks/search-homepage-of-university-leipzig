@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.LinkBuilder;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +29,7 @@ public class SearchController
 	
 	@RequestMapping(method=RequestMethod.GET, path="/")
 	public Object search(@RequestParam(defaultValue="") String originalQuery,
-			@RequestParam(defaultValue="1") Integer currentPage,
-			@RequestHeader() HttpHeaders requestHeaders)
+			@RequestParam(defaultValue="1") Integer currentPage)
 	{
 		SearchResultPage ret = new SearchResultPage();
 		ret.setOriginalQuery(originalQuery);
@@ -75,7 +72,7 @@ public class SearchController
 	
 	private static LinkBuilder searchLink(String query, Integer page)
 	{
-		return ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(SearchController.class).search(query, page, null));
+		return ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(SearchController.class).search(query, page));
 	}
 	
 	private List<SearchResult> mapScoreDocsTosearchResults(List<ScoreDoc> scoreDocs)
