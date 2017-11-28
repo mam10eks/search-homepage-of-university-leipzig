@@ -1,12 +1,10 @@
 package de.uni_leipzig.search_engine_uni;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.search.spell.Dictionary;
 import org.apache.lucene.search.suggest.DocumentDictionary;
-import org.apache.lucene.search.suggest.InputIterator;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
