@@ -2,12 +2,23 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.uni-leipzig</groupId>
-	<artifactId>search-engine-uni-parent</artifactId>
+	<artifactId>search-engine-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<modules>
-		<module>search-engine-uni-backend</module>
+		<module>search-engine-backend</module>
+		<module>search-engine-events</module>
 	</modules>
 
 </project>
