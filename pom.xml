@@ -17,8 +17,59 @@
 	</properties>
 
 	<modules>
-		<module>search-engine-backend</module>
 		<module>search-engine-events</module>
+		<module>search-engine-backend</module>
 	</modules>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	
+	
+		<!-- test stuff -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.approvals</groupId>
+			<artifactId>approvaltests</artifactId>
+			<version>0.19</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.approvals</groupId>
+							<artifactId>approvaltests</artifactId>
+							<version>0.19</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/search-engine-backend/src/non_mvn_libs/ApprovalTests.jar</file>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
