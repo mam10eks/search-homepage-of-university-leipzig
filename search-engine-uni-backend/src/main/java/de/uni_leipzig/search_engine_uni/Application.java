@@ -1,12 +1,10 @@
 package de.uni_leipzig.search_engine_uni;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.search.spell.Dictionary;
 import org.apache.lucene.search.suggest.DocumentDictionary;
-import org.apache.lucene.search.suggest.InputIterator;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -55,7 +53,7 @@ public class Application
 		@SneakyThrows
 		public static Dictionary dictionary()
 		{
-			return new DocumentDictionary(DirectoryReader.open(FSDirectory.open(Paths.get("lucene_index"))), SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_TITLE);
+			return new DocumentDictionary(DirectoryReader.open(FSDirectory.open(Paths.get("../example_indices/lips_informatik_uni_leipzig"))), SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_TITLE);
 		}
 	}
 }
