@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.aspects.dto;
+package de.uni_leipzig.search_engine_uni.backend.aspects.dto;
 
 import groovy.transform.EqualsAndHashCode;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.dto;
+package de.uni_leipzig.search_engine_uni.backend.dto;
 
 import java.util.List;
 

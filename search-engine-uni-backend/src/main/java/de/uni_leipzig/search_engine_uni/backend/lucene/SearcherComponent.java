@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.lucene;
+package de.uni_leipzig.search_engine_uni.backend.lucene;
 
 import java.nio.file.Paths;
 
@@ -13,7 +13,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 
-import de.uni_leipzig.search_engine_uni.dto.SearchResult;
+import de.uni_leipzig.search_engine_uni.backend.dto.SearchResult;
 import lombok.SneakyThrows;
 
 @Component

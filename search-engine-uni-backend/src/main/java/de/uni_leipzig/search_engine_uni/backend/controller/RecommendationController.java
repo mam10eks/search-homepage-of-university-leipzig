@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.controller;
+package de.uni_leipzig.search_engine_uni.backend.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;

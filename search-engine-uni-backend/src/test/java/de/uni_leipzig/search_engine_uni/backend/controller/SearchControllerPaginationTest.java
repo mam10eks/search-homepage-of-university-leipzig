@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.controller;
+package de.uni_leipzig.search_engine_uni.backend.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import org.apache.lucene.search.TopDocs;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.uni_leipzig.search_engine_uni.controller.SearchController;
+import de.uni_leipzig.search_engine_uni.backend.controller.SearchController;
 
 public class SearchControllerPaginationTest
 {	

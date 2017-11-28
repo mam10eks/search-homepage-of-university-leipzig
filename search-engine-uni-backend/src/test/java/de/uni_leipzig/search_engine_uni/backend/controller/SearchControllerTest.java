@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.controller;
+package de.uni_leipzig.search_engine_uni.backend.controller;
 
 import org.approvaltests.Approvals;
 import org.junit.Before;

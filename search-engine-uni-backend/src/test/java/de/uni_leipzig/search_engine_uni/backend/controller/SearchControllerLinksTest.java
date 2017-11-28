@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.controller;
+package de.uni_leipzig.search_engine_uni.backend.controller;
 
 import java.util.Arrays;
 
@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.uni_leipzig.search_engine_uni.controller.SearchController;
-import de.uni_leipzig.search_engine_uni.dto.SearchResultPage;
+import de.uni_leipzig.search_engine_uni.backend.controller.SearchController;
+import de.uni_leipzig.search_engine_uni.backend.dto.SearchResultPage;
 
 public class SearchControllerLinksTest
 {

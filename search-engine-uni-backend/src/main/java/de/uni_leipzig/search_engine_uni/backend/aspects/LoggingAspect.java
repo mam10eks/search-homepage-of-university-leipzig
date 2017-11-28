@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.aspects;
+package de.uni_leipzig.search_engine_uni.backend.aspects;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

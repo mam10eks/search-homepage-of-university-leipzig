@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni.controller;
+package de.uni_leipzig.search_engine_uni.backend.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.uni_leipzig.search_engine_uni.dto.SearchResult;
-import de.uni_leipzig.search_engine_uni.dto.SearchResultPage;
-import de.uni_leipzig.search_engine_uni.lucene.SearcherComponent;
+import de.uni_leipzig.search_engine_uni.backend.dto.SearchResult;
+import de.uni_leipzig.search_engine_uni.backend.dto.SearchResultPage;
+import de.uni_leipzig.search_engine_uni.backend.lucene.SearcherComponent;
 
 @Controller
 public class SearchController

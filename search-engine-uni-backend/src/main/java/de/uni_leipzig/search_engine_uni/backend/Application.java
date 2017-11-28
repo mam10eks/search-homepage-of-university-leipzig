@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine_uni;
+package de.uni_leipzig.search_engine_uni.backend;
 
 import java.nio.file.Paths;
 
@@ -16,7 +16,7 @@ import org.springframework.session.config.annotation.web.http.EnableSpringHttpSe
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
-import de.uni_leipzig.search_engine_uni.dto.SearchResult;
+import de.uni_leipzig.search_engine_uni.backend.dto.SearchResult;
 import lombok.SneakyThrows;
 
 @SpringBootApplication
