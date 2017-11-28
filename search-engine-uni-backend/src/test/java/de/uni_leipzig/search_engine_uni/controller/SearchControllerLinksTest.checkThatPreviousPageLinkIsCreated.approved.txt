@@ -1,0 +1,1 @@
+SearchResultPage(originalQuery=null, page=2, resultsOnPage=null, totalHits=11, nextPage=null, previousPage=<http://www.example.com/?currentPage=1>;rel="prev", firstPageLink=null, lastPageLink=null, namedPageLinksBefore=[<http://www.example.com/?currentPage=1>;rel="1"], namedPageLinksAfter=[])
