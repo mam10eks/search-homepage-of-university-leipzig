@@ -19,7 +19,9 @@ public class SearchResult
 	
 	public static final String INDEX_FIELD_CONTENT = "content";
 	
-	public static final String INDEX_FIELD_LINK = "link";
+	public static final String INDEX_FIELD_LINK = "url";
+	
+	public static final String INDEX_FIELD_ANCHOR = "anchor";
 	
 	private String title;
 	

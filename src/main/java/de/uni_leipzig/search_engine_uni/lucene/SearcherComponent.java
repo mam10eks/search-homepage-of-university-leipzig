@@ -21,6 +21,9 @@ public class SearcherComponent
 {
 	public static final int HITS_PER_PAGE = 10;
 	
+	private final String[] ANALYZED_QUERY_FIELDS = new String[] {SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_CONTENT,
+		SearchResult.INDEX_FIELD_LINK,SearchResult.INDEX_FIELD_ANCHOR};
+	
 	private final IndexSearcher searcher;
 	
 	private final QueryParser queryParser;
@@ -28,10 +31,9 @@ public class SearcherComponent
 	@SneakyThrows
 	public SearcherComponent()
 	{
-		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("lucene_index")));
+		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("lips_informatik_uni_leipzig")));
 		searcher = new IndexSearcher(indexReader);
-		queryParser = new MultiFieldQueryParser(new String[] {SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_CONTENT}, 
-					new StandardAnalyzer());
+		queryParser = new MultiFieldQueryParser(ANALYZED_QUERY_FIELDS, new StandardAnalyzer());
 		queryParser.setFuzzyMinSim(0.1f);
 	}
 	
