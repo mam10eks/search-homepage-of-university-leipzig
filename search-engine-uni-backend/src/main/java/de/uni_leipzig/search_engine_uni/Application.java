@@ -53,7 +53,7 @@ public class Application
 		@SneakyThrows
 		public static Dictionary dictionary()
 		{
-			return new DocumentDictionary(DirectoryReader.open(FSDirectory.open(Paths.get("lucene_index"))), SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_TITLE);
+			return new DocumentDictionary(DirectoryReader.open(FSDirectory.open(Paths.get("../example_indices/lips_informatik_uni_leipzig"))), SearchResult.INDEX_FIELD_TITLE, SearchResult.INDEX_FIELD_TITLE);
 		}
 	}
 }

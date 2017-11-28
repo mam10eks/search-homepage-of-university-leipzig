@@ -31,7 +31,7 @@ public class SearcherComponent
 	@SneakyThrows
 	public SearcherComponent()
 	{
-		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("lips_informatik_uni_leipzig")));
+		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("../example_indices/lips_informatik_uni_leipzig")));
 		searcher = new IndexSearcher(indexReader);
 		queryParser = new MultiFieldQueryParser(ANALYZED_QUERY_FIELDS, new StandardAnalyzer());
 		queryParser.setFuzzyMinSim(0.1f);
