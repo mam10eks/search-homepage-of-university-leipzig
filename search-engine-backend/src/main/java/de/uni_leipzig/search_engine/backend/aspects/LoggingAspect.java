@@ -5,12 +5,15 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import de.uni_leipzig.search_engine.events.WebResponseEvent;
 
 @Aspect
 @Component
@@ -19,11 +22,16 @@ public class LoggingAspect
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 	
+	@Autowired
+	private KafkaTopicProducer<WebResponseEvent> kafkaLoggingProducer;
+	
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* *(..))")
 	public Object logExecutionTimeOfRequests(ProceedingJoinPoint thisJointPoint) throws Throwable
 	{
 		long start = System.currentTimeMillis();
 		Object ret = thisJointPoint.proceed();
+		
+		WebResponseEvent loggingEvent = new WebResponseEvent(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()));
 		
 		Long durationInMilliseconds = (System.currentTimeMillis() - start);
 		
@@ -34,8 +42,11 @@ public class LoggingAspect
 		if(ret instanceof ModelAndView)
 		{
 			((ModelAndView)ret).getModel().put("durationInMilliseconds", durationInMilliseconds);
+			loggingEvent.setResponseModel(((ModelAndView)ret).getModel());
 		}
 		
+		kafkaLoggingProducer.logEvent(loggingEvent);
+
 		return ret;
 	}
 	
