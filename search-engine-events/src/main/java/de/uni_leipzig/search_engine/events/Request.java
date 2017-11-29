@@ -23,6 +23,11 @@ public class Request
 	
 	private Integer remotePort;
 	
+	public Request()
+	{
+		//default constructor for serialization/deserialization
+	}
+	
 	public Request(HttpServletRequest request)
 	{
 		setRequestUrl(request.getRequestURL().toString());
