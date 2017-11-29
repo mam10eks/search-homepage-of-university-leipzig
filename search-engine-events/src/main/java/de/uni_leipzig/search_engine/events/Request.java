@@ -31,6 +31,12 @@ public class Request
 	public Request(HttpServletRequest request)
 	{
 		setRequestUrl(request.getRequestURL().toString());
+		
+		if(request.getQueryString() != null && !request.getQueryString().isEmpty())
+		{
+			setRequestUrl(getRequestUrl() +"?"+ request.getQueryString());
+		}
+		
 		setRemoteAddr(request.getRemoteAddr());
 		setRemoteHost(request.getRemoteHost());
 		setRemotePort(request.getRemotePort());

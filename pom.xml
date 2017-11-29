@@ -19,6 +19,7 @@
 	<modules>
 		<module>search-engine-events</module>
 		<module>search-engine-backend</module>
+		<module>search-engine-kafka-streams</module>
 	</modules>
 
 	<dependencies>

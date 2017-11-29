@@ -64,7 +64,7 @@ public class Application
 		@Bean
 		public KafkaTopicProducer<WebResponseEvent> kafkaLoggingProducer(KafkaTemplate<String, String> kafkaTemplate)
 		{
-			return new KafkaTopicProducer<>(EventTopics.ALL_REQUESTS_TOPIC, kafkaTemplate);
+			return new KafkaTopicProducer<>(EventTopics.ALL_WEB_EVENTS_TOPIC, kafkaTemplate);
 		}
 	}
 }

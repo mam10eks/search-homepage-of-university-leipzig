@@ -1,5 +1,8 @@
 package de.uni_leipzig.search_engine.backend.aspects;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import de.uni_leipzig.search_engine.events.SearchResultSelectedEvent;
 import de.uni_leipzig.search_engine.events.WebResponseEvent;
 
 @Aspect
@@ -43,6 +47,12 @@ public class LoggingAspect
 		{
 			((ModelAndView)ret).getModel().put("durationInMilliseconds", durationInMilliseconds);
 			loggingEvent.setResponseModel(((ModelAndView)ret).getModel());
+		}
+		else if(ret instanceof RedirectView)
+		{
+			Map<String, Object> responseModel = new HashMap<>();
+			responseModel.put(SearchResultSelectedEvent.LOCATION, ((RedirectView) ret).getUrl());
+			loggingEvent.setResponseModel(responseModel);
 		}
 		
 		kafkaLoggingProducer.logEvent(loggingEvent);

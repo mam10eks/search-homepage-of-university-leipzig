@@ -5,10 +5,16 @@ services:
     ports:
       - "2181:2181"
   kafka:
-    image: wurstmeister/kafka:1.0.0
+    image: uni-search-engine/kafka:0.0.1-SNAPSHOT
     ports: ["9092:9092"]
+    depends_on: [zookeeper]
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "all_web_requests:1:1"
+      KAFKA_CREATE_TOPICS: "web_events:1:1,search_events:1:1,select_search_result_events:1:1"
     volumes: [ "/var/run/docker.sock:/var/run/docker.sock" ]
+  searchEngineStreamProcessor:
+    image: uni-search-engine/kafka:0.0.1-SNAPSHOT
+    network_mode: "host"
+    depends_on: [kafka]
+    command: [ "/bin/bash", "-c", "sleep 15s && java -jar /opt/kafka/my_jars/search-engine-kafka-stream-processors.jar" ]

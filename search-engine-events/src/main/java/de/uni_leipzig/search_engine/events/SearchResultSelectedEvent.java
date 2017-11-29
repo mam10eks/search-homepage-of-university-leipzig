@@ -15,6 +15,8 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper=true)
 public class SearchResultSelectedEvent extends WebResponseEvent
 {
+	public static final String LOCATION = "Location";
+
 	private String query;
 	
 	private int searchPage = 1;
@@ -22,7 +24,7 @@ public class SearchResultSelectedEvent extends WebResponseEvent
 	private int resultId;
 	
 	private String documentUri;
-
+	
 	public static SearchResultSelectedEvent fromWebResponseEvent(WebResponseEvent webResponseEvent)
 	{
 		if(!eventHasAllMembers(webResponseEvent) || !isRedirectEndpoint(webResponseEvent.getRequest()))
@@ -36,16 +38,22 @@ public class SearchResultSelectedEvent extends WebResponseEvent
 		ret.setResponseModel(webResponseEvent.getResponseModel());
 		
 		URI referer = RequestParameterUtil.parseUriFailsave(ret.getRequest().getHeaders().get("referer"));
-		URI redirectUri = RequestParameterUtil.parseUriFailsave(ret.getRequest().getHeaders().get("Location"));
 		
-		if(referer == null || redirectUri == null)
+		if(referer == null)
 		{
 			return null;
 		}
 		
+		if(ret.getResponseModel() == null || !ret.getResponseModel().containsKey(LOCATION)
+			|| !(ret.getResponseModel().get(LOCATION) instanceof String))
+		{
+			return null;
+		}
+		
+		ret.setDocumentUri((String) ret.getResponseModel().get(LOCATION));
+		
 		List<NameValuePair> refererParams = RequestParameterUtil.extractQueryParametersFromRequest(referer.toString());
 		
-		ret.setDocumentUri(redirectUri.toString());
 		ret.setQuery(SearchResponseEvent.extractQueryParameter(refererParams));
 		ret.setSearchPage(SearchResponseEvent.extractResultPage(refererParams));
 		

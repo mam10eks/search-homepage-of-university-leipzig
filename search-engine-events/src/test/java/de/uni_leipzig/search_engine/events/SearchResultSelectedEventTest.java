@@ -51,29 +51,31 @@ public class SearchResultSelectedEventTest
 	}
 	
 	@Test
-	public void assertSearchResponseEventHasQueryAndPage()
+	public void assertSearchResultSelectedEventHasQueryAndPage()
 	{
 		Map<String, String> header = new HashMap<>();
 		header.put("key-1", "value-1");
 		header.put("key-2", "value-2");
 		header.put("referer", referrerUrl);
-		header.put("Location", "http://www.google.de");
 		
 		HttpServletRequest request = TestUtils.mockServletRequest(inputUrl, header);
 		ServletRequestAttributes attributes = new ServletRequestAttributes(request);
 		
 		attributes = Mockito.spy(attributes);
 		Mockito.doReturn(MOCKED_SESSION_ID).when(attributes).getSessionId();
-		
-		SearchResultSelectedEvent actual = SearchResultSelectedEvent.fromWebResponseEvent(new WebResponseEvent(attributes));
+		WebResponseEvent event = new WebResponseEvent(attributes);
+		Map<String, Object> responseModel = new HashMap<>();
+		responseModel.put(SearchResultSelectedEvent.LOCATION, "www.google.de");
+		event.setResponseModel(responseModel);
+		SearchResultSelectedEvent actual = SearchResultSelectedEvent.fromWebResponseEvent(event);
 		
 		Assert.assertEquals(expectedQuery, actual.getQuery());
 		Assert.assertEquals(expectedResultPage, actual.getSearchPage());
-		Assert.assertEquals("http://www.google.de", actual.getDocumentUri());
+		Assert.assertEquals("www.google.de", actual.getDocumentUri());
 		Assert.assertEquals(expectedDocumentId, actual.getResultId());
 		
 		Assert.assertEquals(MOCKED_SESSION_ID, actual.getClientId());
-		Assert.assertNull(actual.getResponseModel());
+		Assert.assertEquals(responseModel, actual.getResponseModel());
 		Assert.assertEquals(header, actual.getRequest().getHeaders());
 		Assert.assertEquals("0.0.0.0", actual.getRequest().getRemoteAddr());
 		Assert.assertEquals("localhost", actual.getRequest().getRemoteHost());

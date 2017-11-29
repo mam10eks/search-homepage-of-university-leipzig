@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import de.uni_leipzig.search_engine.events.EventTopics;
 import lombok.Data;
 
 @Data
@@ -29,7 +28,7 @@ public class KafkaTopicProducer<V>
 	{
 		String value = jsonWriter.writeValueAsString(logMessage);
 		
-		kafkaTemplate.send(EventTopics.ALL_REQUESTS_TOPIC, value).addCallback(a -> {},
+		kafkaTemplate.send(topic, value).addCallback(a -> {},
 			throwable -> LOGGER.warn("Failed to send the following message to the kafka topic '{}': {}", topic, value,throwable));
 	}
 	
