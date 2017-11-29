@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain=true)
-public class RequestDto
+public class Request
 {
 	private Map<String, String> headers;
 	
@@ -23,7 +23,7 @@ public class RequestDto
 	
 	private Integer remotePort;
 	
-	public RequestDto(HttpServletRequest request)
+	public Request(HttpServletRequest request)
 	{
 		setRequestUrl(request.getRequestURL().toString());
 		setRemoteAddr(request.getRemoteAddr());

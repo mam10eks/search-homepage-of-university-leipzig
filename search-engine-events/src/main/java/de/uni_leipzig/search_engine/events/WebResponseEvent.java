@@ -1,7 +1,8 @@
 package de.uni_leipzig.search_engine.events;
 
-import java.util.Date;
 import java.util.Map;
+
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -10,11 +11,20 @@ import lombok.experimental.Accessors;
 @Accessors(chain=true)
 public class WebResponseEvent
 {
-	private RequestDto request;
+	private Request request;
 	
 	private String clientId;
 	
 	private Map<String, Object> responseModel;
 	
-	private Date responseTimestamp;
+	public WebResponseEvent()
+	{
+		//default argument constructor for serialization
+	}
+	
+	public WebResponseEvent(ServletRequestAttributes requestAttributes)
+	{
+		setClientId(requestAttributes.getSessionId());
+		setRequest(new Request(requestAttributes.getRequest()));
+	}
 }
