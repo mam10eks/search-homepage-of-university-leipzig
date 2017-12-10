@@ -1,16 +1,11 @@
 package de.uni_leipzig.search_engine.backend.lucene;
 
-import java.nio.file.Paths;
-
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 
 import de.uni_leipzig.search_engine.backend.dto.SearchResult;
@@ -29,11 +24,10 @@ public class SearcherComponent
 	private final QueryParser queryParser;
 	
 	@SneakyThrows
-	public SearcherComponent()
+	public SearcherComponent(Analyzer analyzer, IndexSearcher searcher)
 	{
-		IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get("../example_indices/lips_informatik_uni_leipzig")));
-		searcher = new IndexSearcher(indexReader);
-		queryParser = new MultiFieldQueryParser(ANALYZED_QUERY_FIELDS, new StandardAnalyzer());
+		this.searcher = searcher;
+		queryParser = new MultiFieldQueryParser(ANALYZED_QUERY_FIELDS, analyzer);
 		queryParser.setFuzzyMinSim(0.1f);
 	}
 	

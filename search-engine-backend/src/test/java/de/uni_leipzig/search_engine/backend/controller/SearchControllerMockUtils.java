@@ -19,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import de.uni_leipzig.search_engine.backend.controller.SearchController;
+import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.experimental.UtilityClass;
 
@@ -31,9 +32,9 @@ public class SearchControllerMockUtils
 			.mapToObj(SearchControllerMockUtils::intToDocument)
 			.collect(Collectors.toList());
 		
-		SearcherComponent component = Mockito.mock(SearcherComponent.class);
-		Mockito.when(component.doc(Matchers.anyInt())).thenAnswer(i -> documents.get((int)(i.getArguments()[0])));
-		Mockito.when(component.search(Mockito.anyString(), Mockito.anyInt())).thenAnswer(i ->
+		SearcherComponent searcherComponent = Mockito.mock(SearcherComponent.class);
+		Mockito.when(searcherComponent.doc(Matchers.anyInt())).thenAnswer(i -> documents.get((int)(i.getArguments()[0])));
+		Mockito.when(searcherComponent.search(Mockito.anyString(), Mockito.anyInt())).thenAnswer(i ->
 		{
 			int n = (int)i.getArguments()[1];
 			ScoreDoc[] scoreDocs = IntStream.range(0, Math.min(n, endIndexExclusive)).mapToObj(index -> new ScoreDoc(index, 0f))
@@ -42,8 +43,13 @@ public class SearchControllerMockUtils
 			return new TopDocs(documents.size(), scoreDocs, 0f);
 		});
 		
+		HighlightComponent highlightComponent = Mockito.mock(HighlightComponent.class);
+		Mockito.when(highlightComponent.buildHiglightForDocument(Matchers.any(), Matchers.any()))
+		.thenReturn(null);
+		
 		SearchController ret = new SearchController();
-		Whitebox.setInternalState(ret, "searcherComponent", component);
+		Whitebox.setInternalState(ret, "searcherComponent", searcherComponent);
+		Whitebox.setInternalState(ret, "highlightComponent", highlightComponent);
 		return ret;
 	}
 	

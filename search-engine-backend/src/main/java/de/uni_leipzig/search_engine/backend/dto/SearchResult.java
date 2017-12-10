@@ -1,6 +1,6 @@
 package de.uni_leipzig.search_engine.backend.dto;
 
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.apache.lucene.document.Document;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -29,11 +29,11 @@ public class SearchResult
 	
 	private Link targetUrl;
 	
-	public SearchResult(Pair<Document, Integer> result)
+	public SearchResult(Triple<Document, Integer, String> result)
 	{
 		setTitle(result.getLeft().get(INDEX_FIELD_TITLE));
-		setSnippet(result.getLeft().get(INDEX_FIELD_CONTENT));
-		setTargetUrl(createTargetLink(result.getRight()));
+		setSnippet(result.getRight());
+		setTargetUrl(createTargetLink(result.getMiddle()));
 	}
 	
 	private static Link createTargetLink(Integer docID)

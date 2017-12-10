@@ -1,7 +1,12 @@
 package de.uni_leipzig.search_engine.backend;
 
 import java.nio.file.Paths;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.spell.Dictionary;
 import org.apache.lucene.search.suggest.DocumentDictionary;
 import org.apache.lucene.store.FSDirectory;
@@ -52,6 +57,25 @@ public class Application
 		public static SessionRepository<?> sessionStore()
 		{
 			return new MapSessionRepository();
+		}
+		
+		@Bean
+		public static Analyzer analyzer()
+		{
+			return new StandardAnalyzer();
+		}
+		
+		@Bean
+		@SneakyThrows
+		public static IndexReader indexReader()
+		{
+			return DirectoryReader.open(FSDirectory.open(Paths.get("../example_indices/lips_informatik_uni_leipzig")));
+		}
+		
+		@Bean
+		public static IndexSearcher searcher(IndexReader indexReader)
+		{
+			return new IndexSearcher(indexReader);
 		}
 		
 		@Bean

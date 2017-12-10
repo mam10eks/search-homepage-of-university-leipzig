@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.uni_leipzig.search_engine.backend.dto.SearchResult;
 import de.uni_leipzig.search_engine.backend.dto.SearchResultPage;
+import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
+import lombok.SneakyThrows;
 
 @Controller
 public class SearchController
@@ -27,6 +31,9 @@ public class SearchController
 	@Autowired
 	private SearcherComponent searcherComponent;
 	
+	@Autowired
+	private HighlightComponent highlightComponent;
+
 	@RequestMapping(method=RequestMethod.GET, path="/")
 	public Object search(@RequestParam(defaultValue="") String originalQuery,
 			@RequestParam(defaultValue="1") Integer currentPage)
@@ -45,7 +52,7 @@ public class SearchController
 		TopDocs queryTopDocs = searcherComponent.search(originalQuery, topNForSearchResult);
 		Pair<Integer, List<ScoreDoc>> lastPageNumberAndContent = determineLastPageNumberAndContent(queryTopDocs);
 		ret.setTotalHits(queryTopDocs.totalHits);
-		ret.setResultsOnPage(mapScoreDocsTosearchResults(lastPageNumberAndContent.getRight()));
+		ret.setResultsOnPage(mapScoreDocsToSearchResults(lastPageNumberAndContent.getRight(), originalQuery));
 		ret.setPage(lastPageNumberAndContent.getLeft());
 		injectPaginationLinks(ret);
 		
@@ -75,10 +82,14 @@ public class SearchController
 		return ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(SearchController.class).search(query, page));
 	}
 	
-	private List<SearchResult> mapScoreDocsTosearchResults(List<ScoreDoc> scoreDocs)
+	@SneakyThrows
+	private List<SearchResult> mapScoreDocsToSearchResults(List<ScoreDoc> scoreDocs, String query)
 	{
+		Query parsedQuery = highlightComponent.parsQueryForHiglights(query);
+		
 		return scoreDocs.stream()
-			.map(topDoc -> Pair.of(searcherComponent.doc(topDoc.doc), topDoc.doc))
+			.map(topDoc -> Triple.of(searcherComponent.doc(topDoc.doc), topDoc.doc, 
+					highlightComponent.buildHiglightForDocument(topDoc, parsedQuery)))
 			.map(SearchResult::new)
 			.collect(Collectors.toList());
 	}
