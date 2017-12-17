@@ -7,15 +7,20 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                
+                <script src="src/mein/resources/core/jquery.1.10.2.min.js"></script>
+                <script src="src/mein/resources/core/jquery.autocomplete.min.js"></script>
+                <link href="src/mein/resources/core/main.css" rel="stylesheet">
+                      
 	</head>
 	<body style="background-color: #DCDCDC;">
 		<div class="container-fluid" style="padding: 0px 15% 25px 15%; background-color: white;">
 			<div class="row">
 				<h1 class="text-center">Search University Leipzig</h1>
 				<form class="input-group col-md-12" action="/" method="get">
-					<input type="text" class="form-control" placeholder="Search" name="originalQuery" th:value="${originalQuery}"/>
+					<input type="text" class="form-control" id="w-input-faculty" placeholder="Search" name="originalQuery" th:value="${originalQuery}"/>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="submit">
+						<button class="btn btn-primary" id="w-input-search" type="submit">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</span>
@@ -71,5 +76,35 @@
     			</li>
 			</ul>
 		</div>
+            <script>
+                $('#w-input-search').autocomplete({
+                        serviceUrl: '${pageContext.request.contextPath}/getQueries',
+                        paramName: "search",
+                        delimiter: ",",
+                    transformResult: function(response) {
+                        return {
+                            suggestions: $.map($.parseJSON(response), function(item) {
+                                return { value: item };
+                            }).slice(0,8)
+                        };   
+                    } 
+                });
+                $('#w-button-search').click(function(){
+                    query = $("#w-input-search").val();
+                    if (query.length !== 0){
+                        $.post('${pageContext.request.contextPath}/addQuery', {search: query}, function(){
+                        });
+                    }
+                });
+                $("#w-input-search").keyup(function(event) {
+                    if (event.keyCode === 13) {
+                        $("#w-button-search").click();
+                    }
+                });
+                $('#w-button-save').click(function(){
+                    $.post('${pageContext.request.contextPath}/saveDB', {save: true}, function(){
+                    });
+                });
+            </script>
 	</body>
 </html>

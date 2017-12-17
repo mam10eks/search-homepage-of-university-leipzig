@@ -1,0 +1,39 @@
+.autocomplete-suggestions { border: 1px solid #999; color: gray; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; font-size:22px}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: black; }
+.form-input {
+    color: black;
+    font-size: 28px;
+    padding: 2px;
+    overflow: hidden;
+}
+.form-input::-webkit-input-placeholder { /* WebKit browsers */
+    color: grey;
+    opacity: 0.5;
+    font-size: 20px;
+}
+.form-input::-moz-placeholder { /* Mozilla Firefox <18 */
+    color: grey;
+    opacity: 0.5;
+    font-size: 20px;
+}
+.form-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: grey;
+    opacity: 0.5;
+    font-size: 20px;
+}
+.form-input::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: grey;
+    opacity: 0.5;
+    font-size: 20px;
+}
+h1 {
+  color: #1010CF;
+}
+.form-select {
+    color: darkgray;
+    font-size: 28px;
+    padding: 2px;
+    overflow: hidden;
+}
