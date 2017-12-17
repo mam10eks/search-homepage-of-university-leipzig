@@ -1,5 +1,6 @@
 package de.uni_leipzig.search_engine.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SuggesterController {
-
-    DBController searchDB = new DBController();
-        
+    
     public SuggesterController() {
     }
 
@@ -20,7 +19,9 @@ public class SuggesterController {
     @ResponseBody
     public List<String> getQueries(@RequestParam String search) {
         
-        return searchDB.search(search);
+        List<String> searchDB = new LinkedList();
+        searchDB.add(search);
+        return searchDB;
 
     }
     
@@ -28,7 +29,8 @@ public class SuggesterController {
     @ResponseBody
     public void addQuery(@RequestParam String search) {
         
-        searchDB.addQuery(search);
+        List<String> searchDB = new LinkedList();
+        searchDB.add(search);
         
     }
     
