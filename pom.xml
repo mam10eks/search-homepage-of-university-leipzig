@@ -14,12 +14,16 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<modules>
 		<module>search-engine-events</module>
 		<module>search-engine-backend</module>
 		<module>search-engine-kafka-streams</module>
+		<module>custom-index-cleaning</module>
 	</modules>
 
 	<dependencies>
