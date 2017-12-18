@@ -1,5 +1,6 @@
 package de.uni_leipzig.search_engine.backend.controller;
 
+import org.apache.lucene.document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,17 @@ public class RedirectController
 	private SearcherComponent searcherComponent;
 	
 	@RequestMapping(method=RequestMethod.GET, path="/url")
-	public RedirectView redirect(@RequestParam Integer documentId)
+	public RedirectView redirect(@RequestParam Integer documentId, @RequestParam(defaultValue="-1") Integer duplicate)
 	{
-		return new RedirectView(searcherComponent.doc(documentId).get(SearchResult.INDEX_FIELD_LINK));
+		if(duplicate < 0)
+		{
+			return new RedirectView(searcherComponent.doc(documentId).get(SearchResult.INDEX_FIELD_LINK));
+		}
+		else
+		{
+			Document doc = searcherComponent.doc(documentId);
+			
+			return new RedirectView(doc.getValues(SearchResult.INDEX_FIELD_LINKS_TO_DUPLICATES)[duplicate]);
+		}
 	}
 }

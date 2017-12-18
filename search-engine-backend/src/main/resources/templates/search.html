@@ -7,6 +7,11 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			.popover{
+    			max-width: 100%;
+			}
+		</style>
 	</head>
 	<body style="background-color: #DCDCDC;">
 		<div class="container-fluid" style="padding: 0px 15% 25px 15%; background-color: white;">
@@ -37,6 +42,14 @@
 				<div style="margin: 15px">
 					<h3><a th:href="${result.targetUrl.href}" th:text="${result.title}"></a></h3>
 					<p th:utext="${result.snippet}"/>
+					<div th:if="${result.linksToDuplicates != null AND result.linksToDuplicates.size() > 0}">
+						<a href="javascript://" style="cursor:pointer" title="Links zu ähnlichen Dokumenten" data-toggle="popover"
+							data-trigger="focus" th:attr="data-content=${result.duplicateContent}" data-html="true">
+							<span th:text="${result.linksToDuplicates.size()}"></span>
+							 sehr ähnliche<span th:if="${result.linksToDuplicates.size() == 1}">n</span> 
+							 Treffer anzeigen!
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -71,5 +84,11 @@
     			</li>
 			</ul>
 		</div>
+		
+		<script>
+			$(document).ready(function(){
+		    	$('[data-toggle="popover"]').popover({container: 'body'});   
+			});
+		</script>
 	</body>
 </html>
