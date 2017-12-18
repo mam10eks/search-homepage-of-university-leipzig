@@ -135,6 +135,22 @@ public class IndexCleanerTest
 	
 	@Test
 	@SneakyThrows
+	public void checkThatDocumentsForSingleDigestWithOnlyDuplicatedUrlsAreValidCleaned()
+	{
+		solrClient.add("uni_leipzig_core", Arrays.asList(DIGEST_A_FOUR, DIGEST_A_FIVE));
+		solrClient.commit();
+		
+		IndexCleaner indexCleaner = new IndexCleaner(solrClient);
+		indexCleaner.cleanIndex();
+		
+		Map<String, Pair<String, List<String>>> expectedDbContent = new HashMap<>();
+		expectedDbContent.put("A", Pair.of("digAOne1", null));
+		
+		assertResultDocuments(expectedDbContent);
+	}
+	
+	@Test
+	@SneakyThrows
 	public void checkThatDistinctDigestsAreReturnedForThousandDigests()
 	{
 		List<String> expected = IntStream.range(0, 10000)

@@ -74,6 +74,13 @@ public class IndexCleaner
 			}
 			
 			duplicateUrls.stream().forEach(a -> {if(a == null) throw new RuntimeException("Handle this..");});
+			duplicateUrls.remove((String) response.getResults().get(0).get("url"));
+			
+			if(duplicateUrls.isEmpty())
+			{
+				solrClient.commit();
+				continue;
+			}
 			
 			SolrInputDocument doc = new SolrInputDocument();
 			doc.addField("id", response.getResults().get(0).get("id"));
