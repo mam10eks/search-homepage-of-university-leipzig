@@ -13,12 +13,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
-	<!--<properties> <properties> <java.version>1.8</java.version> <maven.compiler.source>1.8</maven.compiler.source> 
-		<maven.compiler.target>1.8</maven.compiler.target> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
-		</properties> </properties> -->
-
 	<dependencies>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -62,7 +57,7 @@
 			  <configuration>
 			    <archive>
 			      <manifest>
-				<mainClass>fully.qualified.MainClass</mainClass>
+				<mainClass>de.uni_leipzig.custom_index_cleaning.App</mainClass>
 			      </manifest>
 			    </archive>
 			    <descriptorRefs>
@@ -71,8 +66,8 @@
 			  </configuration>
 			  <executions>
 			    <execution>
-			      <id>make-assembly</id> <!-- this is used for inheritance merges -->
-			      <phase>package</phase> <!-- bind to the packaging phase -->
+			      <id>make-assembly</id>
+			      <phase>package</phase>
 			      <goals>
 				<goal>single</goal>
 			      </goals>
