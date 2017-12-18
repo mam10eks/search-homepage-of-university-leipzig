@@ -79,6 +79,7 @@ public class IndexCleaner
 			if(duplicateUrls.isEmpty())
 			{
 				solrClient.commit();
+				System.out.println("Skip "+ response.getResults().size() +" docs as full duplicates...");
 				continue;
 			}
 			
