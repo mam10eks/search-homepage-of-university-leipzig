@@ -23,7 +23,7 @@ Now you could access the web interface by pointing your browser to `http://local
 ## Modules
 
 This project consists of different modules:
-* [search-engine-uni-backend](search-engine-uni-backend)
+* [search-engine-backend](search-engine-backend)
   * The backend.
 * [visualize_events](visualize_events)
   * A small visualization of events that are fired from the backend (like user "XY" searched for "abc" and clicked on result 4)
