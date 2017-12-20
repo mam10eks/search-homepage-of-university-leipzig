@@ -6,7 +6,19 @@ It was created during the
 
 ## Run It
 
-TBA
+This repository already contains a small subset of the data that could be crawled from http://uni-leipzig.de (namely the domain http://lips.informatik.uni-leipzig.de/).
+
+Assuming that your system meets some requirements (i.e. you need java 8, maven 3 and docker + docker-compose),
+you could start everything with the example dataset by leveraging:
+
+```
+git clone https://github.com/mam10eks/search-homepage-of-university-leipzig.git
+cd search-homepage-of-university-leipzig
+mvn install
+docker-compose up
+```
+
+Now you could access the web interface by pointing your browser to `http://localhost:8080`.
 
 ## Modules
 
@@ -15,11 +27,7 @@ This project consists of different modules:
   * The backend.
 * [visualize_events](visualize_events)
   * A small visualization of events that are fired from the backend (like user "XY" searched for "abc" and clicked on result 4)
+  * Please use this as a first way to see how users use the application
   * This is only there for testing purposes and reviews.
-* [infrastructure](infrastructure)
-  * Defines the infrastructure that is required to run the project.
-  * Main goal is to give a reproducable (i.e. docker) description of the infrastructure around the backend to deploy everything easily.
 * [example_indices](example_indices)
   * Some **small** example indices that you are able to start everything without any further requirements.
-
-
