@@ -8,7 +8,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TopDocs;
 import org.springframework.stereotype.Component;
 
-import de.uni_leipzig.search_engine.backend.dto.SearchResult;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
 import lombok.SneakyThrows;
 
 @Component

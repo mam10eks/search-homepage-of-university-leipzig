@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine.backend.dto;
+package de.uni_leipzig.search_engine.backend.controller.search.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.apache.lucene.document.Document;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
-import de.uni_leipzig.search_engine.backend.controller.RedirectController;
+import de.uni_leipzig.search_engine.backend.controller.redirect.RedirectController;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

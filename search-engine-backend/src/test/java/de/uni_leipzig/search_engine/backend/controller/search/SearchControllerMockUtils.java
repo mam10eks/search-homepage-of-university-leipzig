@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine.backend.controller;
+package de.uni_leipzig.search_engine.backend.controller.search;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import de.uni_leipzig.search_engine.backend.controller.SearchController;
+import de.uni_leipzig.search_engine.backend.controller.search.SearchController;
 import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.experimental.UtilityClass;

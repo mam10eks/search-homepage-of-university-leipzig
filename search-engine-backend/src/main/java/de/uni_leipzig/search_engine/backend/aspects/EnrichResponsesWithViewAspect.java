@@ -45,7 +45,8 @@ public class EnrichResponsesWithViewAspect
 	}
 	
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* *(..))"
-		+ " && ! execution(* de.uni_leipzig.search_engine.backend.controller.RedirectController.redirect(..))")
+		+ " && !@annotation(org.springframework.web.bind.annotation.ResponseBody)"
+		+ " && ! execution(* de.uni_leipzig.search_engine.backend.controller.redirect.RedirectController.redirect(..))")
 	public Object renderResponseRegardingToRequestedContentType(ProceedingJoinPoint thisJointPoint) throws Throwable
 	{
 		String contentType = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest()

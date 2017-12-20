@@ -4,21 +4,19 @@
 		<title>Search University Leipzig"</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<style>
-			.popover{
-    			max-width: 100%;
-			}
-		</style>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></link>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/3.1.1/bootstrap3-typeahead.min.js"></script>
+		
+		<style>.popover{max-width: 100%;}</style>
 	</head>
 	<body style="background-color: #DCDCDC;">
 		<div class="container-fluid" style="padding: 0px 15% 25px 15%; background-color: white;">
 			<div class="row">
 				<h1 class="text-center">Search University Leipzig</h1>
 				<form class="input-group col-md-12" action="/" method="get">
-					<input type="text" class="form-control" placeholder="Search" name="originalQuery" th:value="${originalQuery}"/>
+					<input type="text" class="form-control" placeholder="Search" id="search-input" autocomplete="off" name="originalQuery" th:value="${originalQuery}"/>
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="submit">
 							<span class="glyphicon glyphicon-search"></span>
@@ -86,9 +84,13 @@
 		</div>
 		
 		<script>
-			$(document).ready(function(){
-		    	$('[data-toggle="popover"]').popover({container: 'body'});   
-			});
+			$(document).ready(function(){ $('[data-toggle="popover"]').popover({container: 'body'}); });
+			
+			$('#search-input').typeahead({
+        		source: function(query, process) {$.get('suggest?query=' + query, function (data) {
+        			return process(data.recommendations);
+        			})}
+        	});
 		</script>
 	</body>
 </html>

@@ -9,7 +9,7 @@ import org.apache.lucene.search.vectorhighlight.FastVectorHighlighter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.uni_leipzig.search_engine.backend.dto.SearchResult;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
 import lombok.SneakyThrows;
 
 @Component

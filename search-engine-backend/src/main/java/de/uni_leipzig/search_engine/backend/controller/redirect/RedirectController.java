@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine.backend.controller;
+package de.uni_leipzig.search_engine.backend.controller.redirect;
 
 import org.apache.lucene.document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import de.uni_leipzig.search_engine.backend.dto.SearchResult;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 
 @Controller

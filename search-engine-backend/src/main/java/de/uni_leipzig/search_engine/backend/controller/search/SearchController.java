@@ -1,4 +1,4 @@
-package de.uni_leipzig.search_engine.backend.controller;
+package de.uni_leipzig.search_engine.backend.controller.search;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.uni_leipzig.search_engine.backend.dto.SearchResult;
-import de.uni_leipzig.search_engine.backend.dto.SearchResultPage;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResultPage;
 import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.SneakyThrows;

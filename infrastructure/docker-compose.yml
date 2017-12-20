@@ -18,3 +18,7 @@ services:
     network_mode: "host"
     depends_on: [kafka]
     command: [ "/bin/bash", "-c", "sleep 15s && java -jar /opt/kafka/my_jars/search-engine-kafka-stream-processors.jar" ]
+  searchEngineBackend:
+    image: uni-search-engine/backend:0.0.1-SNAPSHOT
+    network_mode: "host"
+    depends_on: [searchEngineStreamProcessor]
