@@ -22,4 +22,13 @@ public class SuggestionController
 	{
 		return new QuerySuggestion(suggestionComponent.suggest(query));
 	}
+        
+        @RequestMapping(method=RequestMethod.GET, path="/add")
+	@ResponseBody
+	public void add(@RequestParam String query)
+	{
+		suggestionComponent.add(query);
+	}
+        
+        
 }

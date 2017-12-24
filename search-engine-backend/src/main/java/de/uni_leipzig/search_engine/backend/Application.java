@@ -89,13 +89,7 @@ public class Application
 		public SuggestionComponent suggestionComponent()
 		{
 			SuggestionComponent ret = new SuggestionComponent();
-			ret.add("Hier ist ...");
-			ret.add("Onex");
-			ret.add("Windows 10");
-			ret.add("Alles ist gut");
-			ret.add("Gameboy");
-			ret.add("suse");
-			ret.add("linux");
+                        ret.initIndex();
 			
 			return ret;
 		}
