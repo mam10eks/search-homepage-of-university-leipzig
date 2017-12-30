@@ -29,6 +29,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.spell.LuceneDictionary;
 import org.apache.lucene.search.suggest.Lookup;
@@ -55,12 +56,14 @@ public class SuggestionComponent
     private static final String QUERY_FIELD_ID = "id";
     private static final String QUERY_FIELD_NAME = "query";
     private static final String QUERY_FIELD_FREQ = "count";
+    private static final String QUERY_FIELD_USER = "user";
     
     private static final String XML_DOCUMENT_NAME = "doc";
     private static final String XML_QUERY_NAME = "field";
     private static final String XML_PATH = "suggest/query.xml";
     
     private static final Integer MAX_RESULT = 10;
+    private static final Integer GLOBAL_QUERY_USERS = 2;
     
     private final IndexWriter suggestIndexWriter;
 
@@ -116,7 +119,11 @@ public class SuggestionComponent
         query = query.toLowerCase();
         
         Document doc = new Document();
+        String id = UUID.randomUUID().toString();
+        doc.add(new StoredField(QUERY_FIELD_ID, id));
+        doc.add(new Field(QUERY_FIELD_ID, new BytesRef(id), StringField.TYPE_STORED)); 
         doc.add(new TextField(QUERY_FIELD_NAME, query, Store.YES));
+        doc.add(new TextField(QUERY_FIELD_FREQ, String.valueOf(GLOBAL_QUERY_USERS), Store.YES));
         
         suggestIndexWriter.addDocument(doc);
         suggestIndexWriter.commit();
@@ -167,6 +174,89 @@ public class SuggestionComponent
         suggestIndexWriter.addDocument(doc);
         suggestIndexWriter.commit();
         
+    }
+    
+    @SneakyThrows
+    public void addOrUpdate(String user, String query)
+    {
+        query = query.toLowerCase();
+        
+        IndexReader reader = DirectoryReader.open(index);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        TopDocs docs = searcher.search(new QueryParser(QUERY_FIELD_NAME, analyzer).parse(query), 1);
+        
+        ScoreDoc[] hits = docs.scoreDocs;
+        
+        Document doc = null;
+        if (hits.length > 0){
+            ScoreDoc sd = hits[0];
+            
+            if (searcher.doc(sd.doc).get(QUERY_FIELD_NAME).equals(query)) {
+                doc = searcher.doc(sd.doc);
+                
+                IndexableField[] fields = doc.getFields(QUERY_FIELD_USER);
+                
+                // if query is global
+                if (fields.length == 0) {
+                    
+                    Long l = Long.valueOf(doc.getField(QUERY_FIELD_FREQ).stringValue());
+                    String id = doc.getField(QUERY_FIELD_ID).stringValue();
+                    Term term = new Term(QUERY_FIELD_ID, id);
+                    suggestIndexWriter.deleteDocuments(term);
+                    suggestIndexWriter.flush();
+                    doc.removeFields(QUERY_FIELD_FREQ);
+                    doc.add(new TextField(QUERY_FIELD_FREQ, String.valueOf(l+1), Store.YES));
+                    
+                } else {
+                    
+                    boolean userExist = false;
+                    for (IndexableField field : fields) {
+                        if (field.stringValue().equals(user)) {
+                            userExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!userExist){
+
+                        Long l = Long.valueOf(doc.getField(QUERY_FIELD_FREQ).stringValue());
+                        String id = doc.getField(QUERY_FIELD_ID).stringValue();
+                        Term term = new Term(QUERY_FIELD_ID, id);
+                        suggestIndexWriter.deleteDocuments(term);
+                        suggestIndexWriter.flush();
+                        
+                        if (fields.length >= (GLOBAL_QUERY_USERS-1)){
+
+                            doc.removeFields(QUERY_FIELD_USER);
+                            doc.removeFields(QUERY_FIELD_FREQ);
+                            doc.add(new TextField(QUERY_FIELD_FREQ, String.valueOf(l+fields.length), Store.YES));
+
+                        } else {
+
+                            doc.add(new TextField(QUERY_FIELD_USER, user, Store.YES));
+                            
+                        }
+
+                    }
+                
+                    
+                }
+                
+            }
+        }
+        
+        if (doc == null) {
+            doc = new Document();
+            String id = UUID.randomUUID().toString();
+            doc.add(new StoredField(QUERY_FIELD_ID, id));
+            doc.add(new Field(QUERY_FIELD_ID, new BytesRef(id), StringField.TYPE_STORED));
+            doc.add(new TextField(QUERY_FIELD_NAME, query, Store.YES));
+            doc.add(new TextField(QUERY_FIELD_USER, user, Store.YES));
+            doc.add(new TextField(QUERY_FIELD_FREQ, "1", Store.YES));
+        }
+        
+        suggestIndexWriter.addDocument(doc);
+        suggestIndexWriter.commit();
     }
 
     @SneakyThrows
@@ -243,6 +333,101 @@ public class SuggestionComponent
         
         list.clear();
         entry_list.forEach((e) -> {list.add(e.getKey());});
+        return list.subList(0, Math.min(list.size(), MAX_RESULT));
+        
+    }
+    
+    @SneakyThrows
+    public List<String> suggestByUpdated(String user, String string)
+    {
+        IndexReader reader = DirectoryReader.open(index);
+        Lookup suggester = suggestionFactory.apply(index);
+        
+        Dictionary dict = new LuceneDictionary(reader, QUERY_FIELD_USER);
+        suggester.build(dict);
+            
+        IndexSearcher searcher = new IndexSearcher(reader);
+        TopDocs docs = searcher.search(new QueryParser(QUERY_FIELD_USER, analyzer).parse(user), Integer.MAX_VALUE);
+
+        ScoreDoc[] hits = docs.scoreDocs;
+
+        List<String> list = new ArrayList();
+        
+        if (hits.length > 0){
+            
+            Directory user_index = new RAMDirectory();
+            
+            IndexWriterConfig user_config = new IndexWriterConfig(analyzer);
+            user_config = user_config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+            
+            IndexWriter user_writer = new IndexWriter(user_index, user_config);
+            
+            for (ScoreDoc hit : hits) {
+                Document doc = searcher.doc(hit.doc);
+                user_writer.addDocument(doc);
+            }
+            
+            user_writer.commit();
+            
+            IndexReader user_reader = DirectoryReader.open(user_index);
+            Lookup user_suggester = suggestionFactory.apply(user_index);
+            
+            Dictionary user_dict = new LuceneDictionary(user_reader, QUERY_FIELD_NAME);
+            user_suggester.build(user_dict);
+            
+            List<String> user_list = user_suggester.lookup(string, Boolean.FALSE, MAX_RESULT).stream()
+                        .map(result -> result.key.toString())
+                        .collect(Collectors.toList());
+            
+            for (String word : user_list){
+                
+                IndexSearcher user_searcher = new IndexSearcher(user_reader);
+                TopDocs user_docs = user_searcher.search(new QueryParser(QUERY_FIELD_NAME, analyzer).parse(word), MAX_RESULT);
+
+                ScoreDoc[] user_hits = user_docs.scoreDocs;
+
+                for(int i=0;i<user_hits.length;++i) {
+                    String query = user_searcher.doc(user_hits[i].doc).get(QUERY_FIELD_NAME);
+                    if (!list.contains(query)) list.add(query);
+                }
+            
+            }
+            
+        }
+          
+        if (list.size() >= MAX_RESULT) return list.subList(0, MAX_RESULT);
+                
+        dict = new LuceneDictionary(reader, QUERY_FIELD_NAME);
+        suggester.build(dict);
+
+        List<String> global_list = suggester.lookup(string, Boolean.FALSE, MAX_RESULT).stream()
+                        .map(result -> result.key.toString())
+                        .collect(Collectors.toList());
+        
+        Map<String, Integer> map = new HashMap();
+        for (String word : global_list){
+            
+            searcher = new IndexSearcher(reader);
+            docs = searcher.search(new QueryParser(QUERY_FIELD_NAME, analyzer).parse(word), Integer.MAX_VALUE);
+
+            hits = docs.scoreDocs;
+            
+            if (hits.length > 0) {
+                for(int i=0;i<hits.length;++i) {
+                    if (searcher.doc(hits[i].doc).getField(QUERY_FIELD_USER) != null) continue;
+                    String query = searcher.doc(hits[i].doc).get(QUERY_FIELD_NAME);
+                    Integer freq = Integer.parseInt(searcher.doc(hits[i].doc).get(QUERY_FIELD_FREQ));
+                    
+                    map.put(query, freq);
+                }
+            }   
+        }
+        
+        List<Map.Entry<String, Integer>> entry_list = new ArrayList<>(map.entrySet());
+        Collections.sort(entry_list, (Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) -> (o1.getValue()).compareTo(o2.getValue()));
+        Collections.reverse(entry_list);
+        
+        entry_list.forEach((e) -> {if (!list.contains(e.getKey())) list.add(e.getKey());});
         return list.subList(0, Math.min(list.size(), MAX_RESULT));
         
     }

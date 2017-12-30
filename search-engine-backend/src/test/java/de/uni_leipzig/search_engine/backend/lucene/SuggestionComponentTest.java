@@ -222,4 +222,87 @@ public class SuggestionComponentTest
         Assert.assertEquals(Arrays.asList("gerik scheuermann informatik", "prof dr gerik scheuermann"), qsc.suggest("scheuermann"));
     }
     
+    @Test
+    public void checkLocalUserQuery(){
+        SuggestionComponent qsc = new SuggestionComponent();
+        
+        String user1 = "user1";
+        String user2 = "user2";
+        
+        qsc.addOrUpdate(user1, "Windows 10");
+        qsc.addOrUpdate(user2, "Windows 8");
+        
+        Assert.assertEquals(Arrays.asList("windows 10"), qsc.suggestByUpdated(user1, "win"));
+        Assert.assertEquals(Arrays.asList("windows 8"), qsc.suggestByUpdated(user2, "win"));
+        
+        qsc.addOrUpdate(user2, "Windows 7");
+        
+        Assert.assertEquals(Arrays.asList("windows 10"), qsc.suggestByUpdated(user1, "win"));
+        Assert.assertEquals(Arrays.asList("windows 8", "windows 7"), qsc.suggestByUpdated(user2, "win"));
+    }
+    
+    @Test
+    public void checkGlobalUserQuery(){
+        SuggestionComponent qsc = new SuggestionComponent();
+        
+        String user1 = "user1";
+        String user2 = "user2";
+        String user3 = "user3";
+        String user4 = "user4";
+        
+        qsc.addOrUpdate(user1, "Windows 10");
+        qsc.addOrUpdate(user2, "Windows 8");
+        qsc.addOrUpdate(user3, "Windows 7");
+        qsc.addOrUpdate(user3, "Windows 10");
+        
+        Assert.assertEquals(Arrays.asList("windows 10"), qsc.suggestByUpdated(user1, "win"));
+        Assert.assertEquals(Arrays.asList("windows 8", "windows 10"), qsc.suggestByUpdated(user2, "win"));
+        Assert.assertEquals(Arrays.asList("windows 7", "windows 10"), qsc.suggestByUpdated(user3, "win"));
+        Assert.assertEquals(Arrays.asList("windows 10"), qsc.suggestByUpdated(user4, "win"));
+    }
+    
+    @Test
+    public void checkGlobalAndLocalUserQuery(){
+        SuggestionComponent qsc = new SuggestionComponent();
+        
+        String user1 = "user1";
+        String user2 = "user2";
+        String user3 = "user3";
+        String user4 = "user4";
+        
+        // fill global index
+        List<String> query_list = Arrays.asList("Windows 8", "Windows 7" ,"Windows Vista", "Windows XP", "Windows 2000", "Windows ME", "Windows 98", "Windows 95", "Windows DOS"); 
+        for (int i = 0; i < query_list.size(); i++){
+            qsc.add(query_list.get(i));
+            for (int j = 0; j < (query_list.size() - i); j++){
+                qsc.addOrUpdate(query_list.get(i));
+            }
+        }
+                
+        qsc.addOrUpdate(user1, "Windows 10");
+        qsc.addOrUpdate(user1, "Windows 8.1");
+        qsc.addOrUpdate(user2, "Windows 10");
+        qsc.addOrUpdate(user2, "Linux vs Windows");
+        qsc.addOrUpdate(user3, "Windows 10");
+        
+        Assert.assertEquals(Arrays.asList("windows 8.1", "windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98", "windows 95", "windows dos"), qsc.suggestByUpdated(user1, "win"));
+        Assert.assertEquals(Arrays.asList("linux vs windows", "windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98", "windows 95", "windows dos"), qsc.suggestByUpdated(user2, "win"));
+        Assert.assertEquals(Arrays.asList("windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98", "windows 95", "windows dos", "windows 10"), qsc.suggestByUpdated(user3, "win"));
+        Assert.assertEquals(Arrays.asList("windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98", "windows 95", "windows dos", "windows 10"), qsc.suggestByUpdated(user4, "win"));
+        
+        qsc.addOrUpdate(user4, "Microsoft Windows");
+        
+        Assert.assertEquals(Arrays.asList("microsoft windows", "windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98", "windows 95", "windows dos"), qsc.suggestByUpdated(user4, "win"));
+        
+        qsc.addOrUpdate(user4, "Windows 1");
+        qsc.addOrUpdate(user4, "Windows 2");
+        
+        Assert.assertEquals(Arrays.asList("microsoft windows", "windows 1", "windows 2", "windows 8", "windows 7" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98"), qsc.suggestByUpdated(user4, "win"));
+        
+        qsc.addOrUpdate(user1, "Windows 7");
+        qsc.addOrUpdate(user2, "Windows 7");
+        
+        Assert.assertEquals(Arrays.asList("microsoft windows", "windows 1", "windows 2", "windows 7", "windows 8" ,"windows vista", "windows xp", "windows 2000", "windows me", "windows 98"), qsc.suggestByUpdated(user4, "win"));
+    }
+    
 }
