@@ -62,7 +62,7 @@ public class IndexCleaner
 			digestsWithDuplicates++;
 			Set<String> duplicateUrls = new HashSet<>();
 
-			response.getResults().sort((a,b) -> ((String)b.get("content")).length() - ((String)a.get("content")).length()); 
+			response.getResults().sort(IndexCleaner::compareLengthOfContents); 
 
 			for(int i=1; i<response.getResults().size(); i++)
 			{
@@ -96,5 +96,14 @@ public class IndexCleaner
 		System.out.println("Finished the cleaning with "+ digestsWithDuplicates +" digests with updates and removed "+
 				removedDuplicates +" duplicates at all.");
 	}
-
+	
+	private static int compareLengthOfContents(SolrDocument a, SolrDocument b)
+	{
+		return lengtOfContent(b) - lengtOfContent(a);
+	}
+	
+	private static int lengtOfContent(SolrDocument doc)
+	{
+		return doc != null && doc.get("content") instanceof String ? ((String) doc.get("content")).length() : 0;
+	}
 }

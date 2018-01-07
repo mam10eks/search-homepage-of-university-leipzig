@@ -33,6 +33,8 @@ public class IndexCleanerTest
 	
 	private static final SolrInputDocument DIGEST_AB_TWO = solrDoc("DIGEST_AB_2", "AB");
 	
+	private static final SolrInputDocument DIGEST_AB_THREE = solrDoc(null, "AB");
+	
 	private static final SolrInputDocument DIGEST_A_ONE = solrDoc("digAOne", "A");
 	
 	private static final SolrInputDocument DIGEST_A_TWO = solrDoc("digAOne", "A");
@@ -101,7 +103,7 @@ public class IndexCleanerTest
 	@SneakyThrows
 	public void checkThatDocumentsForTwoDigestsAreValidCleaned()
 	{
-		solrClient.add("uni_leipzig_core", Arrays.asList(DIGEST_ABC_DOC_ONE, DIGEST_AB_ONE, DIGEST_AB_TWO));
+		solrClient.add("uni_leipzig_core", Arrays.asList(DIGEST_ABC_DOC_ONE, DIGEST_AB_ONE, DIGEST_AB_TWO, DIGEST_AB_THREE));
 		solrClient.commit();
 		
 		IndexCleaner indexCleaner = new IndexCleaner(solrClient);
@@ -109,7 +111,7 @@ public class IndexCleanerTest
 		
 		Map<String, Pair<String, List<String>>> expectedDbContent = new HashMap<>();
 		expectedDbContent.put("ABC", Pair.of("ABC", null));
-		expectedDbContent.put("AB", Pair.of("DIGEST_AB_ONE", Arrays.asList("http://DIGEST_AB_2")));
+		expectedDbContent.put("AB", Pair.of("DIGEST_AB_ONE", Arrays.asList("http://null", "http://DIGEST_AB_2")));
 		
 		assertResultDocuments(expectedDbContent);
 	}
@@ -118,7 +120,7 @@ public class IndexCleanerTest
 	@SneakyThrows
 	public void checkThatDocumentsForThreeDigestsAreValidCleaned()
 	{
-		solrClient.add("uni_leipzig_core", Arrays.asList(DIGEST_ABC_DOC_ONE, DIGEST_AB_ONE, DIGEST_AB_TWO,
+		solrClient.add("uni_leipzig_core", Arrays.asList(DIGEST_ABC_DOC_ONE, DIGEST_AB_ONE, DIGEST_AB_TWO, DIGEST_AB_THREE,
 				DIGEST_A_ONE, DIGEST_A_TWO, DIGEST_A_THREE, DIGEST_A_FOUR, DIGEST_A_FIVE));
 		solrClient.commit();
 		
@@ -127,7 +129,7 @@ public class IndexCleanerTest
 		
 		Map<String, Pair<String, List<String>>> expectedDbContent = new HashMap<>();
 		expectedDbContent.put("ABC", Pair.of("ABC", null));
-		expectedDbContent.put("AB", Pair.of("DIGEST_AB_ONE", Arrays.asList("http://DIGEST_AB_2")));
+		expectedDbContent.put("AB", Pair.of("DIGEST_AB_ONE", Arrays.asList("http://null", "http://DIGEST_AB_2")));
 		expectedDbContent.put("A", Pair.of("digAOneAndOnely", Arrays.asList("http://digAOne", "http://digAOne1")));
 		
 		assertResultDocuments(expectedDbContent);
