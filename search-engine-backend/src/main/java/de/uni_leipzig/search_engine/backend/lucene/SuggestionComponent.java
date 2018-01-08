@@ -1,8 +1,5 @@
 package de.uni_leipzig.search_engine.backend.lucene;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,10 +8,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -43,12 +36,6 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.util.BytesRef;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
-
 import lombok.SneakyThrows;
 
 public class SuggestionComponent
@@ -58,53 +45,37 @@ public class SuggestionComponent
     private static final String QUERY_FIELD_FREQ = "count";
     private static final String QUERY_FIELD_USER = "user";
     
-    private static final String XML_DOCUMENT_NAME = "doc";
-    private static final String XML_QUERY_NAME = "field";
-    private static final String XML_PATH = "suggest/query.xml";
-    
     private static final Integer MAX_RESULT = 10;
     private static final Integer GLOBAL_QUERY_USERS = 2;
     
     private final IndexWriter suggestIndexWriter;
 
-    private final Directory index = new RAMDirectory();
-
+    private final Directory index;
+    
     private final Analyzer analyzer = new StandardAnalyzer();
 
     private final Function<Directory, Lookup> suggestionFactory;
 
     public SuggestionComponent()
     {
-        
         this(d -> new AnalyzingSuggester(d, QUERY_FIELD_NAME, new StandardAnalyzer()));
-               
     }
     
-    public void initIndex()
+    public SuggestionComponent(Function<Directory, Lookup> suggestionFactory)
     {
-        
-        try {
-            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream(XML_PATH);
-            org.w3c.dom.Document doc = docBuilder.parse(is);
-            doc.getDocumentElement().normalize();
-            
-            NodeList nlist = doc.getElementsByTagName(XML_DOCUMENT_NAME);
-            for (int i = 0; i < nlist.getLength(); i++){
-                Node node = nlist.item(i);
-                Element element = (Element) node;
-                
-                add(element.getElementsByTagName(XML_QUERY_NAME).item(0).getTextContent());
-            }
-            
-        } catch (IOException | ParserConfigurationException | DOMException | SAXException e) {}
+    	this(suggestionFactory, new RAMDirectory());
+    }
+    
+    public SuggestionComponent(Directory index)
+    {
+    	this(d -> new AnalyzingSuggester(d, QUERY_FIELD_NAME, new StandardAnalyzer()), index);
     }
     
     @SneakyThrows
-    public SuggestionComponent(Function<Directory, Lookup> suggestionFactory)
+    public SuggestionComponent(Function<Directory, Lookup> suggestionFactory, Directory index)
     {
         this.suggestionFactory = suggestionFactory;
+        this.index = index;
         
         IndexWriterConfig conf = new IndexWriterConfig(analyzer)
                         .setOpenMode(OpenMode.CREATE_OR_APPEND);
@@ -272,7 +243,7 @@ public class SuggestionComponent
                         .map(result -> result.key.toString())
                         .collect(Collectors.toList());
         
-        List<String> result = new ArrayList();
+        List<String> result = new ArrayList<>();
         for (String word : list){
             
             IndexSearcher searcher = new IndexSearcher(reader);
@@ -282,9 +253,6 @@ public class SuggestionComponent
             
             if (hits.length > 0) {
                 for(int i=0;i<hits.length;++i) {
-                    int docId = hits[i].doc;
-                    Document d = searcher.doc(docId);
-
                     String w = searcher.doc(hits[i].doc).get(QUERY_FIELD_NAME);
                     if (!result.contains(w)) result.add(w);
                 }
@@ -309,7 +277,7 @@ public class SuggestionComponent
                         .map(result -> result.key.toString())
                         .collect(Collectors.toList());
         
-        Map<String, Integer> map = new HashMap();
+        Map<String, Integer> map = new HashMap<>();
         for (String word : list){
             
             IndexSearcher searcher = new IndexSearcher(reader);
@@ -351,7 +319,7 @@ public class SuggestionComponent
 
         ScoreDoc[] hits = docs.scoreDocs;
 
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         
         if (hits.length > 0){
             
@@ -368,6 +336,7 @@ public class SuggestionComponent
             }
             
             user_writer.commit();
+            user_writer.close();
             
             IndexReader user_reader = DirectoryReader.open(user_index);
             Lookup user_suggester = suggestionFactory.apply(user_index);
@@ -404,7 +373,7 @@ public class SuggestionComponent
                         .map(result -> result.key.toString())
                         .collect(Collectors.toList());
         
-        Map<String, Integer> map = new HashMap();
+        Map<String, Integer> map = new HashMap<>();
         for (String word : global_list){
             
             searcher = new IndexSearcher(reader);

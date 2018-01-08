@@ -7,6 +7,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -86,10 +87,12 @@ public class Application
 		}
 		
 		@Bean
-		public SuggestionComponent suggestionComponent()
+		@SneakyThrows
+		public SuggestionComponent suggestionComponent(
+				@Value("${suggestionIndexDirectory:../example_suggestions/from_google}") String suggestionIndexDirectory)
 		{
-			SuggestionComponent ret = new SuggestionComponent();
-                        ret.initIndex();
+			Directory suggestionDirectory = FSDirectory.open(Paths.get(suggestionIndexDirectory));
+			SuggestionComponent ret = new SuggestionComponent(suggestionDirectory);
 			
 			return ret;
 		}

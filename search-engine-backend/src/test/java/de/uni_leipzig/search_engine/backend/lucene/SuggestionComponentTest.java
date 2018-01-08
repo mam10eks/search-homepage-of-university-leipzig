@@ -1,5 +1,6 @@
 package de.uni_leipzig.search_engine.backend.lucene;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -8,9 +9,12 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.suggest.Lookup;
 import org.apache.lucene.search.suggest.analyzing.FuzzySuggester;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import lombok.SneakyThrows;
 
 public class SuggestionComponentTest
 {
@@ -214,10 +218,10 @@ public class SuggestionComponentTest
     }
 
     @Test
+    @SneakyThrows
     public void checkInitIndex(){
-        SuggestionComponent qsc = new SuggestionComponent();
-        
-        qsc.initIndex();
+		Directory suggestionDirectory = FSDirectory.open(Paths.get("../example_suggestions/from_google"));
+        SuggestionComponent qsc = new SuggestionComponent(suggestionDirectory);
         
         Assert.assertEquals(Arrays.asList("gerik scheuermann informatik", "prof dr gerik scheuermann"), qsc.suggest("scheuermann"));
     }
