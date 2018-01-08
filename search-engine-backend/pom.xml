@@ -123,7 +123,7 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
+						<id>copy-index</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -133,6 +133,21 @@
 							<resources>
 								<resource>
 									<directory>../example_indices/lips_informatik_uni_leipzig</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-suggestion_index</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/suggestion_index</outputDirectory>
+							<resources>
+								<resource>
+									<directory>../example_suggestions/from_google</directory>
 								</resource>
 							</resources>
 						</configuration>
