@@ -14,6 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.session.MapSessionRepository;
@@ -38,6 +39,7 @@ public class Application
 	
 	@Configuration
 	@EnableAsync
+	@EnableKafka
 	@EnableSpringHttpSession
 	public static class ApplicationConfiguration
 	{
