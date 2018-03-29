@@ -1,0 +1,33 @@
+Die Ranking-Komponente ist der Kern jeder Suchmaschine.
+Sie erzeugt für eine Query aus der User-Interaction-Komponente eine gerankte Liste von Dokumenten.
+
+Dabei beeinflussen deren Effizienz\footnote{Die Verarbeitung vieler Anfragen in kurzer Zeit.}
+und Effektivität\footnote{Die Qualität des Rankings: Kann die Suchmaschine relevante Informationen finden?}
+die Nützlichkeit der Suchmaschine wesentlich.
+Um für beide Anforderungen einen sinnvollen Ausgangspunkt zu schaffen, wurde für das Ranking
+\href{https://lucene.apache.org/}{Lucene} verwendet.
+Diese Software stellt einen geeigneten Einstieg dar, da darauf andere,
+in dieser Domäne verbreitete Softwarekomponenten aufbauen\footnote{Insbesondere die verbreiteten Tools\cite{}
+\href{https://de.wikipedia.org/wiki/Elasticsearch}{Elasticsearch} und \href{http://lucene.apache.org/solr/}{Solr}
+basieren auf Lucene. Deren erweiterter Funktionsumfang, wie Beispielsweiße eine
+\href{http://www.searchdatacenter.de/definition/Horizontale-Skalierung-Scale-out}{horizontale Skalierung}, wurde im Rahmen dieser Arbeit nicht benötigt.}.
+Verschiedene \href{https://en.wikipedia.org/wiki/Ranking_(information_retrieval)}{Ranking-Algorithmen}
+\footnote{Und damit auch 
+\href{https://de.wikipedia.org/wiki/Information_Retrieval\#Retrievalmodelle}{Retrieval-Modelle}}
+sind in Lucene verfügbar.
+
+Davon wurde \href{https://en.wikipedia.org/wiki/Okapi_BM25}{BM25F} eingesetzt,
+da es als Baseline für modernere Ranking-Algorithmen fungiert und für allgemeine
+Dokumentsammlungen bessere Ergebnisse\footnote{Entsprechendes Tuning der von BM25F verwendeten Parameter vorrausgesetzt~\cite{baeza_yates.107}.}
+erzielt als die verfügbaren,
+\href{https://opensourceconnections.com/blog/2015/10/16/bm25-the-next-generation-of-lucene-relevation/}{klassischen Vektor-Modelle}~\cite{baeza_yates.107}.
+Dieses \href{https://de.wikipedia.org/wiki/Information_Retrieval#Retrievalmodelle}{Retrieval-Modell}
+besitzt die Fähigkeit, mehrere Felder\footnote{Felder werden auch als Attribute oder Features bezeichnet.} in die Berechnung des Scores einfließen zu lassen.
+Entsprechend wurden alle verfügbaren Felder 
+einbezogen\footnote{Alle Felder mit unmittelbarem Bezug zu dem Inhalt der Dokumente.
+Dies sind der vollständige Text eines Dokuments, sowie deren Titel, URL und Anchor-Texte eingehender Links.}.
+Da eine sinnvolle Wahl der Attribute\footnote{Einschließlich eventuell abgeleiteter Features.}
+und deren Gewichtung im Allgemeinen in
+Verbindung mit der User-Relevanz steht, wurden alle Parameter bei ihren Standards belassen.
+
+Das entsprechende Vorgehen für ein Tuning basierend auf Nutzer-Feedback wird in Abschnitt~\ref{} vorgestellt.

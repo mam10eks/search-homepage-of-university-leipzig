@@ -1,0 +1,75 @@
+\documentclass[a4paper,ngerman,twoside,BCOR1.5cm,headsepline,DIV12,appendixprefix,final,12pt]{scrartcl}
+
+\input{document.conf}
+
+%************************************************************************************************************************
+%* begin document
+%************************************************************************************************************************
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+\large
+
+\vspace{1cm}
+\textbf{\sffamily	Universität Leipzig\\
+			Fakultät für Mathematik und Informatik\\
+			Institut für Informatik\\}
+
+\vspace{2cm}
+{\Large\textbf{\sffamily Kurs Information Retrieval}}
+
+
+\large
+
+Praktikumsbericht
+\vspace{1cm}
+\end{center}
+
+\textbf{Zusammenfassung}:\\
+Dieser Bericht ...
+
+\vfill
+
+{\large
+\begin{tabular}{p{7cm} l}
+&\\
+\small
+Leipzig, März 2018 		& \small vorgelegt von\\
+				& \small Maik Fröbe, Danilo Morgado, Sebastian Günther\\
+\end{tabular}}
+
+\begin{tabular}{p{7cm} l}
+&\\
+\small
+Betreuer: 	& \small Jun.-Prof. Dr. Martin Potthast \\
+				& \small Fakultät für Mathematik und Informatik\\
+				& \small Text Mining und Retrieval
+\end{tabular}
+
+%************************************************************************************************************************
+%* main chapters
+%************************************************************************************************************************
+\pagenumbering{arabic}
+
+\newpage
+\input{chapter_introduction/introduction.tex}
+
+\newpage
+\input{chapter_data_aqcuisition/aqcuisition.tex}
+
+\newpage
+\input{chapter_query_processing/query_processing.tex}
+
+\newpage
+\input{chapter_log_analysis/log_analysis.tex}
+
+%************************************************************************************************************************
+%* bibliography
+%************************************************************************************************************************
+\newpage
+\addcontentsline{toc}{section}{Literatur}
+\bibliography{literature}
+\bibliographystyle{alpha}
+
+\end{document}

@@ -1,0 +1,44 @@
+\begin{thebibliography}{BYRN10}
+
+\bibitem[BYRN10]{baeza_yates.107}
+Ricardo Baeza-Yates and Berthier Ribeiro-Neto.
+\newblock {\em Modern Information Retrieval: The concepts and technology behind
+  search}, chapter Chapter 3.5: Alternative Probabilistic Models, page 107.
+\newblock Pearson, 2010.
+
+\bibitem[CMS09a]{croft.chap2}
+W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
+\newblock {\em Search Engines Information Retrieval in Practice}, chapter
+  Chapter 2: Architecture of a Search Engine, pages 13--30.
+\newblock Pearson, 2009.
+
+\bibitem[CMS09b]{croft.chap3}
+W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
+\newblock {\em Search Engines Information Retrieval in Practice}, chapter
+  Chapter 3: Crawls and Feeds, pages 31--73.
+\newblock Pearson, 2009.
+
+\bibitem[MRS09]{manning.chap20}
+Christopher~D. Manning, Prabhakar Raghavan, and Hinrich Schütze.
+\newblock {\em An Introduction to Information Retrieval}, chapter Chapter 20:
+  Web crawling and indexes, pages 443--459.
+\newblock Cambridge University Press, 2009.
+
+\bibitem[nut13]{nutch.invert_links}
+Apache nutch documentation: invertlinks, 2013.
+\newblock [Online erhältlich unter
+  \url{https://wiki.apache.org/nutch/bin/nutch%20invertlinks}. Abgerufen am
+  25.03.2018].
+
+\bibitem[wik18a]{wiki.free_license}
+Free software license --- {W}ikipedia{,} the free encyclopedia, 2018.
+\newblock [Online erhältlich unter
+  \url{https://en.wikipedia.org/wiki/Free_software_license}. Abgerufen am
+  22.03.2018].
+
+\bibitem[wik18b]{wiki.facetted_search}
+Free software license --- {W}ikipedia{,} the free encyclopedia, 2018.
+\newblock [Online erhältlich unter
+  \url{https://de.wikipedia.org/wiki/Facettensuche}. Abgerufen am 25.03.2018].
+
+\end{thebibliography}
