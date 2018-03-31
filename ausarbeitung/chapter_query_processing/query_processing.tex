@@ -8,22 +8,55 @@ Dementsprechend werden in den folgenden Abschnitten die Bestandteile User Intera
 \subsection{User Interaction~\cite{croft.chap2}}
 \label{chap:query_processing}
 
-Die Komponente zur Nutzerinteraktion bietet eine Schnittstelle\footnote{Das entsprechende Modul ist TODO MAik LINK} zwischen dem Benutzer und der Suchmaschine.
+Die Komponente zur Nutzerinteraktion bietet eine Schnittstelle\footnote{Das entsprechende Modul ist TODO ADD LINK TO REPOSITORY}
+zwischen dem Benutzer und der Suchmaschine.
+Um diesem Nutzer eine gewohnte Usability inklusive intuitiver Bedienung zu ermöglichen,
+wurden die in der Praxis verbreiteten Standards eingehalten.
 
-Die erste Funktionalität, mit der ein Nutzer dabei in Berührung kommt stellt das Absenden der Anfragen dar.
-Entsprechend Baeza-Yates wird dem Nutzer dafür eine typische Eingabemaske bereitgestellt.
-Diese ist in Abbildung~\ref{} im Kopf der Seite dargestellt.
-Index-terme
+Dementsprechend muss einem Nutzer das Absenden von Anfragen ermöglicht werden.
+Dafür ist es üblich, eine Landing Page mit prominent mittig platzierter Eingabemaske auszuliefern\cite{}.
+Abbildung~\ref{} zeigt dies für die im Rahmen dieser Arbeit entwickelte Suchmaschine.
 
-Wie die während der Interaktion eines Nutzers mit der Suchmaschine anfallenden Daten evaluiert werden ist Bestandteil von abschnitt~\ref{}.
-Realisiert wurde mit Hilfe von
+Nachdem ein Nutzer seine Anfrage spezifiziert hat, werden ihm die Ergebnisse präsentiert.
+Dafür erhält die Schnittstelle eine für die Query gerankte Liste von Dokumenten von der Ranking-Komponente.
+Diesbezüglich ist es gängig, einem Benutzer für kleinere Ausschnitte aus der Dokumentliste jeweils 
+ausgewählte Metadaten in Verbindung mit einem 
+für die Anfrage besonders relevanten Textausschnitt\footnote{Sogenannte Snippets} zu präsentieren~\cite{}.
+Relevante Wörter werden dabei speziell hervorgehoben.
+Die unter Berücksichtigung dieser Punkte entstandene Search Engine Result Page\footnote{SERP} wird in Abbildung~\ref{} vorgestellt.
 
-Technisch wurde ... und ... mit ... realisiert.
-Dabei...
+In der Regel wird einem Nutzer die Formulierung und Spezialisierung seiner Anfragen durch verschiedene Hilfsmittel
+erleichtert~\ref{}.
+In dem vorliegenden Projekt wurde eine Query Suggestion implementiert,
+welche Vervollständigungsvorschläge auf Basis populärer Anfragen liefert.
+Die dafür notwendige, dynamische Benutzerschnittstelle wird in Abbildung~\ref{} gezeigt.
+Verwandte Maßnahmen zur Verbesserungen der Benutzbarkeit wie Spell Checking oder Query Refinement 
+wurden zugunsten anderer Features nicht umgesetzt.
+
+Um den Suchmaschinenservice einem möglichst breiten Nutzerkreis zuzuführen, sind die
+Komponenten zur Benutzerinteraktion in Form eines Webfrontends realisiert. Für die Entwicklung
+werden die jeweils aktuellen Standards HTML5, CSS3 sowie JavaScript eingesetzt. 
+Ausgeliefert werden diese Bestandteile durch einen Express-Webserver, welcher im Rahmen einer NodeJS-Anwendung betrieben wird.
+Aus Kompatibilitätsgründen werden Teile der Bootstrap-Library eingebunden.
+Falls ein Browser die History-API unterstützt, wird diese zur
+Bereitstellung von Deep-Links ohne einen Full-Page-Refresh
+geeigneter Seiten\footnote{About + Statistik mit Link zum Quellcode} verwendet.
+
+Der Zugriff auf die Ranking-Komponente (siehe Abschnitt~\ref{chap:ranking}) und Query-Suggestions wird durch
+entsprechende \href{https://en.wikipedia.org/wiki/Representational_state_transfer}{REST-Endpunkte} ermöglicht.
+Bereitgestellt werden diese durch eine \href{https://projects.spring.io/spring-boot/}{Spring-Boot-Anwendung}.
+Die Query-Suggestions unterscheiden dabei zwischen nutzerbezogenen und globalen Vorschlägen.
+Durch nutzerbezogene Vorschläge ist es einem Nutzer möglich, von ihm bereits getätigte Anfragen zu wiederholen.
+Globale Vorschläge identifizieren innerhalb der Suchmaschine populäre Anfragen mit Hilfe von Logdaten.
+Für eine sinnvolle initiale Menge von globalen Vorschlägen wurden semantisch passende
+Vorschläge von Google gecrawlt und eingepflegt\footnote{Der Quellcode für den Crawler ist TODO link zum Code.
+Damit wurden 2639 Vorschläge generiert}.
+
 
 \subsection{Ranking~\cite{croft.chap2}}
 \label{chap:ranking}
 \input{chapter_query_processing/ranking.tex}
+
 
 \subsection{Evaluation~\cite{croft.chap2}}
 \label{chap:evaluation}
