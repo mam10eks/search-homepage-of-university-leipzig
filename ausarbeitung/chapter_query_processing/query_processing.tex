@@ -13,9 +13,18 @@ zwischen dem Benutzer und der Suchmaschine.
 Um diesem Nutzer eine gewohnte Usability inklusive intuitiver Bedienung zu ermöglichen,
 wurden die in der Praxis verbreiteten Standards eingehalten.
 
+\begin{wrapfigure}{H}{0.49\linewidth}
+	\vspace*{-0.4cm}
+	\includegraphics[width=0.48\textwidth]{chapter_query_processing/frontend_landing_page.png}
+	\caption{Die Landing Page der Suchmaschine}
+	\label{fig:landing_page}
+	\vspace*{-0.2cm}
+\end{wrapfigure}
+
+
 Dementsprechend muss einem Nutzer das Absenden von Anfragen ermöglicht werden.
 Dafür ist es üblich, eine Landing Page mit prominent mittig platzierter Eingabemaske auszuliefern\cite{}.
-Abbildung~\ref{} zeigt dies für die im Rahmen dieser Arbeit entwickelte Suchmaschine.
+Abbildung~\ref{fig:landing_page} zeigt dies für die im Rahmen dieser Arbeit entwickelte Suchmaschine.
 
 Nachdem ein Nutzer seine Anfrage spezifiziert hat, werden ihm die Ergebnisse präsentiert.
 Dafür erhält die Schnittstelle eine für die Query gerankte Liste von Dokumenten von der Ranking-Komponente.
@@ -23,15 +32,27 @@ Diesbezüglich ist es gängig, einem Benutzer für kleinere Ausschnitte aus der 
 ausgewählte Metadaten in Verbindung mit einem 
 für die Anfrage besonders relevanten Textausschnitt\footnote{Sogenannte Snippets} zu präsentieren~\cite{}.
 Relevante Wörter werden dabei speziell hervorgehoben.
-Die unter Berücksichtigung dieser Punkte entstandene Search Engine Result Page\footnote{SERP} wird in Abbildung~\ref{} vorgestellt.
+Die unter Berücksichtigung dieser Punkte entstandene Search Engine Result Page\footnote{SERP} wird in Abbildung~\ref{fig:serp} vorgestellt.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.99\textwidth]{chapter_query_processing/serp.png}
+	\caption{Die SERP für die Anfrage \glqq studiengebühren\grqq}
+	\label{fig:serp}
+\end{figure}
 
 In der Regel wird einem Nutzer die Formulierung und Spezialisierung seiner Anfragen durch verschiedene Hilfsmittel
-erleichtert~\ref{}.
+erleichtert~\cite{}.
 In dem vorliegenden Projekt wurde eine Query Suggestion implementiert,
 welche Vervollständigungsvorschläge auf Basis populärer Anfragen liefert.
-Die dafür notwendige, dynamische Benutzerschnittstelle wird in Abbildung~\ref{} gezeigt.
+Die dafür notwendige, dynamische Benutzerschnittstelle wird in Abbildung~\ref{fig:query_suggestions} gezeigt.
 Verwandte Maßnahmen zur Verbesserungen der Benutzbarkeit wie Spell Checking oder Query Refinement 
 wurden zugunsten anderer Features nicht umgesetzt.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.99\textwidth]{chapter_query_processing/autocomplete.png}
+	\caption{Query Suggestions für die }
+	\label{fig:query_suggestions}
+\end{figure}
 
 Um den Suchmaschinenservice einem möglichst breiten Nutzerkreis zuzuführen, sind die
 Komponenten zur Benutzerinteraktion in Form eines Webfrontends realisiert. Für die Entwicklung
