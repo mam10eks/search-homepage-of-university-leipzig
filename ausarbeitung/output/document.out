@@ -2,11 +2,11 @@
 \BOOKMARK [1][-]{section.2}{Von der Datenbeschaffung zum fertigen Index}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Dom\344nenspezifische, manuell gepflegte Selectivity}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Reproduzierbare Erzeugung eines Lucene Index mit Docker und Solr}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Data Cleaning? Aggregation von Fast-Duplikaten}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Data Cleaning: Aggregation von Fast-Duplikaten}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Verarbeitung von Anfragen}{}% 6
 \BOOKMARK [2][-]{subsection.3.1}{User Interaction croft.chap2}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.2}{Ranking croft.chap2}{section.3}% 8
 \BOOKMARK [2][-]{subsection.3.3}{Evaluation croft.chap2}{section.3}% 9
 \BOOKMARK [1][-]{section.4}{Analyse der Logdaten}{}% 10
 \BOOKMARK [2][-]{subsection.4.1}{Durchf\374hrung eines Laborexperiments}{section.4}% 11
-\BOOKMARK [1][-]{figure.caption.6}{Literatur}{}% 12
+\BOOKMARK [1][-]{figure.caption.7}{Literatur}{}% 12

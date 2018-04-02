@@ -8,13 +8,13 @@ Erzeugung dieser Dokumentensammlung den Anfang der Wertschöpfungskette dar.
 
 Die im Kontext von Web-Suchmaschinen dafür benötigten Programme werden Crawler genannt~\cite{croft.chap3}.
 Diese beschäftigen sich damit, Webseiten zu finden und herunterzuladen, um sie für spätere Verarbeitungsschritte lokal Verfügbar zu haben.
-Die in der Problembeschreibung~\ref{} dargestellte Beschränkung auf die Website der Universität Leipzig
+Die in der \hyperref[sec:intro]{Problembeschreibung} dargestellte Beschränkung auf die Website der Universität Leipzig
 vereinfacht dieses, im Allgemeinen sehr anspruchsvolle, Problem und wird als Site Search bezeichnet~\cite{croft.chap2}.
 
 Im Rahmen dieser Arbeit wurde zur Erzeugung der Dokumentensammlung die Freie Software~\cite{wiki.free_license}
 Apache Nutch\footnote{Nutch ist~\href{https://github.com/apache/nutch/blob/master/LICENSE.txt}{unter Apache Version 2.0 lizensiert}.}
 verwendet.
-Nutch übernahm dabei sowohl die Aufgaben eines Crawlers\footnote{Der finale Crawling Durchgang benötigte 14 Tage um 390 000 Dokumente in 50GB zu sammeln.}
+Nutch übernahm dabei sowohl die Aufgaben eines Crawlers\footnote{Der finale Crawling-Durchgang benötigte 14 Tage um 390 000 Dokumente in 50GB zu sammeln.}
 als auch die unmittelbar folgenden Schritte bis einschließlich der Indexerzeugung.
 Im folgenden werden verschiedene, während der Arbeit angewandten Anpassungen und Vereinfachungen des von Nutch bereitgestellten
 Workflows vorgestellt.
@@ -157,7 +157,7 @@ Dafür konnten die entstandenen Positiv-Beispiele direkt als \href{https://wiki.
 
 \subsection{Reproduzierbare Erzeugung eines Lucene Index mit Docker und Solr}
 
-Um die gecrawlten Dokumente in der in Abschnitt~\ref{} beschriebenen Suchmaschine verfügbar zu machen, müssen sie in einen Lucene Index überführt werden.
+Um die gecrawlten Dokumente in der in Abschnitt~\ref{chap:ranking} beschriebenen Suchmaschine verfügbar zu machen, müssen sie in einen Lucene Index überführt werden.
 
 Dafür wird im ersten Schritt eine sogenannte Conversion durchgeführt~\cite{croft.chap2}.
 Dabei werden im vorliegenden Fall gecrawlte Dokumente,
@@ -176,9 +176,12 @@ durchgeführt, welche näher in Abschnitt~\ref{chap:near_duplicate_detection} er
 Nutch kann den Lucene Index nicht selbstständig erzeugen.
 Aus diesem Grund wird mit einem \href{http://lucene.apache.org/solr/}{Solr Server} ein Index über die gecrawlten Dokumente erzeugt.
 Diesbezüglich wird mit Solr eine Text Transformation~\cite{croft.chap2} durchgeführt.
-Diese umfasst die \href{https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/core/StopFilterFactory.java}
-{Entfernung} von deutschen und englischen Stoppwörtern, sowie ein Stemming mit dem
-\href{https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/en/PorterStemFilterFactory.java}{Porter Stemmer}.
+Dabei wurde entsprechend der Standards auf eine Entfernung von Stoppwörtern sowie Stemming
+verzichtet\footnote{Jedoch gehört das testen unterschiedlicher 
+\href{https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/core/StopFilterFactory.java}{Stoppwortlisten} sowie verschiedener
+\href{https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/en/PorterStemFilterFactory.java}{Stemmer}
+zu dem geplanten Vorgehen,
+die Effektivität der Suchmaschine für das durchgeführte Laborexperiment zu optimieren (Siehe Kapitel~\ref{chap:log_analysis}).}.
 Die eigentliche Indexerzeugung mit Solr schließt diesen Prozess ab.
 Dabei werden neben den Dokument-Statistiken~\cite{croft.chap2} für das spätere Scoring von Dokumenten auch Vorbereitungen zur Erzeugung von Snippets vorgenommen.
 Der so erzeugte Index kann unmittelbar in Lucene eingesetzt werden.
@@ -196,7 +199,7 @@ Sobald die Indexerzeugung beginnt, wird der dafür notwendige Solr-Server mit Do
 bereitgestellt. Da die notwendige Konfiguration sowie das Index-Schema in den Container gemountet werden,
 ist auch dieser Schritt einfach wiederholbar.
 
-\subsection{Data Cleaning? Aggregation von Fast-Duplikaten}
+\subsection{Data Cleaning: Aggregation von Fast-Duplikaten}
 \label{chap:near_duplicate_detection}
 
 Duplikate und Fast-Duplikate treten in vielen Situationen auf~\cite{croft.chap3}.
