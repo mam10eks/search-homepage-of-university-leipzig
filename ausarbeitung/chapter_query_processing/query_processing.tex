@@ -8,7 +8,9 @@ Dementsprechend werden in den folgenden Abschnitten die Bestandteile User Intera
 \subsection{User Interaction~\cite{croft.chap2}}
 \label{chap:user_interaction}
 
-Die Komponente zur Nutzerinteraktion bietet eine Schnittstelle\footnote{Das entsprechende Modul ist TODO ADD LINK TO REPOSITORY}
+Die Komponente zur Nutzerinteraktion bietet eine Schnittstelle\footnote{Der Quellcode ist in dem Modul
+\href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/search-engine-backend}{search-engine-backend}
+enthalten.}
 zwischen dem Benutzer und der Suchmaschine.
 Um diesem Nutzer eine gewohnte Usability inklusive intuitiver Bedienung zu ermöglichen,
 wurden die in der Praxis verbreiteten Standards eingehalten.
@@ -23,14 +25,14 @@ wurden die in der Praxis verbreiteten Standards eingehalten.
 
 
 Dementsprechend muss einem Nutzer das Absenden von Anfragen ermöglicht werden.
-Dafür ist es üblich, eine Landing Page mit prominent mittig platzierter Eingabemaske auszuliefern\cite{}.
+Dafür ist es üblich, eine Landing Page mit prominent mittig platzierter Eingabemaske auszuliefern\cite{baeza_yates.search_interfaces}.
 Abbildung~\ref{fig:landing_page} zeigt dies für die im Rahmen dieser Arbeit entwickelte Suchmaschine.
 
 Nachdem ein Nutzer seine Anfrage spezifiziert hat, werden ihm die Ergebnisse präsentiert.
 Dafür erhält die Schnittstelle eine für die Query gerankte Liste von Dokumenten von der Ranking-Komponente.
 Diesbezüglich ist es gängig, einem Benutzer für kleinere Ausschnitte aus der Dokumentliste jeweils 
 ausgewählte Metadaten in Verbindung mit einem 
-für die Anfrage besonders relevanten Textausschnitt\footnote{Sogenannte Snippets} zu präsentieren~\cite{}.
+für die Anfrage besonders relevanten Textausschnitt\footnote{Sogenannte Snippets} zu präsentieren~\cite{baeza_yates.search_interfaces}.
 Relevante Wörter werden dabei speziell hervorgehoben.
 Die unter Berücksichtigung dieser Punkte entstandene Search Engine Result Page\footnote{SERP} wird in Abbildung~\ref{fig:serp} vorgestellt.
 
@@ -41,7 +43,7 @@ Die unter Berücksichtigung dieser Punkte entstandene Search Engine Result Page\
 \end{figure}
 
 In der Regel wird einem Nutzer die Formulierung und Spezialisierung seiner Anfragen durch verschiedene Hilfsmittel
-erleichtert~\cite{}.
+erleichtert.
 In dem vorliegenden Projekt wurde eine Query Suggestion implementiert,
 welche Vervollständigungsvorschläge auf Basis populärer Anfragen liefert.
 Die dafür notwendige, dynamische Benutzerschnittstelle wird in Abbildung~\ref{fig:query_suggestions} gezeigt.
@@ -50,7 +52,7 @@ wurden zugunsten anderer Features nicht umgesetzt.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.99\textwidth]{chapter_query_processing/autocomplete.png}
-	\caption{Query Suggestions für die }
+	\caption{Query Suggestions für die Eingabe: studien}
 	\label{fig:query_suggestions}
 \end{figure}
 
@@ -61,7 +63,7 @@ Ausgeliefert werden diese Bestandteile durch einen Express-Webserver, welcher im
 Aus Kompatibilitätsgründen werden Teile der Bootstrap-Library eingebunden.
 Falls ein Browser die History-API unterstützt, wird diese zur
 Bereitstellung von Deep-Links ohne einen Full-Page-Refresh
-geeigneter Seiten\footnote{About + Statistik mit Link zum Quellcode} verwendet.
+geeigneter Seiten\footnote{Zum Beispiel die About-Page.} verwendet.
 
 Der Zugriff auf die Ranking-Komponente (siehe Abschnitt~\ref{chap:ranking}) und Query-Suggestions wird durch
 entsprechende \href{https://en.wikipedia.org/wiki/Representational_state_transfer}{REST-Endpunkte} ermöglicht.

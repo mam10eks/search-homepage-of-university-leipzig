@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.10.6)  2 APR 2018 12:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.10.6)  2 APR 2018 17:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2368,65 +2368,65 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\@ifnextchar' on input line 8.
 
 
-<chapter_query_processing/frontend_landing_page.png, id=227, 867.24pt x 529.98p
+<chapter_query_processing/frontend_landing_page.png, id=228, 867.24pt x 529.98p
 t>
 File: chapter_query_processing/frontend_landing_page.png Graphic file (type png
 )
  <use chapter_query_processing/frontend_landing_page.png>
 Package pdftex.def Info: chapter_query_processing/frontend_landing_page.png use
-d on input line 18.
+d on input line 20.
 (pdftex.def)             Requested size: 199.73659pt x 122.05457pt.
 
-<chapter_query_processing/serp.png, id=232, 709.65125pt x 667.49374pt>
+<chapter_query_processing/serp.png, id=235, 709.65125pt x 667.49374pt>
 File: chapter_query_processing/serp.png Graphic file (type png)
 
 <use chapter_query_processing/serp.png>
-Package pdftex.def Info: chapter_query_processing/serp.png used on input line 3
-8.
+Package pdftex.def Info: chapter_query_processing/serp.png used on input line 4
+0.
 (pdftex.def)             Requested size: 411.96268pt x 387.49294pt.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 52.
  [10 <./chapter_query_processing/frontend_landing_page.png>]
-<chapter_query_processing/autocomplete.png, id=245, 600.2425pt x 333.245pt>
+<chapter_query_processing/autocomplete.png, id=249, 600.2425pt x 333.245pt>
 File: chapter_query_processing/autocomplete.png Graphic file (type png)
 
 <use chapter_query_processing/autocomplete.png>
 Package pdftex.def Info: chapter_query_processing/autocomplete.png used on inpu
-t line 52.
+t line 54.
 (pdftex.def)             Requested size: 411.96268pt x 228.7189pt.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 66.
+(babel)             in language  on input line 68.
  [11 <./chapter_query_processing/serp.png>]
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 79.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 77.
+(hyperref)                removing `\@ifnextchar' on input line 79.
 
 (./chapter_query_processing/ranking.tex
 Package babel Info: Redefining german shorthand "f
@@ -2443,15 +2443,15 @@ Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 18.
  [12 <./chapter_query_processing/autocomplete.png>])
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 84.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 84.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 84.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 82.
+(hyperref)                removing `\@ifnextchar' on input line 84.
 
 (./chapter_query_processing/evaluation.tex
 Package babel Info: Redefining german shorthand "f
@@ -2467,24 +2467,30 @@ Package babel Info: Redefining german shorthand "|
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 23.
  [13]
-
-LaTeX Warning: Reference `' on page 14 undefined on input line 67.
-
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 71.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 71.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 71.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 71.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 71.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 69.
-[14]
+(babel)             in language  on input line 71.
+ [14]
+<chapter_query_processing/example_neo4j_visualization.png, id=353, 592.2125pt x
+ 425.59pt>
+File: chapter_query_processing/example_neo4j_visualization.png Graphic file (ty
+pe png)
+ <use chapter_query_processing/example_neo4j_visualization.png>
+Package pdftex.def Info: chapter_query_processing/example_neo4j_visualization.p
+ng used on input line 73.
+(pdftex.def)             Requested size: 411.96268pt x 296.06017pt.
 
-Package hyperref Warning: Suppressing link with empty target on input line 70.
+
+Package hyperref Warning: Suppressing link with empty target on input line 80.
 
 ))
 Package babel Info: Redefining german shorthand "f
@@ -2499,7 +2505,8 @@ Package babel Info: Redefining german shorthand "|
 (babel)             in language  on input line 66.
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 66.
- [15] (./chapter_log_analysis/log_analysis.tex
+ [15 <./chapter_query_processing/example_neo4j_visualization.png>]
+(./chapter_log_analysis/log_analysis.tex
 Package babel Info: Redefining german shorthand "f
 (babel)             in language  on input line 1.
 Package babel Info: Redefining german shorthand "|
@@ -2513,7 +2520,7 @@ Package babel Info: Redefining german shorthand "|
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 18.
 
-<chapter_log_analysis/evaluation_topics.png, id=349, 1272.755pt x 275.0275pt>
+<chapter_log_analysis/evaluation_topics.png, id=366, 1272.755pt x 275.0275pt>
 File: chapter_log_analysis/evaluation_topics.png Graphic file (type png)
 
 <use chapter_log_analysis/evaluation_topics.png>
@@ -2565,7 +2572,20 @@ Package babel Info: Redefining german shorthand "|
 (babel)             in language  on input line 73.
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 73.
- (output/document.bbl)
+ (output/document.bbl
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 79.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 79.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 79.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 79.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 79.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 79.
+ [19])
 Package babel Info: Redefining german shorthand "f
 (babel)             in language  on input line 77.
 Package babel Info: Redefining german shorthand "|
@@ -2578,7 +2598,7 @@ Package babel Info: Redefining german shorthand "|
 (babel)             in language  on input line 77.
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 77.
- [19]
+ [20]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 77.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 77.
 
@@ -2587,18 +2607,14 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 77.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 77.
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 77.
  ) 
 Here is how much of TeX's memory you used:
- 46311 strings out of 493013
- 1009060 string characters out of 6135682
- 1270361 words of memory out of 5000000
- 48794 multiletter control sequences out of 15000+600000
- 73923 words of font info for 181 fonts, out of 8000000 for 9000
+ 46334 strings out of 493013
+ 1009586 string characters out of 6135682
+ 1270728 words of memory out of 5000000
+ 48801 multiletter control sequences out of 15000+600000
+ 74396 words of font info for 187 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  76i,12n,100p,10438b,943s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/
@@ -2608,10 +2624,10 @@ are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/palatino/uplri8a.pfb>
-Output written on output/document.pdf (19 pages, 254689 bytes).
+Output written on output/document.pdf (20 pages, 289391 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 382 compressed objects within 4 object streams
- 103 named destinations out of 1000 (max. 500000)
- 36998 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 448 PDF objects out of 1000 (max. 8388607)
+ 402 compressed objects within 5 object streams
+ 109 named destinations out of 1000 (max. 500000)
+ 37003 words of extra memory for PDF output out of 42996 (max. 10000000)
 

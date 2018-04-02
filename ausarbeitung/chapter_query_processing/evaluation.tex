@@ -54,7 +54,7 @@ Die vom Logging-Aspekt protokollierten Informationen können sowohl
 Online\footnote{Beispielhaft wurde das im Rahmen dieser Arbeit für die Query-Suggestions vorgenommen.},
 als auch Offline analysiert werden.
 Um beides zu ermöglichen, wurde mit \href{https://kafka.apache.org/}{Apache Kafka}
-ein ... mit persistenter Datenhaltung eingesetzt.
+eine Streaming Platform mit der Möglichkeit zur persistenten Datenhaltung~\cite{kafka.foreword} eingesetzt.
 Dazu publisht der Logging-Aspekt seine Daten als Events nach Kafka.
 Um diesen Logging-Aspekt so einfach wie möglich zu halten, bereitet ein
 \href{https://www.confluent.io/blog/introducing-kafka-streams-stream-processing-made-simple/}{Stream Processor}
@@ -64,8 +64,18 @@ auf sinnvolle Topics um. Der Quellcode ist in dem Modul
 {search-engine-kafka-streams} enthalten.}.
 Online-Analysen wie die Query-Suggestion können sich nun unmittelbar an die für sie interessanten Events subscriben.
 Offline Analysen können die persistierten Events gleichzeitig in einem  Batch-Vorgang verarbeiten.
-Als Beispiel dafür stellt Abbildung~\ref{} einen mit Python realisierten
-Import der Events nach \href{https://de.wikipedia.org/wiki/Neo4j}{Neo4j} zur Visualisierung dar.
+Als Beispiel dafür stellt Abbildung~\ref{fig:visualization} einen mit Python realisierten
+Import\footnote{Der Quellcode ist in dem Modul
+\href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/visualize_events}{visualize\_events}.}
+der Events nach \href{https://de.wikipedia.org/wiki/Neo4j}{Neo4j} zur Visualisierung dar.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.99\textwidth]{chapter_query_processing/example_neo4j_visualization.png}
+	\caption{Beispielgraph im
+	\href{https://neo4j.com/developer/guide-neo4j-browser/}{Neo4j-Browser}
+	einer User-Session bestehend aus 2 Anfragen, bei denen bei einer Anfrage ein Ergebniss angeklickt wurde.}
+	\label{fig:visualization}
+\end{figure}
 
 Die hier vorgestellte Evaluationskomponente funktioniert für alle Clients, welche Cookies erlauben und den \href{}{Referrer-Header}
 korrekt setzen.

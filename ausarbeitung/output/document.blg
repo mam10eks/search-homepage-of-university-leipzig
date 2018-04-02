@@ -3,50 +3,50 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: output/document.aux
 The style file: alpha.bst
 Database file #1: literature.bib
-Warning--I didn't find a database entry for ""
 Warning--to sort, need author or key in wiki.free_license
 Warning--to sort, need author or key in nutch.invert_links
 Warning--to sort, need author or key in wiki.facetted_search
 Warning--to sort, need author or key in wiki.mapreduce
-You've used 12 entries,
+Warning--to sort, need author or key in dbengines
+You've used 15 entries,
             2543 wiz_defined-function locations,
-            616 strings with 6125 characters,
-and the built_in function-call counts, 4596 in all, are:
-= -- 427
-> -- 141
-< -- 19
-+ -- 50
-- -- 45
-* -- 290
-:= -- 649
-add.period$ -- 32
-call.type$ -- 12
-change.case$ -- 56
-chr.to.int$ -- 8
-cite$ -- 20
-duplicate$ -- 233
-empty$ -- 423
-format.name$ -- 56
-if$ -- 1042
-int.to.chr$ -- 5
+            629 strings with 6467 characters,
+and the built_in function-call counts, 5819 in all, are:
+= -- 542
+> -- 186
+< -- 23
++ -- 66
+- -- 60
+* -- 370
+:= -- 820
+add.period$ -- 40
+call.type$ -- 15
+change.case$ -- 71
+chr.to.int$ -- 10
+cite$ -- 25
+duplicate$ -- 291
+empty$ -- 532
+format.name$ -- 73
+if$ -- 1319
+int.to.chr$ -- 6
 int.to.str$ -- 0
-missing$ -- 16
-newline$ -- 59
-num.names$ -- 24
-pop$ -- 128
+missing$ -- 20
+newline$ -- 73
+num.names$ -- 30
+pop$ -- 164
 preamble$ -- 1
-purify$ -- 76
+purify$ -- 96
 quote$ -- 0
-skip$ -- 185
+skip$ -- 231
 stack$ -- 0
-substring$ -- 236
-swap$ -- 74
-text.length$ -- 19
+substring$ -- 304
+swap$ -- 93
+text.length$ -- 23
 text.prefix$ -- 3
 top$ -- 0
-type$ -- 64
-warning$ -- 4
-while$ -- 36
-width$ -- 17
-write$ -- 146
+type$ -- 80
+warning$ -- 5
+while$ -- 46
+width$ -- 20
+write$ -- 181
 (There were 5 warnings)

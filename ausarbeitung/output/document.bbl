@@ -1,6 +1,12 @@
-\begin{thebibliography}{BYRN10}
+\begin{thebibliography}{BYRN10b}
 
-\bibitem[BYRN10]{baeza_yates.107}
+\bibitem[BYRN10a]{baeza_yates.search_interfaces}
+Ricardo Baeza-Yates and Berthier Ribeiro-Neto.
+\newblock {\em Modern Information Retrieval: The concepts and technology behind
+  search}, chapter Chapter 2.3: Search Interfaces Today, pages 25--40.
+\newblock Pearson, 2010.
+
+\bibitem[BYRN10b]{baeza_yates.107}
 Ricardo Baeza-Yates and Berthier Ribeiro-Neto.
 \newblock {\em Modern Information Retrieval: The concepts and technology behind
   search}, chapter Chapter 3.5: Alternative Probabilistic Models, page 107.
@@ -17,6 +23,12 @@ W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
 \newblock {\em Search Engines Information Retrieval in Practice}, chapter
   Chapter 2: Architecture of a Search Engine, pages 13--30.
 \newblock Pearson, 2009.
+
+\bibitem[dbe]{dbengines}
+Db-engines ranking of search engines.
+\newblock [Online erhältlich unter
+  \url{https://db-engines.com/en/ranking/search+engine}. Abgerufen am
+  29.03.2018].
 
 \bibitem[EF11]{nosql.mapreduce}
 Stefan Edlich and Achim Friedland.
@@ -35,6 +47,11 @@ Christopher~D. Manning, Prabhakar Raghavan, and Hinrich Schütze.
 \newblock {\em An Introduction to Information Retrieval}, chapter Chapter 20:
   Web crawling and indexes, pages 443--459.
 \newblock Cambridge University Press, 2009.
+
+\bibitem[NSP17]{kafka.foreword}
+Neha Narkhede, Gwen Shapira, and Todd Palino.
+\newblock {\em Kafka: The Definitive Guide}, chapter Foreword, pages xi--xiii.
+\newblock O'Reilly UK Ltd., 2017.
 
 \bibitem[nut13]{nutch.invert_links}
 Apache nutch documentation: invertlinks, 2013.
