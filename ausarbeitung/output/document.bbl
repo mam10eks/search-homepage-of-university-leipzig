@@ -6,17 +6,29 @@ Ricardo Baeza-Yates and Berthier Ribeiro-Neto.
   search}, chapter Chapter 3.5: Alternative Probabilistic Models, page 107.
 \newblock Pearson, 2010.
 
-\bibitem[CMS09a]{croft.chap2}
+\bibitem[CMS09a]{croft.chap3}
+W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
+\newblock {\em Search Engines Information Retrieval in Practice}, chapter
+  Chapter 3: Crawls and Feeds, pages 31--73.
+\newblock Pearson, 2009.
+
+\bibitem[CMS09b]{croft.chap2}
 W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
 \newblock {\em Search Engines Information Retrieval in Practice}, chapter
   Chapter 2: Architecture of a Search Engine, pages 13--30.
 \newblock Pearson, 2009.
 
-\bibitem[CMS09b]{croft.chap3}
-W.~Bruce Croft, Donald Metzler, and Trevor Strohman.
-\newblock {\em Search Engines Information Retrieval in Practice}, chapter
-  Chapter 3: Crawls and Feeds, pages 31--73.
-\newblock Pearson, 2009.
+\bibitem[EF11]{nosql.mapreduce}
+Stefan Edlich and Achim Friedland.
+\newblock {\em NoSQL: Einstieg in die Welt nichtrelationaler Web 2.0
+  Datenbanken}, chapter Chapter 2.1: Map/Reduce, pages 12--30.
+\newblock Carl Hanser Verlag GmbH \& Co. KG, 2011.
+
+\bibitem[Lam11]{hadoop.mapreduce}
+Chuck Lam.
+\newblock {\em Hadoop In Action}, chapter Chapter 1.5: Understanding MapReduce,
+  pages 8--14.
+\newblock Wiley India, 2011.
 
 \bibitem[MRS09]{manning.chap20}
 Christopher~D. Manning, Prabhakar Raghavan, and Hinrich Schütze.
@@ -40,5 +52,10 @@ Free software license --- {W}ikipedia{,} the free encyclopedia, 2018.
 Free software license --- {W}ikipedia{,} the free encyclopedia, 2018.
 \newblock [Online erhältlich unter
   \url{https://de.wikipedia.org/wiki/Facettensuche}. Abgerufen am 25.03.2018].
+
+\bibitem[wik18c]{wiki.mapreduce}
+Mapreduce --- {W}ikipedia{,} the free encyclopedia, 2018.
+\newblock [Online erhältlich unter
+  \url{https://de.wikipedia.org/wiki/MapReduce}. Abgerufen am 22.03.2018].
 
 \end{thebibliography}

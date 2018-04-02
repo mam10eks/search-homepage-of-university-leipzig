@@ -12,7 +12,7 @@ Die in der Problembeschreibung~\ref{} dargestellte Beschränkung auf die Website
 vereinfacht dieses, im Allgemeinen sehr anspruchsvolle, Problem und wird als Site Search bezeichnet~\cite{croft.chap2}.
 
 Im Rahmen dieser Arbeit wurde zur Erzeugung der Dokumentensammlung die Freie Software~\cite{wiki.free_license}
-Apache Nutch\footnote{Nutch ist~\href{https://github.com/apache/nutch/blob/master/LICENSE.txt}{unter Apache Version 2.0 lizensiert}}
+Apache Nutch\footnote{Nutch ist~\href{https://github.com/apache/nutch/blob/master/LICENSE.txt}{unter Apache Version 2.0 lizensiert}.}
 verwendet.
 Nutch übernahm dabei sowohl die Aufgaben eines Crawlers\footnote{Der finale Crawling Durchgang benötigte 14 Tage um 390 000 Dokumente in 50GB zu sammeln.}
 als auch die unmittelbar folgenden Schritte bis einschließlich der Indexerzeugung.
@@ -30,9 +30,14 @@ Dabei werden Seiten, welchen eine höhere Wichtigkeit vorhergesagt wird, zeitige
 Aufgrund begrenzter Ressourcen wurde diese Idee weiter verschärft,
 so dass bestimmte Seiten erst gar nicht gecrawlt wurden.
 Dies betrifft Seiten, welche nicht direkt zur Universität gehören,
-sowie Spider-Traps\footnote{TBA, Kalender mit \cite{}},
-umfangreiche Webanwendungen\footnote{Wortschatz, Wörterbücher, Semantic-Web-Anwendungen},
-oder auch vollständige Suchmaschinen\footnote{Dokumentenserver für Abschlussarbeiten} innerhalb der Universität.
+sowie Spider-Traps\footnote{Zum Beispiel ein
+\href{http://www.informatik.uni-leipzig.de/~meyer/?d=15}{Kalender mit dynamisch erzeugten Links}.},
+umfangreiche Webanwendungen\footnote{Zum Beispiel die 
+\href{http://wortschatz.uni-leipzig.de/de}{Wortschatz}-, verschiedene 
+\href{http://www.informatik.uni-leipzig.de/~duc/TD/td/index.php?bpos=72&db=ev}{Wörterbuch}-, oder auch
+\href{http://pcai003.informatik.uni-leipzig.de/kosemnet/}{Semantic-Web}-Anwendungen.},
+oder auch vollständige Suchmaschinen\footnote{Zum Beispiel ein
+\href{http://lips.informatik.uni-leipzig.de/}{Dokumentenserver für Abschlussarbeiten}.} innerhalb der Universität.
 
 Insbesondere für die letzteren besteht die Herausforderung darin,
 genug Informationen über Existenz und Einsatzzweck einer solchen Seite zu sammeln,
@@ -79,7 +84,8 @@ Um dies in vereinfachter Form durchzuführen,
 wurde ein Statistik-Plugin für Nutch implementiert\footnote{Das Statistik-Plugin kann in dem
 \href{https://github.com/DaniloMorgado/url_statistic_plugin}{entsprechenden Github-Repository} eingesehen werden.}.
 Dieses Plugin identifiziert mittels
-Map-Reduce\footnote{Einführungen in das Map-Reduce-Paradigma können hier eingesehen werden \cite{}, \cite{}, \cite{}}
+Map-Reduce\footnote{Einführungen in das Map-Reduce-Paradigma können hier eingesehen werden: \cite{wiki.mapreduce},
+\cite{nosql.mapreduce}, \cite{hadoop.mapreduce}.}
 Bereiche für die der Crawler besonders aktiv wird.
 Dazu werden alle bekannten URLs durch Entfernung
 von Queries oder Fragmenten normalisiert, und in ihre Bestandteile wie Schema, Host und Pfad zerlegt.
@@ -95,7 +101,7 @@ Die Reduce Phase summiert alle eintreffenden Paare bestehend aus Link-Bestandtei
 	
 In der Ausgabe des Statistik-Plugins können schließlich sinnvoll Problemfälle identifiziert
 werden\footnote{Neben den in Beispiel~\ref{example:document_server} hervorgehobenen Problemen sei hier noch auf potentiell fehlende Seiten hingewießen.
-Diese können durch einen Vergleich der aufsummierten Linkbestandteile mit der Anzahl der von Google indexierten Seiten entdeckt werden}.
+Diese können durch einen Vergleich der aufsummierten Linkbestandteile mit der Anzahl der von Google indexierten Seiten entdeckt werden.}.
 Um dies effizient durchführen zu können,
 bietet es sich an, dieses Plugin als Eingabe für existierende Standardwerkzeuge zu nutzen.
 So erlaubt die nach Anzahl sortierte sowie durch einen Mindest-Threshold und White-List gefilterte Ausgabe
@@ -107,13 +113,14 @@ Darunter versteht man eine Liste von requlären Ausdrücken, welche jeweils um e
 Für eine URL werden die regulären Ausdrücke dann der Reihe nach ausgewertet.
 Der erste passende Ausdruck entscheidet, ob eine URL gecrawlt werden darf (falls der zugehörige Ausdruck positiv markiert ist),
 oder nicht\footnote{Aus diesem Grund ist es üblich, 
-die Liste der Ausdrücke mit einem entsprechendem immer zutreffendem Eintrag abzuschließen}.
+die Liste der Ausdrücke mit einem entsprechendem immer zutreffendem Eintrag abzuschließen.}.
 
 Die in Nutch vordefinierten Regex-Url-Filter verfolgen das Ziel,
-das Crawling auf sinnvolle Protokolle\footnote{HTTP, kein...} und Dokument-Typen\footnote{Html-Seiten, keine CSS-Resourcen, Bilder oder Videos} zu beschränken.
+das Crawling auf sinnvolle Protokolle\footnote{HTTP, kein mailto- oder file-Protokoll.}
+und Dokument-Typen\footnote{Html-Seiten, keine CSS-Resourcen, Bilder oder Videos.} zu beschränken.
 Um diese Filter systematisch korrekt zu erweitern wurde ein
 Testgetriebenes Vorgehen gewählt\footnote{Die Implementierung findet
-sich in dem Github-Repository \href{https://github.com/mam10eks/check-nutch-regex-urlfilter}{check-nutch-regex-urlfilter}}.
+sich in dem Github-Repository \href{https://github.com/mam10eks/check-nutch-regex-urlfilter}{check-nutch-regex-urlfilter}.}.
 Dieses zeichnet sich durch die Möglichkeit aus, einzelne Bereiche getrennt voneinander zu konfigurieren, ohne ungewünschte Seiteneffekte zu erwarten.
 
 Nach dem \href{https://de.wikipedia.org/wiki/Teile-und-herrsche-Verfahren}{Teile-und-herrsche-Verfahren} werden
@@ -156,7 +163,8 @@ Dafür wird im ersten Schritt eine sogenannte Conversion durchgeführt~\cite{cro
 Dabei werden im vorliegenden Fall gecrawlte Dokumente,
 welche in den unterschiedlichsten Formaten vorliegen können\footnote{Häufigstes Format war HTML, aber auch PDF, Word oder Power Point waren vertreten.}
 in ein einheitliches Format umgewandelt.
-Auf eine mögliche Reduzierung der Dokumente auf deren Main-Content wurde verzichtet\footnote{Die Extraktion des Main-Content ist mit Apache Tika
+Auf eine mögliche Reduzierung der Dokumente auf deren Main-Content wurde
+verzichtet\footnote{Die Extraktion des Main-Content ist mit Apache Tika
 unmittelbar möglich. Jedoch erschien es plausibel, dass für die gecrawlten Webseiten mit vergleichsweiße wenig Rauschen zu rechnen ist.}.
 Realisiert wurde die Conversion mit \href{https://en.wikipedia.org/wiki/Apache_Tika}{Apache Tika}.
 
@@ -177,8 +185,9 @@ Der so erzeugte Index kann unmittelbar in Lucene eingesetzt werden.
 
 Die hier beschriebene Erzeugung des Index aus den gecrawlten Dokumenten ist von vielen Parametern abhängig.
 Dadurch wird eine häufige Wiederholung dieses Prozesses sinnvoll, um die Auswirkung von Anpassungen an verschiedenen Parametern zu prüfen.
-Um den Aufwand dafür gering zu halten, wurde der komplette Workflow reproduzierbar automatisiert\footnote{Das entsprechende Github-Repository mit
-den Scripten und der Konfiguration ist \href{https://github.com/mam10eks/nutch_tools/}{Nutch-Tools}}.
+Um den Aufwand dafür gering zu halten, wurde der komplette Workflow reproduzierbar automatisiert\footnote{Das
+entsprechende Github-Repository mit
+den Scripten und der Konfiguration ist \href{https://github.com/mam10eks/nutch_tools/}{Nutch-Tools}.}.
 
 Dafür wird als Eingabe eine Menge von Nutch-Crawl-Directories erwartet.
 Diese werden im ersten Schritt bereinigt, um ein erneutes Parsing der rohen Dokumente durchzuführen.
