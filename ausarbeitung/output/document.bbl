@@ -42,6 +42,18 @@ Apache nutch documentation: invertlinks, 2013.
   \url{https://wiki.apache.org/nutch/bin/nutch%20invertlinks}. Abgerufen am
   25.03.2018].
 
+\bibitem[Wal14a]{spring.chap1.1}
+Graig Walls.
+\newblock {\em Spring In Action}, chapter Chapter 1.1: Simplifying Java
+  development, pages 4--18.
+\newblock Manning, 2014.
+
+\bibitem[Wal14b]{spring.chap4.1}
+Graig Walls.
+\newblock {\em Spring In Action}, chapter Chapter 4.1: What is aspect-oriented
+  programming, pages 98--103.
+\newblock Manning, 2014.
+
 \bibitem[wik18a]{wiki.free_license}
 Free software license --- {W}ikipedia{,} the free encyclopedia, 2018.
 \newblock [Online erhältlich unter
