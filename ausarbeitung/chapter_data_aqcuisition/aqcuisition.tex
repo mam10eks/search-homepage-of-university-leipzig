@@ -88,15 +88,35 @@ Map-Reduce\footnote{Einführungen in das Map-Reduce-Paradigma können hier einge
 \cite{nosql.mapreduce}, \cite{hadoop.mapreduce}.}
 Bereiche für die der Crawler besonders aktiv wird.
 Dazu werden alle bekannten URLs durch Entfernung
-von Queries oder Fragmenten normalisiert, und in ihre Bestandteile wie Schema, Host und Pfad zerlegt.
-Beispiel~\ref{example:statistic_plugin} zeigt für die in
+von Queries oder Fragmenten normalisiert, und in ihre hierarchischen Bestandteile zerlegt.
+Beispiel~\ref{example:statistic_plugin} zeigt dies für eine Auswahl der in
 Beispiel~\ref{example:document_server} besprochenen Links,
 wie durch aufsummieren dieser Bestandteile die Ausgabe des Plugins erzeugt wird.
 
 \begin{example}[Berechnungsschritte des Statistik-Plugins]{example:statistic_plugin}
-Die Map-Phase nimmt die Normalisierung der Links, sowie eine Umwandlung in die hierarchischen Bestandteile vor: \textbf{TODO MAIK BEISPIEL}
+Die Map-Phase nimmt die Normalisierung der Links, sowie eine Umwandlung in die hierarchischen Bestandteile vor:\\
 
-Die Reduce Phase summiert alle eintreffenden Paare bestehend aus Link-Bestandteil und count: \textbf{TODO MAIK BEISPIEL}
+http://lips.informatik.uni-leipzig.de/pub/2017-0\\
+$\rightarrow$ \\
+$[$(http://lips.informatik.uni-leipzig.de, 1),\\
+(http://lips.informatik.uni-leipzig.de/pub, 1),\\
+(http://lips.informatik.uni-leipzig.de/pub/2017-0, 1)$]$\\
+
+http://lips.informatik.uni-leipzig.de/files/thesis.pdf\\
+$\rightarrow$\\
+$[$
+(http://lips.informatik.uni-leipzig.de, 1), \\
+(http://lips.informatik.uni-leipzig.de/files, 1), \\
+(http://lips.informatik.uni-leipzig.de/files/thesis.pdf, 1)
+$]$\\
+
+Die Reduce Phase summiert alle eintreffenden Paare bestehend aus Link-Bestandteil und count:\\
+
+$[$
+(http://lips.informatik.uni-leipzig.de, 2), \\
+(http://lips.informatik.uni-leipzig.de/pub, 1), \\
+...
+$]$
 \end{example}
 	
 In der Ausgabe des Statistik-Plugins können schließlich sinnvoll Problemfälle identifiziert
@@ -244,9 +264,21 @@ Algorithmus~\ref{alg:text_profile} zeigt dies im Pseudocode.
 In Beispiel~\ref{example:text_profile} wird der Fingerprint für einen Text berechnet.
 
 \begin{example}[Berechnung des Fingerprints mittels TextProfileSignature]{example:text_profile}
+	\textbf{Eingabe:}\\
+		$\mathcal{D}$ $=$ \glqq Tropical fish include fish found in tropical environments around the world,
+			including both freshwater and salt water species.\grqq,
+		MINLENGTH $=$ $2$, QuantRate $=$ $0.01$\\
+	
+	\textbf{Tokenisierung und Filterung nach Wortlänge:}\\
+		$\{$ (include, 1), (including, 1), (salt, 1), (environments, 1), (around, 1), (water, 1),
+			(both, 1), (tropical, 2), (the, 1), (found, 1), (world, 1), (species, 1), (and, 1), (fish, 2), (freshwater, 1) $\}$\\
 
-	\textbf{TODO MAIK}
-
+	\textbf{Filtere Einträge, deren Quantity unter Threshold liegt:}\\
+		textProfile $=$ $\{$ (tropical, 2), (fish, 2) $\}$\\
+	
+	\textbf{Berechne Signatur:}\\
+		sort(textProfile)\\
+		textProfileSignature $=$ md5Hash(textProfile)
 \end{example}
 
 Nach der Zuweißung des Fingerprints werden entsprechend dem Discovery Scenario alle Paare von Fast-Duplikaten
