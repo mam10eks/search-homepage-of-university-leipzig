@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.10.6)  4 APR 2018 10:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.10.6)  4 APR 2018 10:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2401,24 +2401,24 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--6
+Underfull \hbox (badness 10000) in paragraph at lines 2--7
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 7--10
+Underfull \hbox (badness 10000) in paragraph at lines 12--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 11--13
+Underfull \hbox (badness 10000) in paragraph at lines 22--24
 
  []
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 17.
-Package mdframed Info: Not enough space on this page on input line 17.
+(mdframed)              on input line 28.
+Package mdframed Info: Not enough space on this page on input line 28.
 ))
 Package babel Info: Redefining german shorthand "f
 (babel)             in language  on input line 63.
@@ -2690,17 +2690,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 77.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 77.
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 77.
  ) 
 Here is how much of TeX's memory you used:
- 46370 strings out of 493013
- 1011130 string characters out of 6135682
- 1270801 words of memory out of 5000000
- 48817 multiletter control sequences out of 15000+600000
+ 46367 strings out of 493013
+ 1011070 string characters out of 6135682
+ 1270734 words of memory out of 5000000
+ 48814 multiletter control sequences out of 15000+600000
  74396 words of font info for 187 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  76i,12n,100p,10438b,945s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2716,7 +2712,7 @@ urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic
 /uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on output/document.pdf (21 pages, 353835 bytes).
+Output written on output/document.pdf (21 pages, 356347 bytes).
 PDF statistics:
  481 PDF objects out of 1000 (max. 8388607)
  428 compressed objects within 5 object streams
