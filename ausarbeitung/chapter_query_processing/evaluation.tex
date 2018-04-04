@@ -5,42 +5,42 @@ Insbesondere zur Aufzeichnung des Nutzerverhaltens ist eine Identifikation der N
 Darauf aufbauend kann protokolliert werden, welcher Nutzer welche Anfragen ausgeführt
 hat, welche Ergebnisseiten oder Query-Suggestions einem Nutzer präsentiert wurden,
 sowie gegebenenfalls welche Ergebnisse oder Query Suggestions ausgewählt
-wurden\footnote{Das erweitern dieser Informationen um die entsprechenden Event-Zeitpunkte erlaubt eine
+wurden\footnote{Das Erweitern dieser Informationen um die entsprechenden Event-Zeitpunkte erlaubt eine
 sinnvolle Rekonstruktion des Nutzerverhaltens.}.
 
 Bei einer technischen Realisierung dieser Punkte fällt auf,
 dass es sich um sogenannte \href{https://de.wikipedia.org/wiki/Cross-Cutting_Concern}{Cross-Cutting Concerns}
 handelt. Ein bewährtes Mittel derartige Funktionalitäten zu realisieren, ohne die
-Komplexität der betroffenen Systemteile unnötig zu ehöhen,
+Komplexität der betroffenen Systemteile unnötig zu erhöhen,
 stellt die Aspektorientierte Programmierung\footnote{AOP} dar\cite{spring.chap1.1}.
 Die darin verwendeten Aspekte definieren,
 was\footnote{In der zugehörigen AOP Terminologie definiert der zu einem Aspekt gehörende Advice die Aufgabe,
 also was von dem Aspekt zu erledigen ist~\cite{spring.chap4.1}.}, wann\footnote{Der Advice eines Aspekts definiert 
 neben dem was auch zu welchen Zeitpunkten ein Aspekt auszuführen ist.
-Unter anderem kann vor, nach, oder das wrappen einer Zielmethode spezifiziert werden\cite{spring.chap4.1}.}
+Unter anderem kann vor, nach oder das Wrappen einer Zielmethode spezifiziert werden\cite{spring.chap4.1}.}
 und wo\footnote{Durch sogenannte Pointcuts werden eine oder mehrere Methoden definiert,
 an die der Advice gewoben wird\cite{spring.chap4.1}.} auszuführen ist\cite{spring.chap4.1}.
 
-In dem für die Interaction-Komponente verwendeten Framework werden alle Endpunkte über speziell anotierte Methoden
+In dem für die Interaction-Komponente verwendeten Framework werden alle Endpunkte über speziell annotierte Methoden
 bereitgestellt.
 Diesen ist gemein, dass sie ein
 \href{https://de.wikipedia.org/wiki/Plain_Old_Java_Object}{POJO}\footnote{Diese sind 
 entsprechend einer gewählten Konvention in dem 
 \href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/search-engine-backend}{Backend-Modul}
 in zugehörigen \href{https://de.wikipedia.org/wiki/Transferobjekt}{dto} Paketen definiert.}
-als Model für die Antwort zurückgeben. 
+als Modell für die Antwort zurückgeben. 
 Dieses Modell wird je nach Endpunkt später in ein HTML-Template\footnote{Spezifiziert innerhalb des 
 \href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/search-engine-backend/src/main/resources/templates}
 {templates-Ordner in dem Backend-Modul}.} gerendert oder
 JSON-serialisiert.
 
-Unter diesen Vorraussetzungen eignen sich diese Methoden hervorragend,
+Unter diesen Voraussetzungen eignen sich diese Methoden hervorragend,
 um sie durch Aspekte um die gewünschten Funktionalitäten zu erweitern\footnote{Schließlich lassen
-sie sich eindeutig und generisch über die notwendigen Endpunkt-Anotationen
+sie sich eindeutig und generisch über die notwendigen Endpunkt-Annotationen
 identifizieren.}.
 Dazu wird ein Effizienz-, ein User-Identification-, sowie ein Logging-Aspekt eingesetzt.
-Der Effizienz-Aspekt misst dabei Beispielhaft für weitere Systemmetriken die Bearbeitungszeit von Anfragen,
-und erweitert das zurückgegebene Model entsprechend.
+Der Effizienz-Aspekt misst dabei beispielhaft für weitere Systemmetriken die Bearbeitungszeit von Anfragen,
+und erweitert das zurückgegebene Modell entsprechend.
 Der User-Identification-Aspekt stellt
 vor dem Aufruf jeder Endpunkt-Methode sicher, dass der Request mit einer
 eindeutigen Identifikation des Nutzers versehen ist.
@@ -51,7 +51,7 @@ POJO-Model\footnote{Mit diesem Vorgehen lassen sich alle angesprochenen Informat
 da insbesondere die Links zu den Dokumenten auf dem Server durch Weiterleitungen aufgelöst werden.}.
 
 Die vom Logging-Aspekt protokollierten Informationen können sowohl
-Online\footnote{Beispielhaft wurde das im Rahmen dieser Arbeit für die Query-Suggestions vorgenommen.},
+Online\footnote{Beispielhaft wurde das im Rahmen dieser Arbeit für die Query-Suggestions vorgenommen.}
 als auch Offline analysiert werden.
 Um beides zu ermöglichen, wurde mit \href{https://kafka.apache.org/}{Apache Kafka}
 eine Streaming Platform mit der Möglichkeit zur persistenten Datenhaltung~\cite{kafka.foreword} eingesetzt.

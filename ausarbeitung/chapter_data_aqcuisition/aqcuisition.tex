@@ -3,20 +3,20 @@
 
 Die in einer Dokumentensammlung enthaltenen Informationen bestimmen die Sinnhaftigkeit
 einer Suchmaschine basierend auf diesen Dokumenten in besonderem Maße~\cite{croft.chap3}.
-Dementsprechend stellt eine geeignete, mit vertretbarem Aufwand durchführbare,
+Dementsprechend stellt eine geeignete, mit vertretbarem Aufwand durchführbare
 Erzeugung dieser Dokumentensammlung den Anfang der Wertschöpfungskette dar.
 
 Die im Kontext von Web-Suchmaschinen dafür benötigten Programme werden Crawler genannt~\cite{croft.chap3}.
 Diese beschäftigen sich damit, Webseiten zu finden und herunterzuladen, um sie für spätere Verarbeitungsschritte lokal Verfügbar zu haben.
 Die in der \hyperref[sec:intro]{Problembeschreibung} dargestellte Beschränkung auf die Website der Universität Leipzig
-vereinfacht dieses, im Allgemeinen sehr anspruchsvolle, Problem und wird als Site Search bezeichnet~\cite{croft.chap2}.
+vereinfacht dieses, im Allgemeinen sehr anspruchsvolle Problem, und wird als Site Search bezeichnet~\cite{croft.chap2}.
 
-Im Rahmen dieser Arbeit wurde zur Erzeugung der Dokumentensammlung die Freie Software~\cite{wiki.free_license}
+Im Rahmen dieser Arbeit wurde zur Erzeugung der Dokumentensammlung die freie Software~\cite{wiki.free_license}
 Apache Nutch\footnote{Nutch ist~\href{https://github.com/apache/nutch/blob/master/LICENSE.txt}{unter Apache Version 2.0 lizensiert}.}
 verwendet.
 Nutch übernahm dabei sowohl die Aufgaben eines Crawlers\footnote{Der finale Crawling-Durchgang benötigte 14 Tage um 390 000 Dokumente in 50GB zu sammeln.}
 als auch die unmittelbar folgenden Schritte bis einschließlich der Indexerzeugung.
-Im folgenden werden verschiedene, während der Arbeit angewandten Anpassungen und Vereinfachungen des von Nutch bereitgestellten
+Im Folgenden werden verschiedene, während der Arbeit angewandten Anpassungen und Vereinfachungen des von Nutch bereitgestellten
 Workflows vorgestellt.
  
 \subsection{Domänenspezifische, manuell gepflegte Selectivity}
@@ -39,7 +39,7 @@ umfangreiche Webanwendungen\footnote{Zum Beispiel die
 oder auch vollständige Suchmaschinen\footnote{Zum Beispiel ein
 \href{http://lips.informatik.uni-leipzig.de/}{Dokumentenserver für Abschlussarbeiten}.} innerhalb der Universität.
 
-Insbesondere für die letzteren besteht die Herausforderung darin,
+Insbesondere für die Letzteren besteht die Herausforderung darin,
 genug Informationen über Existenz und Einsatzzweck einer solchen Seite zu sammeln,
 ohne gleichzeitig unnötig vielen dynamisch erzeugten Links zu folgen.
 Beispiel~\ref{example:document_server} beschreibt dies am Fall eines Dokumentenservers.
@@ -59,7 +59,7 @@ Dazu werden alle bekannten URLs durch Entfernung
 von Queries oder Fragmenten normalisiert, und in ihre hierarchischen Bestandteile zerlegt.
 Beispiel~\ref{example:statistic_plugin} zeigt dies für eine Auswahl der in
 Beispiel~\ref{example:document_server} besprochenen Links,
-wie durch aufsummieren dieser Bestandteile die Ausgabe des Plugins erzeugt wird.
+wie durch Aufsummieren dieser Bestandteile die Ausgabe des Plugins erzeugt wird.
 
 \input{chapter_data_aqcuisition/example_statistic_plugin.tex}
 
@@ -72,39 +72,39 @@ So erlaubt die nach Anzahl sortierte sowie durch einen Mindest-Threshold und Whi
 auf den ersten Blick potentielle Probleme zu identifizieren.
 
 Im nächsten Schritt ist es notwendig, diese Problemfälle zu behandeln.
-Eine einfache, aber effiziente, Möglichkeit, dies umzusetzen, wird in Nutch in Form von \href{https://github.com/apache/nutch/blob/master/conf/regex-urlfilter.txt.template}{Regex-Url-Filtern} bereitgestellt.
+Eine einfache, aber effiziente Möglichkeit, dies umzusetzen, wird in Nutch in Form von \href{https://github.com/apache/nutch/blob/master/conf/regex-urlfilter.txt.template}{Regex-URL-Filtern} bereitgestellt.
 Darunter versteht man eine Liste von requlären Ausdrücken, welche jeweils um eine positive oder negative Markierung erweitert sind.
 Für eine URL werden die regulären Ausdrücke dann der Reihe nach ausgewertet.
 Der erste passende Ausdruck entscheidet, ob eine URL gecrawlt werden darf (falls der zugehörige Ausdruck positiv markiert ist),
 oder nicht\footnote{Aus diesem Grund ist es üblich, 
 die Liste der Ausdrücke mit einem entsprechendem immer zutreffendem Eintrag abzuschließen.}.
 
-Die in Nutch vordefinierten Regex-Url-Filter verfolgen das Ziel,
+Die in Nutch vordefinierten Regex-URL-Filter verfolgen das Ziel,
 das Crawling auf sinnvolle Protokolle\footnote{HTTP, kein mailto- oder file-Protokoll.}
-und Dokument-Typen\footnote{Html-Seiten, keine CSS-Resourcen, Bilder oder Videos.} zu beschränken.
+und Dokumenttypen\footnote{HTML-Seiten, keine CSS-Resourcen, Bilder oder Videos.} zu beschränken.
 Um diese Filter systematisch korrekt zu erweitern wurde ein
-Testgetriebenes Vorgehen gewählt\footnote{Die Implementierung findet
+testgetriebenes Vorgehen gewählt\footnote{Die Implementierung befindet
 sich in dem Github-Repository \href{https://github.com/mam10eks/check-nutch-regex-urlfilter}{check-nutch-regex-urlfilter}.}.
-Dieses zeichnet sich durch die Möglichkeit aus, einzelne Bereiche getrennt voneinander zu konfigurieren, ohne ungewünschte Seiteneffekte zu erwarten.
+Dieses zeichnet sich durch die Möglichkeit aus, einzelne Bereiche getrennt voneinander zu konfigurieren, ohne ungewünschte Seiteneffekte zu erzeugen.
 
 Nach dem \href{https://de.wikipedia.org/wiki/Teile-und-herrsche-Verfahren}{Teile-und-herrsche-Verfahren} werden
 diesbezüglich für kleine Bereiche der zu crawlenden Webseiten einzeln anhand von Beispielen Konfigurationen vorgenommen.
-Dafür werden für diesen Bereich Positiv- und Negativ-Beispiele in Form von Urls zusammengetragen.
-Im nächsten Schritt werden die für diese Beispiele passenden Regex-Url-Regeln aufgestellt.
+Dafür werden für diesen Bereich Positiv- und Negativ-Beispiele in Form von URLs zusammengetragen.
+Im nächsten Schritt werden die für diese Beispiele passenden Regex-URL-Regeln aufgestellt.
 Diese verfolgen das Ziel, dass sie sich für alle Positivbeispiele zu positiv auswerten, und für alle Negativbeispiele entsprechend zu negativ.
-Beispiel~\ref{example:regex_url} verdeutlicht dies für die aus Beispiel~\ref{example:document_server} bekannten Urls.
+Beispiel~\ref{example:regex_url} verdeutlicht dies für die aus Beispiel~\ref{example:document_server} bekannten URLs.
 
 Die Konfigurationen der einzelnen Bereiche werden schließlich \href{https://de.wikipedia.org/wiki/Top-down_und_Bottom-up}{Bottom-up} zu einer einzigen 
-Url-Filter-Liste vereinigt.
+URL-Filter-Liste vereinigt.
 Für diese Liste werden anschließend alle Positiv- und Negativ-Beispiele evaluiert.
-Nur wenn dabei für alle Beispiele das spezifizierte Verhalten beobachtet wird, ist diese Url-Liste valide und kann verwendet werden.
+Nur wenn dabei für alle Beispiele das spezifizierte Verhalten beobachtet wird, ist diese URL-Liste valide und kann verwendet werden.
 
 \input{chapter_data_aqcuisition/example_regex_url.tex}
 
-Durch diese Hilfswerkzeuge wurde im Rahmen der Arbeit die Site der Universität Leipzig anhand ihrer Fakultäten auf die einzelnen Bearbeiter aufgeteilt.
-Mit einer Reihe von Probe-Crawlings konnte die vollständige Regex-Url-Filter-Liste erstellt werden.
+Durch diese Hilfswerkzeuge wurde im Rahmen der Arbeit die Website der Universität Leipzig anhand ihrer Fakultäten auf die einzelnen Bearbeiter aufgeteilt.
+Mit einer Reihe von Probe-Crawlings konnte die vollständige Regex-URL-Filter-Liste erstellt werden.
 Mithilfe dieser Vorbereitung konnten die für den Index verwendeten Dokumente unterbrechungsfrei gecrawlt werden.
-Dafür konnten die entstandenen Positiv-Beispiele direkt als \href{https://wiki.apache.org/nutch/NutchTutorial#Create_a_URL_seed_list-1}{Seeds} eingesetzt werden.
+Dafür konnten die entstandenen Positivbeispiele direkt als \href{https://wiki.apache.org/nutch/NutchTutorial#Create_a_URL_seed_list-1}{Seeds} eingesetzt werden.
 
 \subsection{Reproduzierbare Erzeugung eines Lucene Index mit Docker und Solr}
 
@@ -167,17 +167,16 @@ Abbildung~\ref{fig:grouped_sim} stellt dies an einem Beispiel dar.
 
 Um dies zu ermöglichen, müssen zuerst die (Fast-)Duplikate identifiziert werden.
 Dafür wurde das
-\href{https://github.com/apache/nutch/blob/master/src/java/org/apache/nutch/crawl/TextProfileSignature.java}{TextProfileSignature}
--Verfahren verwendet.
-Dieser Algorithmus weißt einem Dokument einen Fingerprint zu.
+\href{https://github.com/apache/nutch/blob/master/src/java/org/apache/nutch/crawl/TextProfileSignature.java}{TextProfileSignature}-Verfahren verwendet.
+Dieser Algorithmus weist einem Dokument einen Fingerprint zu.
 Dabei werden ähnliche Dokumenten auf den gleichen Wert abgebildet.
 Algorithmus~\ref{alg:text_profile} zeigt dies im Pseudocode.
 In Beispiel~\ref{example:text_profile} wird der Fingerprint für einen Text berechnet.
 
-Nach der Zuweißung des Fingerprints werden entsprechend dem Discovery Scenario alle Paare von Fast-Duplikaten
+Nach der Zuweisung des Fingerprints werden entsprechend dem Discovery Scenario alle Paare von Fast-Duplikaten
 gesucht~\cite{croft.chap3}. Durch dieses Vorgehen entstehen Gruppen ähnlicher Dokumente.
 Für jede solche Gruppe wird ein Repräsentant gewählt\footnote{Das längste Dokument wird der Vertreter.}.
-Dieser wird um die Urls der anderen Gruppenmitglieder angereichert.
+Dieser wird um die URLs der anderen Gruppenmitglieder angereichert.
 Abschließend werden die restlichen Dokumente einer Gruppe gelöscht\footnote{Die Implementierung ist in dem Modul 
 \href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/custom-index-cleaning}
 {Custom Index Cleaning} zu finden.}.
