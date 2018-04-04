@@ -1,0 +1,25 @@
+\begin{example}[Berechnungsschritte des Statistik-Plugins]{example:statistic_plugin}
+Die Map-Phase nimmt die Normalisierung der Links, sowie eine Umwandlung in die hierarchischen Bestandteile vor:\\
+
+http://lips.informatik.uni-leipzig.de/pub/2017-0\\
+$\rightarrow$ \\
+$[$(http://lips.informatik.uni-leipzig.de, 1),\\
+(http://lips.informatik.uni-leipzig.de/pub, 1),\\
+(http://lips.informatik.uni-leipzig.de/pub/2017-0, 1)$]$\\
+
+http://lips.informatik.uni-leipzig.de/files/thesis.pdf\\
+$\rightarrow$\\
+$[$
+(http://lips.informatik.uni-leipzig.de, 1), \\
+(http://lips.informatik.uni-leipzig.de/files, 1), \\
+(http://lips.informatik.uni-leipzig.de/files/thesis.pdf, 1)
+$]$\\
+
+Die Reduce Phase summiert alle eintreffenden Paare bestehend aus Link-Bestandteil und count:\\
+
+$[$
+(http://lips.informatik.uni-leipzig.de, 2), \\
+(http://lips.informatik.uni-leipzig.de/pub, 1), \\
+...
+$]$
+\end{example}

@@ -1,0 +1,33 @@
+\begin{example}[Dokumentenserver FMI]{example:document_server}
+	Der \href{http://lips.informatik.uni-leipzig.de/}{Dokumentenserver der Fakultät für Mathematik und Informatik}
+	stellt unter anderem folgende Funktionalitäten bereit:
+
+	\textbf{Den Download von Dokumenten:}\\
+	Ein Nutzer kann die im Dokumentenserver enthaltenen Dokumente herunterladen.
+	Dazu besitzt jedes Dokument eine Übersichtsseite, welche Metadaten zum Dokument bereitstellt sowie
+	einen Link zum vollständigen Dokument.
+	Beispiele dafür sind:
+	\begin{itemize}
+		\item Eine Übersichtsseite: \url{http://lips.informatik.uni-leipzig.de/pub/2017-0}
+		\item Ein Dokument: \url{http://lips.informatik.uni-leipzig.de/files/thesis.pdf}
+	\end{itemize}
+	Beide enthalten wichtige Informationen und sollten gecrawlt werden.
+
+	\textbf{Das Filtern nach Dokumenten:}\\
+	Ein Nutzer kann über eine Facettensuche~\cite{wiki.facetted_search} innerhalb der Dokumente filtern.
+	Beispiele dafür sind:
+	\begin{itemize}
+		\item Filterung nach \glqq Organisation IfI\grqq: \url{http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912}
+		\item Filterung nach \glqq Organisation IfI und Author Erhard Rahm\grqq:\\ \url{http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912%20field_authors%3A%22Rahm%2C%20Erhard%22}
+	\end{itemize}
+	Die enorme Menge an möglichen Filter-Permutationen,
+	sowie \href{http://se-pubs.dbs.uni-leipzig.de/pubs/results/0%200%200%200%20taxonomy%3A30%2C696}
+		{teilweise auftretenden Endlosschleifen} lassen den Aufwand für ein Crawling dieser Seiten als unangemessen erscheinen.
+	Dies wird abgerundet durch den Umstand, dass die oben beschriebenen Zielseiten ohne Filterung erreichbar sind.
+	Dazu ist eine Traversierung von folgenden Seiten sinnvoll:
+	\begin{itemize}
+		\item Die erste Seite einer Liste aller vorhandenen Dokumente: \url{http://lips.informatik.uni-leipzig.de/browse/results/}
+		\item Für welche nachfolgende Seiten direkt über Links zugänglich sind:
+		\url{http://lips.informatik.uni-leipzig.de/browse/results?page=4}
+	\end{itemize}
+\end{example}

@@ -1,0 +1,17 @@
+\begin{example}[Berechnung des Fingerprints mittels TextProfileSignature]{example:text_profile}
+	\textbf{Eingabe:}\\
+		$\mathcal{D}$ $=$ \glqq Tropical fish include fish found in tropical environments around the world,
+			including both freshwater and salt water species.\grqq,
+		MINLENGTH $=$ $2$, QuantRate $=$ $0.01$\\
+	
+	\textbf{Tokenisierung und Filterung nach Wortlänge:}\\
+		$\{$ (include, 1), (including, 1), (salt, 1), (environments, 1), (around, 1), (water, 1),
+			(both, 1), (tropical, 2), (the, 1), (found, 1), (world, 1), (species, 1), (and, 1), (fish, 2), (freshwater, 1) $\}$\\
+
+	\textbf{Filtere Einträge, deren Quantity unter Threshold liegt:}\\
+		textProfile $=$ $\{$ (tropical, 2), (fish, 2) $\}$\\
+	
+	\textbf{Berechne Signatur:}\\
+		sort(textProfile)\\
+		textProfileSignature $=$ md5Hash(textProfile)
+\end{example}

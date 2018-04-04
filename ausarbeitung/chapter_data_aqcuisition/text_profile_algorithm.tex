@@ -1,0 +1,26 @@
+\begin{wrapfigure}{H}{0.51\linewidth}
+	\vspace*{-0.4cm}
+
+\begin{scriptsize}
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{Input}
+	\SetKwInOut{Output}{Output}
+		       
+	\Input{ Document $\mathcal{D}$, $min$ $\in$ $\mathbb{N}^{+}$, $\mathcal{Q}$ $\in$ $\mathbb{R}$}
+	\Output{ Fingerprint for Document $\mathcal{D}$}
+
+	$\mathcal{D}$ $\gets$ removeNonAlphanumericCharacters($\mathcal{D}$)\\
+	$\mathcal{D}$ $\gets$ toLowerCase($\mathcal{D}$)\\
+	$\mathcal{T}$ $\gets$ tokenizeWithFrequencyCount($\mathcal{D}$)\\
+	$\mathcal{T}$ $\gets$ removeTokensShorterOrEqualThan($min$, $\mathcal{T}$)\\
+	$\mathcal{T}$ $\gets$ roundFreqeunciesDownToNearestMultiple($\mathcal{Q}$, $\mathcal{T}$)\\
+	$\mathcal{T}$ $\gets$ removeTokensWithTooSmallFrequency($\mathcal{Q}$, $\mathcal{T}$)\\
+
+	return md5Hash(sort($\mathcal{T}$))\\
+	\caption{Text Profile}
+	\label{alg:text_profile}
+\end{algorithm}
+\end{scriptsize}
+
+	\vspace*{-0.2cm}
+\end{wrapfigure}

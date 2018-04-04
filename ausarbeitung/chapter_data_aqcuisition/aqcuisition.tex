@@ -44,39 +44,7 @@ genug Informationen über Existenz und Einsatzzweck einer solchen Seite zu samme
 ohne gleichzeitig unnötig vielen dynamisch erzeugten Links zu folgen.
 Beispiel~\ref{example:document_server} beschreibt dies am Fall eines Dokumentenservers.
 
-\begin{example}[Dokumentenserver FMI]{example:document_server}
-	Der \href{http://lips.informatik.uni-leipzig.de/}{Dokumentenserver der Fakultät für Mathematik und Informatik}
-	stellt unter anderem folgende Funktionalitäten bereit:
-
-	\textbf{Den Download von Dokumenten:}\\
-	Ein Nutzer kann die im Dokumentenserver enthaltenen Dokumente herunterladen.
-	Dazu besitzt jedes Dokument eine Übersichtsseite, welche Metadaten zum Dokument bereitstellt sowie
-	einen Link zum vollständigen Dokument.
-	Beispiele dafür sind:
-	\begin{itemize}
-		\item Eine Übersichtsseite: \url{http://lips.informatik.uni-leipzig.de/pub/2017-0}
-		\item Ein Dokument: \url{http://lips.informatik.uni-leipzig.de/files/thesis.pdf}
-	\end{itemize}
-	Beide enthalten wichtige Informationen und sollten gecrawlt werden.
-
-	\textbf{Das Filtern nach Dokumenten:}\\
-	Ein Nutzer kann über eine Facettensuche~\cite{wiki.facetted_search} innerhalb der Dokumente filtern.
-	Beispiele dafür sind:
-	\begin{itemize}
-		\item Filterung nach \glqq Organisation IfI\grqq: \url{http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912}
-		\item Filterung nach \glqq Organisation IfI und Author Erhard Rahm\grqq:\\ \url{http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912%20field_authors%3A%22Rahm%2C%20Erhard%22}
-	\end{itemize}
-	Die enorme Menge an möglichen Filter-Permutationen,
-	sowie \href{http://se-pubs.dbs.uni-leipzig.de/pubs/results/0%200%200%200%20taxonomy%3A30%2C696}
-		{teilweise auftretenden Endlosschleifen} lassen den Aufwand für ein Crawling dieser Seiten als unangemessen erscheinen.
-	Dies wird abgerundet durch den Umstand, dass die oben beschriebenen Zielseiten ohne Filterung erreichbar sind.
-	Dazu ist eine Traversierung von folgenden Seiten sinnvoll:
-	\begin{itemize}
-		\item Die erste Seite einer Liste aller vorhandenen Dokumente: \url{http://lips.informatik.uni-leipzig.de/browse/results/}
-		\item Für welche nachfolgende Seiten direkt über Links zugänglich sind:
-		\url{http://lips.informatik.uni-leipzig.de/browse/results?page=4}
-	\end{itemize}
-\end{example}
+\input{chapter_data_aqcuisition/example_document_server.tex}
 
 Um derartige Problemfälle zu behandeln müssen diese im ersten Schritt identifiziert werden.
 Diesbezüglich bietet es sich an, während kleinerer Probe-Crawlings eine Auswertung der Logs vorzunehmen.
@@ -93,32 +61,8 @@ Beispiel~\ref{example:statistic_plugin} zeigt dies für eine Auswahl der in
 Beispiel~\ref{example:document_server} besprochenen Links,
 wie durch aufsummieren dieser Bestandteile die Ausgabe des Plugins erzeugt wird.
 
-\begin{example}[Berechnungsschritte des Statistik-Plugins]{example:statistic_plugin}
-Die Map-Phase nimmt die Normalisierung der Links, sowie eine Umwandlung in die hierarchischen Bestandteile vor:\\
+\input{chapter_data_aqcuisition/example_statistic_plugin.tex}
 
-http://lips.informatik.uni-leipzig.de/pub/2017-0\\
-$\rightarrow$ \\
-$[$(http://lips.informatik.uni-leipzig.de, 1),\\
-(http://lips.informatik.uni-leipzig.de/pub, 1),\\
-(http://lips.informatik.uni-leipzig.de/pub/2017-0, 1)$]$\\
-
-http://lips.informatik.uni-leipzig.de/files/thesis.pdf\\
-$\rightarrow$\\
-$[$
-(http://lips.informatik.uni-leipzig.de, 1), \\
-(http://lips.informatik.uni-leipzig.de/files, 1), \\
-(http://lips.informatik.uni-leipzig.de/files/thesis.pdf, 1)
-$]$\\
-
-Die Reduce Phase summiert alle eintreffenden Paare bestehend aus Link-Bestandteil und count:\\
-
-$[$
-(http://lips.informatik.uni-leipzig.de, 2), \\
-(http://lips.informatik.uni-leipzig.de/pub, 1), \\
-...
-$]$
-\end{example}
-	
 In der Ausgabe des Statistik-Plugins können schließlich sinnvoll Problemfälle identifiziert
 werden\footnote{Neben den in Beispiel~\ref{example:document_server} hervorgehobenen Problemen sei hier noch auf potentiell fehlende Seiten hingewießen.
 Diese können durch einen Vergleich der aufsummierten Linkbestandteile mit der Anzahl der von Google indexierten Seiten entdeckt werden.}.
@@ -150,25 +94,12 @@ Im nächsten Schritt werden die für diese Beispiele passenden Regex-Url-Regeln 
 Diese verfolgen das Ziel, dass sie sich für alle Positivbeispiele zu positiv auswerten, und für alle Negativbeispiele entsprechend zu negativ.
 Beispiel~\ref{example:regex_url} verdeutlicht dies für die aus Beispiel~\ref{example:document_server} bekannten Urls.
 
-\begin{example}[Erstellung der Regex-Url-Regeln für den Dokumentenserver]{example:regex_url}
-\# Positivbeispiele: Stelle sicher, dass die Dokumente gecrawlt werden\\
-http://lips.informatik.uni-leipzig.de/browse/results?page=4\\
-http://lips.informatik.uni-leipzig.de/files/thesis.pdf\\
-http://lips.informatik.uni-leipzig.de/pub/2017-0
-
-\# Negativbeispiele: Verhindere, dass die Filterfunktion genutzt wird\\
-http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912
-
-\# Regex-Url-Regeln, welche diese Anforderungen erfüllen\\
-+http://lips.informatik.uni-leipzig.de/(pub|files)/.*\\
-+http://lips.informatik.uni-leipzig.de/browse/results.*\\
--http://lips.informatik.uni-leipzig.de.*\\
-\end{example}
-
 Die Konfigurationen der einzelnen Bereiche werden schließlich \href{https://de.wikipedia.org/wiki/Top-down_und_Bottom-up}{Bottom-up} zu einer einzigen 
 Url-Filter-Liste vereinigt.
 Für diese Liste werden anschließend alle Positiv- und Negativ-Beispiele evaluiert.
 Nur wenn dabei für alle Beispiele das spezifizierte Verhalten beobachtet wird, ist diese Url-Liste valide und kann verwendet werden.
+
+\input{chapter_data_aqcuisition/example_regex_url.tex}
 
 Durch diese Hilfswerkzeuge wurde im Rahmen der Arbeit die Site der Universität Leipzig anhand ihrer Fakultäten auf die einzelnen Bearbeiter aufgeteilt.
 Mit einer Reihe von Probe-Crawlings konnte die vollständige Regex-Url-Filter-Liste erstellt werden.
@@ -232,27 +163,7 @@ Abbildung~\ref{fig:grouped_sim} stellt dies an einem Beispiel dar.
 	\label{fig:grouped_sim}
 \end{figure}
 
-\begin{wrapfigure}{H}{0.49\linewidth}
-	\vspace*{-0.4cm}
-
-\begin{scriptsize}
-\begin{algorithm}[H]
-	\SetKwInOut{Input}{Input}
-	\SetKwInOut{Output}{Output}
-		       
-	\Input{ Document $\mathcal{D}$ }
-	\Output{ Fingerprint for Document $\mathcal{D}$}
-
-	TBA\\
-	TBA\\
-	TBA\\
-	\caption{Text Profile}
-	\label{alg:text_profile}
-\end{algorithm}
-\end{scriptsize}
-
-	\vspace*{-0.2cm}
-\end{wrapfigure}
+\input{chapter_data_aqcuisition/text_profile_algorithm.tex}
 
 Um dies zu ermöglichen, müssen zuerst die (Fast-)Duplikate identifiziert werden.
 Dafür wurde das
@@ -263,24 +174,6 @@ Dabei werden ähnliche Dokumenten auf den gleichen Wert abgebildet.
 Algorithmus~\ref{alg:text_profile} zeigt dies im Pseudocode.
 In Beispiel~\ref{example:text_profile} wird der Fingerprint für einen Text berechnet.
 
-\begin{example}[Berechnung des Fingerprints mittels TextProfileSignature]{example:text_profile}
-	\textbf{Eingabe:}\\
-		$\mathcal{D}$ $=$ \glqq Tropical fish include fish found in tropical environments around the world,
-			including both freshwater and salt water species.\grqq,
-		MINLENGTH $=$ $2$, QuantRate $=$ $0.01$\\
-	
-	\textbf{Tokenisierung und Filterung nach Wortlänge:}\\
-		$\{$ (include, 1), (including, 1), (salt, 1), (environments, 1), (around, 1), (water, 1),
-			(both, 1), (tropical, 2), (the, 1), (found, 1), (world, 1), (species, 1), (and, 1), (fish, 2), (freshwater, 1) $\}$\\
-
-	\textbf{Filtere Einträge, deren Quantity unter Threshold liegt:}\\
-		textProfile $=$ $\{$ (tropical, 2), (fish, 2) $\}$\\
-	
-	\textbf{Berechne Signatur:}\\
-		sort(textProfile)\\
-		textProfileSignature $=$ md5Hash(textProfile)
-\end{example}
-
 Nach der Zuweißung des Fingerprints werden entsprechend dem Discovery Scenario alle Paare von Fast-Duplikaten
 gesucht~\cite{croft.chap3}. Durch dieses Vorgehen entstehen Gruppen ähnlicher Dokumente.
 Für jede solche Gruppe wird ein Repräsentant gewählt\footnote{Das längste Dokument wird der Vertreter.}.
@@ -288,3 +181,6 @@ Dieser wird um die Urls der anderen Gruppenmitglieder angereichert.
 Abschließend werden die restlichen Dokumente einer Gruppe gelöscht\footnote{Die Implementierung ist in dem Modul 
 \href{https://github.com/mam10eks/search-homepage-of-university-leipzig/tree/master/custom-index-cleaning}
 {Custom Index Cleaning} zu finden.}.
+
+\newpage
+\input{chapter_data_aqcuisition/text_profile_example.tex}

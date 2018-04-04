@@ -1,0 +1,14 @@
+\begin{example}[Erstellung der Regex-Url-Regeln für den Dokumentenserver]{example:regex_url}
+\# Positivbeispiele: Stelle sicher, dass die Dokumente gecrawlt werden\\
+http://lips.informatik.uni-leipzig.de/browse/results?page=4\\
+http://lips.informatik.uni-leipzig.de/files/thesis.pdf\\
+http://lips.informatik.uni-leipzig.de/pub/2017-0
+
+\# Negativbeispiele: Verhindere, dass die Filterfunktion genutzt wird\\
+http://lips.informatik.uni-leipzig.de/browse/results/taxonomy%3A912
+
+\# Regex-Url-Regeln, welche diese Anforderungen erfüllen\\
++http://lips.informatik.uni-leipzig.de/(pub|files)/.*\\
++http://lips.informatik.uni-leipzig.de/browse/results.*\\
+-http://lips.informatik.uni-leipzig.de.*\\
+\end{example}
