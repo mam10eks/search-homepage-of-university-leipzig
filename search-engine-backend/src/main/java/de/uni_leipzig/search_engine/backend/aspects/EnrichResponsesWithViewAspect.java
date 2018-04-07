@@ -34,7 +34,7 @@ public class EnrichResponsesWithViewAspect
 	
 	private static Map<String, ?> proceedJointPointAndParseReturnValueAsModel(ProceedingJoinPoint proceedingJointPoint) throws Throwable
 	{
-		return OBJECT_MAPPER.convertValue(proceedingJointPoint.proceed(), new TypeReference<Map<String, Object>>() {});
+		return convertToModel(proceedingJointPoint.proceed());
 	}
 	
 	private static List<String> jsonContentTypeNames()
@@ -60,5 +60,10 @@ public class EnrichResponsesWithViewAspect
 		}
 		
 		return new ModelAndView(thisJointPoint.getSignature().getName(), returnModel);
+	}
+	
+	public static Map<String, Object> convertToModel(Object o)
+	{
+		return OBJECT_MAPPER.convertValue(o, new TypeReference<Map<String, Object>>() {});
 	}
 }

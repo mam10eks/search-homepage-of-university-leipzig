@@ -15,6 +15,7 @@ import org.apache.lucene.search.TopDocs;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -23,34 +24,60 @@ import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.experimental.UtilityClass;
 
+/**
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @UtilityClass
 public class SearchControllerMockUtils
 {
-	public static SearchController createSearchController(int endIndexExclusive)
-	{
-		final List<Document> documents = IntStream.range(0, endIndexExclusive)
-			.mapToObj(SearchControllerMockUtils::intToDocument)
-			.collect(Collectors.toList());
-		
-		SearcherComponent searcherComponent = Mockito.mock(SearcherComponent.class);
-		Mockito.when(searcherComponent.doc(Matchers.anyInt())).thenAnswer(i -> documents.get((int)(i.getArguments()[0])));
-		Mockito.when(searcherComponent.search(Mockito.anyString(), Mockito.anyInt())).thenAnswer(i ->
-		{
-			int n = (int)i.getArguments()[1];
-			ScoreDoc[] scoreDocs = IntStream.range(0, Math.min(n, endIndexExclusive)).mapToObj(index -> new ScoreDoc(index, 0f))
-				.collect(Collectors.toList()).toArray(new ScoreDoc[Math.min(n, endIndexExclusive)]);
-			
-			return new TopDocs(documents.size(), scoreDocs, 0f);
-		});
-		
+	/**
+	 * Mock a {@link SearchController search controller}.
+	 * 
+	 * @param numberOfDocuments
+	 * 		The number of dummy documents that should be contained in the index.
+	 * @return
+	 * 		A {@link SearchController search controller} which will search in the dummy documents.
+	 */
+	public static SearchController createSearchController(int numberOfDocuments)
+	{		
 		HighlightComponent highlightComponent = Mockito.mock(HighlightComponent.class);
 		Mockito.when(highlightComponent.buildHiglightForDocument(Matchers.any(), Matchers.any()))
 		.thenReturn(null);
 		
 		SearchController ret = new SearchController();
-		Whitebox.setInternalState(ret, "searcherComponent", searcherComponent);
+		Whitebox.setInternalState(ret, "searcherComponent", searchComponent(numberOfDocuments));
 		Whitebox.setInternalState(ret, "highlightComponent", highlightComponent);
 		return ret;
+	}
+	
+	/**
+	 * Mock a {@link SearcherComponent search component}.
+	 * 
+	 * @param numberOfDocuments
+	 * 		The number of dummy documents that should be contained in the index.
+	 * @return
+	 * 		A {@link SearcherComponent} which will search in the dummy documents.
+	 */
+	public static SearcherComponent searchComponent(int numberOfDocuments)
+	{
+		final List<Document> documents = IntStream.range(0, numberOfDocuments)
+				.mapToObj(SearchControllerMockUtils::intToDocument)
+				.collect(Collectors.toList());
+			
+		SearcherComponent searcherComponent = Mockito.mock(SearcherComponent.class);
+		Mockito.when(searcherComponent.doc(Matchers.anyInt())).thenAnswer(i -> documents.get((int)(i.getArguments()[0])));
+		Mockito.when(searcherComponent.search(Mockito.anyString(), Mockito.anyInt())).thenAnswer(i ->
+		{
+			int n = (int)i.getArguments()[1];
+			ScoreDoc[] scoreDocs = IntStream.range(0, Math.min(n, numberOfDocuments)).mapToObj(index -> new ScoreDoc(index, 0f))
+				.collect(Collectors.toList()).toArray(new ScoreDoc[Math.min(n, numberOfDocuments)]);
+				
+			return new TopDocs(documents.size(), scoreDocs, 0f);
+		});
+		
+		return searcherComponent;
 	}
 	
 	private static Document intToDocument(Integer id)
@@ -61,6 +88,13 @@ public class SearchControllerMockUtils
 		return ret;
 	}
 	
+	/**
+	 * Bind a mocked HTTP request to the current thread.
+	 * Useful for some methods that are only executable during the processing of a HTTP request.
+	 * 
+	 * @see
+	 * ControllerLinkBuilder
+	 */
 	public void setupHttpServlet()
 	{	
 	    HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);

@@ -23,6 +23,7 @@
 		<module>search-engine-events</module>
 		<module>search-engine-backend</module>
 		<module>search-engine-kafka-streams</module>
+		<module>search-engine-evaluation</module>
 		<module>custom-index-cleaning</module>
 	</modules>
 

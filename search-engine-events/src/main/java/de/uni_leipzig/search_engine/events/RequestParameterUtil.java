@@ -12,7 +12,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class RequestParameterUtil
+public class RequestParameterUtil
 {
 	public static List<NameValuePair> extractQueryParametersFromRequest(Request request)
 	{
