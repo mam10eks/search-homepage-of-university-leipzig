@@ -45,7 +45,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(0);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(11);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(11);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(21);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(61);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(61);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -111,7 +111,7 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(70);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 	
 	@Test
@@ -122,6 +122,6 @@ public class SearchControllerLinksTest
 		resultPageToVerify.setTotalHits(100);
 		SearchController.injectPaginationLinks(resultPageToVerify);
 		
-		Approvals.verify(resultPageToVerify);
+		Approvals.verifyAsJson(resultPageToVerify);
 	}
 }

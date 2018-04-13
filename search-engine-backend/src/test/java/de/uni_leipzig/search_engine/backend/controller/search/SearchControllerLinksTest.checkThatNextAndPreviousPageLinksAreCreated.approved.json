@@ -1,0 +1,48 @@
+{
+  "page": 2,
+  "totalHits": 21,
+  "nextPage": {
+    "rel": "next",
+    "href": "http://www.example.com/?currentPage\u003d3",
+    "template": {
+      "variables": {
+        "variables": []
+      },
+      "baseUri": "http://www.example.com/?currentPage\u003d3"
+    }
+  },
+  "previousPage": {
+    "rel": "prev",
+    "href": "http://www.example.com/?currentPage\u003d1",
+    "template": {
+      "variables": {
+        "variables": []
+      },
+      "baseUri": "http://www.example.com/?currentPage\u003d1"
+    }
+  },
+  "namedPageLinksBefore": [
+    {
+      "rel": "1",
+      "href": "http://www.example.com/?currentPage\u003d1",
+      "template": {
+        "variables": {
+          "variables": []
+        },
+        "baseUri": "http://www.example.com/?currentPage\u003d1"
+      }
+    }
+  ],
+  "namedPageLinksAfter": [
+    {
+      "rel": "3",
+      "href": "http://www.example.com/?currentPage\u003d3",
+      "template": {
+        "variables": {
+          "variables": []
+        },
+        "baseUri": "http://www.example.com/?currentPage\u003d3"
+      }
+    }
+  ]
+}

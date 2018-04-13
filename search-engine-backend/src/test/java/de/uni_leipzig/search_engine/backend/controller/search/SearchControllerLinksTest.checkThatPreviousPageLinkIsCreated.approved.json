@@ -1,0 +1,27 @@
+{
+  "page": 2,
+  "totalHits": 11,
+  "previousPage": {
+    "rel": "prev",
+    "href": "http://www.example.com/?currentPage\u003d1",
+    "template": {
+      "variables": {
+        "variables": []
+      },
+      "baseUri": "http://www.example.com/?currentPage\u003d1"
+    }
+  },
+  "namedPageLinksBefore": [
+    {
+      "rel": "1",
+      "href": "http://www.example.com/?currentPage\u003d1",
+      "template": {
+        "variables": {
+          "variables": []
+        },
+        "baseUri": "http://www.example.com/?currentPage\u003d1"
+      }
+    }
+  ],
+  "namedPageLinksAfter": []
+}

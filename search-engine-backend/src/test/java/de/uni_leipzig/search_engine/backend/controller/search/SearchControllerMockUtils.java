@@ -20,6 +20,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import de.uni_leipzig.search_engine.backend.controller.search.SearchController;
+import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
 import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.experimental.UtilityClass;
@@ -83,7 +84,8 @@ public class SearchControllerMockUtils
 	private static Document intToDocument(Integer id)
 	{
 		Document ret = new Document();
-		ret.add(new TextField("title", String.valueOf(id), Field.Store.YES));
+		ret.add(new TextField(SearchResult.INDEX_FIELD_TITLE, String.valueOf(id), Field.Store.YES));
+		ret.add(new TextField(SearchResult.INDEX_FIELD_LINK, "www.example-link.com", Field.Store.YES));
 		
 		return ret;
 	}
