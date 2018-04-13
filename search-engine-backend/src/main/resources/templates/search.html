@@ -40,14 +40,6 @@
 				<div style="margin: 15px">
 					<h3><a th:href="${result.targetUrl.href}" th:text="${result.title}"></a></h3>
 					<p th:utext="${result.snippet}"/>
-					<div th:if="${result.linksToDuplicates != null AND result.linksToDuplicates.size() > 0}">
-						<a href="javascript://" style="cursor:pointer" title="Links zu ähnlichen Dokumenten" data-toggle="popover"
-							data-trigger="focus" th:attr="data-content=${result.duplicateContent}" data-html="true">
-							<span th:text="${result.linksToDuplicates.size()}"></span>
-							 sehr ähnliche<span th:if="${result.linksToDuplicates.size() == 1}">n</span> 
-							 Treffer anzeigen!
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>
