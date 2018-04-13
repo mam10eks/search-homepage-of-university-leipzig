@@ -2,18 +2,21 @@ package de.uni_leipzig.search_engine.backend.controller.search.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.lucene.document.Document;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
-import de.uni_leipzig.search_engine.backend.controller.redirect.RedirectController;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @Data
 @NoArgsConstructor
 @Accessors(chain=true)
@@ -37,38 +40,20 @@ public class SearchResult
 	
 	private List<Link> linksToDuplicates;
 	
-	//FIXME remove this: only fast and ugly
-	private String duplicateContent;
-	
 	public SearchResult(Triple<Document, Integer, String> result)
 	{
-		setTitle(result.getLeft().get(INDEX_FIELD_TITLE));
 		setSnippet(result.getRight());
-		setTargetUrl(createTargetLink(result.getMiddle()));
+		setTargetUrl(new DocumentLink(result.getMiddle(), -1, result.getLeft().get(INDEX_FIELD_LINK)));
 		setLinksToDuplicates(createLinksToDuplicates(result.getMiddle(), result.getLeft()));
+		setTitle(result.getLeft().get(INDEX_FIELD_TITLE));
 		
-		if(!getLinksToDuplicates().isEmpty())
+		
+		if(getTitle() == null || getTitle().isEmpty())
 		{
-			duplicateContent = "<ul>"+ getLinksToDuplicates().stream()
-					.map(l -> "<li><a href=\""+ l.getHref() +"\">"+ l.getRel() +"</a></li>")
-					.collect(Collectors.joining(" "))
-		
-					+"</ul>";
-			System.out.println(duplicateContent);
+			setTitle(StringUtils.abbreviate(result.getLeft().get(INDEX_FIELD_CONTENT), 40));
 		}
 	}
-	
-	private static Link createTargetLink(Integer docID)
-	{
-		return createTargetLink(docID, -1);
-	}
-	
-	private static Link createTargetLink(Integer docID, Integer duplicate)
-	{
-		return ControllerLinkBuilder.linkTo(
-			ControllerLinkBuilder.methodOn(RedirectController.class).redirect(docID, duplicate))
-			.withRel("targetUrl");
-	}
+
 	
 	private static List<Link> createLinksToDuplicates(Integer docID, Document doc)
 	{
@@ -80,10 +65,7 @@ public class SearchResult
 		{
 			for(int i=0; i< duplicateUrls.length; i++)
 			{
-				Link link = createTargetLink(docID, i);
-				link = link.withRel(duplicateUrls[i]);
-				
-				ret.add(link);
+				ret.add(new DocumentLink(docID, i, duplicateUrls[i]));
 			}
 		}
 		
