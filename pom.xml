@@ -25,6 +25,7 @@
 		<module>search-engine-kafka-streams</module>
 		<module>search-engine-evaluation</module>
 		<module>custom-index-cleaning</module>
+		<module>final-presentation</module>
 	</modules>
 
 	<dependencies>

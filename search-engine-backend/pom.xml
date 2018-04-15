@@ -88,6 +88,11 @@
 			<artifactId>search-engine-events</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>de.uni-leipzig</groupId>
+			<artifactId>final-presentation</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -109,7 +114,7 @@
 					<repository>uni-search-engine/backend</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+						<JAR_FILE>${project.build.finalName}-exec.jar</JAR_FILE>
 					</buildArgs>
 				</configuration>
 			</plugin>

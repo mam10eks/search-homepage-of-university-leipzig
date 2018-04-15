@@ -22,6 +22,8 @@ import org.springframework.session.SessionRepository;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import de.uni_leipzig.search_engine.backend.aspects.KafkaTopicProducer;
 import de.uni_leipzig.search_engine.backend.lucene.SuggestionComponent;
@@ -31,7 +33,7 @@ import lombok.SneakyThrows;
 
 @SpringBootApplication
 public class Application
-{	
+{
 	public static void main(String[] args)
 	{
 		SpringApplication.run(Application.class, args);
@@ -41,7 +43,7 @@ public class Application
 	@EnableAsync
 	@EnableKafka
 	@EnableSpringHttpSession
-	public static class ApplicationConfiguration
+	public static class ApplicationConfiguration  extends WebMvcConfigurerAdapter
 	{
 		@Bean
 		public CookieSerializer cookieSerializer()
@@ -98,5 +100,17 @@ public class Application
 			
 			return ret;
 		}
+		
+        @Override
+        public void addResourceHandlers(ResourceHandlerRegistry registry)
+        {
+            super.addResourceHandlers(registry);
+
+            if (!registry.hasMappingForPattern("/presentation/**"))
+            {
+                registry.addResourceHandler("/presentation/**")
+			.addResourceLocations("classpath:META-INF/resources/webjars/search-engine-final-presentation/1.0.0/");
+            }
+        }
 	}
 }

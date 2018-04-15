@@ -8,4 +8,4 @@ To build the slides only, run:
 npm start
 ```
 
-To see the slides in the search engine, navigate to `presentation/final.html`.
+To see the slides in the search engine, navigate to `presentation/index.html`.
