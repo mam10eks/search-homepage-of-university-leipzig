@@ -6,7 +6,11 @@ const path = require("path");
 const BUILD_PATH = path.join(__dirname, 'target', 'classes', 'META-INF', 'resources', 'webjars', packageJSON.name, packageJSON.version);
 
 module.exports = {
-	output: { path: BUILD_PATH },
+	output: {
+			path: BUILD_PATH,
+			libraryTarget: "var",
+			library: "Application"
+		},
 	module: {
 		rules: [ {
 				test: /\.css$/,
@@ -22,7 +26,7 @@ module.exports = {
 	},
 	plugins: [
 		new UglifyJsPlugin(),
-		new HtmlWebpackPlugin({template: 'src/index.html', inlineSource: '.(js)$'}),
+		new HtmlWebpackPlugin({template: 'src/index.html', inject: 'head', inlineSource: '.(js)$'}),
 		new HtmlWebpackInlineSourcePlugin()
 	]
 }
