@@ -1,0 +1,59 @@
+a
+{
+	color: inherit;
+	text-decoration: none;
+	padding: 0 0.1em;
+	background: rgba(200,200,200,0.2);
+	text-shadow: -1px 1px 2px rgba(100,100,100,0.9);
+	border-radius: 0.2em;
+	border-bottom: 1px solid rgba(100,100,100,0.2);
+	border-left:   1px solid rgba(100,100,100,0.2);
+    transition:         0.5s;
+}
+
+
+a:hover, a:focus
+{
+	background: rgba(200,200,200,1);
+	text-shadow: -1px 1px 2px rgba(100,100,100,0.5);
+}
+
+
+h1, h2, h3
+{
+	margin-bottom: 0.5em;
+	margin-top: 0em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.7em;
+}
+
+
+ol, ul
+{
+	list-style: disc;
+	margin-left: 1.5em;
+	padding: 0.2em;
+}
+
+ol ul, ol ol, ul ul, ul ol
+{
+	list-style: circle;
+}
+
+li
+{
+	margin: 0.2em;
+}
+
+
+.visit
+{
+	margin-right: 10px;
+    position: absolute;
+	right: 2px;
+	bottom: 5px;
+	font-size: 0.75em;
+	pointer-events: auto;
+	border: none;
+}

@@ -2,5 +2,6 @@
 **/.project
 **/.settings/**
 **/target/**
+**/node_modules/**
 /target/
 custom-index-cleaning/src/test/resources/solr_conf/uni_leipzig_core/data/
