@@ -56,6 +56,7 @@ li
 	font-size: 0.75em;
 	pointer-events: auto;
 	border: none;
+	z-index: 9999999999;
 }
 
 
