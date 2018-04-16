@@ -50,7 +50,12 @@ public class SearchResult
 		
 		if(getTitle() == null || getTitle().isEmpty())
 		{
-			setTitle(StringUtils.abbreviate(result.getLeft().get(INDEX_FIELD_CONTENT), 40));
+			String title = StringUtils.abbreviate(result.getLeft().get(INDEX_FIELD_CONTENT), 40);
+			setTitle(title == null ? "UNKNOW" : title);
+		}
+		if(getSnippet() == null || getSnippet().isEmpty())
+		{
+			setSnippet(snippet);
 		}
 	}
 
