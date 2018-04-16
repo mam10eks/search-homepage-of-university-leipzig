@@ -141,7 +141,16 @@
 			<div class="step slide" data-x="-1000" data-y="1000" data-z="0">
 				<h1>Text Transformation</h1>
 				<ul>
-					<li>Stoppwörter, Stemming, Main-Content-Extraction</li>
+					<li>Standards wurden beibehalten</li>
+					<ul>
+						<li>Keine Entfernung von Stoppwörtern</li>
+						<li>kein Stemming</li>
+						<li>keine Entfernung von Noise</li>
+					</ul>
+					<li>Abweichung von Standards nach Quantifizierung des Nutzens</li>
+					<ul>
+						<li>Siehe <a href="#evaluation">Evaluation</a></li>
+					</ul>
 				</ul>
 			</div>
 			
@@ -155,8 +164,23 @@
 			<div class="step slide" data-x="-1000" data-y="2000" data-z="-15">
 				<h1>Index Creation</h1>
 				<ul>
-					<li>Duplikat-Entfernung mit Beispiel Onex</li>
-					<li>Script für ...</li>
+					<li>Script zur reproduzierbaren Erzeugung eines Lucene-Index</li>
+					<ul>
+						<li>Eingabe: Nutch-Crawling-Segmente</li>
+					</ul>	
+					<li>Hilfs-Infrastruktur (Solr-Server) wird innerhalb des Scriptes bereitgestellt
+					<ul>
+						<li>Docker + Konfiguration + Schema</li>
+					</ul>
+					<li>Erlaubt Feintuning einzelner Indexierungsschritte</li>
+					<ul>
+						<li>Vorverarbeitung (Deduplication, Parsing)</li>
+						<li>Snippet-Erzeugung</li>
+						<li>Grouping von Fast-Duplikaten mit TextProfileSignature</li>
+						<ul>
+							<li>Beispiel: <a href="../?originalQuery=Onex">Suche nach Onex</a></li>
+						</ul>
+					</ul>
 				</ul>
 			</div>
 
@@ -179,6 +203,11 @@
 
 			<div class="step slide" data-x="1000" data-y="0" data-z="0">
 				<h1>User Interaction</h1>
+				<ul>
+					<li>...</li>
+					<li>Query Suggestions</li>
+					<li>...</li>
+				</ul>
 			</div>
 
 
@@ -210,7 +239,11 @@
 			<div class="step slide" data-x="1000" data-y="2000" data-z="0">
 				<h1>Ranking</h1>
 				<ul>
-					Wieso Lucene? Bild von db-engine-ranking
+					<li>Wieso Lucene? Bild von db-engine-ranking</li>
+					<li>Abweichung von Standards nach Quantifizierung des Nutzens</li>
+					<ul>
+						<li>Siehe <a href="#evaluation">Evaluation</a></li>
+					</ul>
 				</ul>
 			</div>
 
@@ -227,7 +260,7 @@
 			</div>
 
 
-			<div class="step slide" data-x="1500" data-y="1000" data-z="0">
+			<div class="step slide" id="evaluation" data-x="1500" data-y="1000" data-z="0">
 				<h1>Evaluation</h1>
 			</div>
 
