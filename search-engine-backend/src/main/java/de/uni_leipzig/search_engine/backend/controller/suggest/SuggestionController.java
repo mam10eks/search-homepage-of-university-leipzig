@@ -26,7 +26,7 @@ public class SuggestionController
 	@Autowired
 	private SuggestionComponent suggestionComponent;
 	
-	@RequestMapping(method=RequestMethod.GET, path="/suggest")
+	@RequestMapping(method=RequestMethod.GET, path="/api/v1/suggest")
 	@ResponseBody
 	public Object suggest(@RequestParam String query)
 	{

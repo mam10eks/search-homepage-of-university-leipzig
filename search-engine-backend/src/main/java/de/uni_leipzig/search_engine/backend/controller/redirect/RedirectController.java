@@ -17,7 +17,7 @@ public class RedirectController
 	@Autowired
 	private SearcherComponent searcherComponent;
 	
-	@RequestMapping(method=RequestMethod.GET, path="/url")
+	@RequestMapping(method=RequestMethod.GET, path="/api/v1/url")
 	public RedirectView redirect(@RequestParam Integer documentId, @RequestParam(defaultValue="-1") Integer duplicate)
 	{
 		if(duplicate < 0)

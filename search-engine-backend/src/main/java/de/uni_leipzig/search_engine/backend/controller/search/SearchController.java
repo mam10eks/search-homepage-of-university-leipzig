@@ -34,7 +34,7 @@ public class SearchController
 	@Autowired
 	private HighlightComponent highlightComponent;
 
-	@RequestMapping(method=RequestMethod.GET, path="/api/v1")
+	@RequestMapping(method=RequestMethod.GET, path="/api/v1/search")
 	public Object search(@RequestParam(defaultValue="") String q,
 			@RequestParam(defaultValue="1") Integer p)
 	{
