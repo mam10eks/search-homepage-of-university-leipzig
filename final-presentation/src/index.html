@@ -28,7 +28,7 @@
 			<div class="step slide" data-x="-1000" data-y="0" data-z="0">
 				<h1>Text Acquisition</h1>
 				<ul>
-					<li>Beschaffung der Dokumente: Crawling von</li>
+					<li>Beschaffung der Dokumente mit Nutch: Crawling von</li>
 					<ul>
 						<li>*.uni-leipzig.de</li>
 						<li>Ausgewählten weiteren Seiten</li>
@@ -38,7 +38,17 @@
 					</ul>
 					<li>Probleme</li>
 					<ul>
-						<li>Crawling von *.uni-leipzig.de</li>
+						<li><a href="http://lips.informatik.uni-leipzig.de/">Dokumentenserver</a></li>
+						<li><a href="http://se-pubs.dbs.uni-leipzig.de/pubs/results/0%200%200%200%20taxonomy%3A30%2C696">Endlosschleifen</a></li>
+						<li>Umfangreiche Webanwendungen</li>
+						<ul>
+							<li>
+								<a href="http://wortschatz.uni-leipzig.de/de">Wortschatz</a>, 
+								<a href="http://www.informatik.uni-leipzig.de/~duc/TD/td/index.php?bpos=72&db=ev">Wörterbuch</a>
+							</li>
+							<li><a href="http://pcai003.informatik.uni-leipzig.de/kosemnet/">Semantic-Web-Anwendungen</a></li>
+						</ul>
+						<li><a href="http://www.informatik.uni-leipzig.de/~meyer/?d=15">Kalender mit dynamisch erzeugten Links</a></li>
 					</ul>
 				</ul>
 			</div> 
@@ -56,23 +66,83 @@
 
 
 			<div class="step slide" data-x="-1000" data-y="0" data-z="-1500">
-				<h1>Slide 1: subnote...</h1>
+				<h1 style="font-size: 1.8em;">Domain specific Adjustments</h1>
 				<p>
-					Something
+					Zur Behandlung dieser Probleme sind Manuelle Anpassungen notwendig.
+				</p>
+				<ul>
+					<li>Ziel</li>
+					<ul>
+						<li>Aufteilung der Site nach Fakultäten</li>
+						<li>Jeder "Domänenexperte" identifiziert und behebt Probleme</li>
+					</ul>
+					<li>Nutch erlaubt regex-urlfilter</li>
+					<ul>
+						<li>Liste von Ausdrücken mit dem Muster: [+-]regex</li>
+						<li>Für jede URL bestimmt erster, matchender Eintrag, ob:</li>
+						<ul>
+							<li>die URL verfolgt wird (+)</li>
+							<li>die URL nicht verfolgt wird (-)</li>
+						</ul>
+					</ul>
+				</ul>
+				<p>
+					
 				</p>
 			</div>
 
 
 			<div class="step slide" data-x="-1000" data-y="0" data-z="-3000">
-				<h1>Slide 2: subnote...</h1>
-				<p>
-					Something
-				</p>
+				<h1 style="font-size: 2em;">Formulierung der Regeln</h1>
+				<ul>
+					<li>Ziel</li>
+					<ul>
+						<li>Testgetriebene Erstellung</li>
+						<li>Nur valide und konsistente Regeln</li>
+					</ul>
+					<li>Vorgehen</li>
+					<ul>
+						<li>Für jeden Teilbereich werden anhand von Beispielen Regex-Regeln gepflegt</li>
+						<ul>
+							<li>Positivbeispiele (“was muss gecrawlt werden”)</li>
+							<li>Negativbeispiele (“was darf nicht gecrawlt werden”)</li>
+							<li>Regeln, die diese Beispiele erfüllen</li>
+						</ul>
+						<li>Regex-urlfilter werden erzeugt</li>
+					</ul>
+				</ul>
+			</div>
+
+
+			<div class="step slide" data-x="-1000" data-y="0" data-z="-4500">
+				<h1 style="font-size: 1.8em;">Durchführung des Crawlings</h1>
+				<ul>
+					<li>Insgesamt wurden 76 Regeln erstellt</li>
+					<li>Anschließend konnte Crawling in einem Rutsch durchgeführt werden</li>
+					<ul>
+						<li>Wie viele Dokumente?</li>
+						<li>Wie lang?</li>
+						<li>Wie viel Speicherplatz?</li>
+					</ul>
+				</ul>
+			</div>
+
+
+			<div class="step slide" data-x="-1000" data-y="0" data-z="-6000">
+				<h1>Crawling KPIs</h1>
+				<ul>
+					<li>Dauer: 14 Tage</li>
+					<li>390 000 Dokumente in 50 GB Rohdaten</li>
+					<li>Indexiert: 250 000 (ohne Duplikate) in 4 GB</li>
+				</ul>
 			</div>
 
 
 			<div class="step slide" data-x="-1000" data-y="1000" data-z="0">
 				<h1>Text Transformation</h1>
+				<ul>
+					<li>Stoppwörter, Stemming, Main-Content-Extraction</li>
+				</ul>
 			</div>
 			
 
@@ -84,6 +154,10 @@
 
 			<div class="step slide" data-x="-1000" data-y="2000" data-z="-15">
 				<h1>Index Creation</h1>
+				<ul>
+					<li>Duplikat-Entfernung mit Beispiel Onex</li>
+					<li>Script für ...</li>
+				</ul>
 			</div>
 
 
@@ -135,6 +209,9 @@
 
 			<div class="step slide" data-x="1000" data-y="2000" data-z="0">
 				<h1>Ranking</h1>
+				<ul>
+					Wieso Lucene? Bild von db-engine-ranking
+				</ul>
 			</div>
 
 
