@@ -34,25 +34,25 @@ public class SearchController
 	@Autowired
 	private HighlightComponent highlightComponent;
 
-	@RequestMapping(method=RequestMethod.GET, path="/")
-	public Object search(@RequestParam(defaultValue="") String originalQuery,
-			@RequestParam(defaultValue="1") Integer currentPage)
+	@RequestMapping(method=RequestMethod.GET, path="/api/v1")
+	public Object search(@RequestParam(defaultValue="") String q,
+			@RequestParam(defaultValue="1") Integer p)
 	{
 		SearchResultPage ret = new SearchResultPage();
-		ret.setOriginalQuery(originalQuery);
-		currentPage = Math.max(currentPage == null? 1: currentPage, 1);
+		ret.setOriginalQuery(q);
+		p = Math.max(p == null? 1: p, 1);
 		
-		if("".equals(originalQuery) || originalQuery == null)
+		if("".equals(q) || q == null)
 		{
 			return ret;
 		}
 		
-		int topNForSearchResult = Math.max(SearcherComponent.HITS_PER_PAGE, currentPage * SearcherComponent.HITS_PER_PAGE);
+		int topNForSearchResult = Math.max(SearcherComponent.HITS_PER_PAGE, p * SearcherComponent.HITS_PER_PAGE);
 		
-		TopDocs queryTopDocs = searcherComponent.search(originalQuery, topNForSearchResult);
+		TopDocs queryTopDocs = searcherComponent.search(q, topNForSearchResult);
 		Pair<Integer, List<ScoreDoc>> lastPageNumberAndContent = determineLastPageNumberAndContent(queryTopDocs);
 		ret.setTotalHits(queryTopDocs.totalHits);
-		ret.setResultsOnPage(mapScoreDocsToSearchResults(lastPageNumberAndContent.getRight(), originalQuery));
+		ret.setResultsOnPage(mapScoreDocsToSearchResults(lastPageNumberAndContent.getRight(), q));
 		ret.setPage(lastPageNumberAndContent.getLeft());
 		injectPaginationLinks(ret);
 		
