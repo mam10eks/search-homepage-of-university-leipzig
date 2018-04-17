@@ -95,6 +95,6 @@ public class SearchResultSelectedEvent extends WebResponseEvent
 		URI uri = RequestParameterUtil.parseUriFailsave(request.getRequestUrl());
 		
 		return uri != null
-			&& StringUtils.removeAll(uri.getPath(), "/").toLowerCase().equals("url");
+			&& StringUtils.removeFirst(uri.getPath(), "/").toLowerCase().equals("api/v1/url");
 	}
 }

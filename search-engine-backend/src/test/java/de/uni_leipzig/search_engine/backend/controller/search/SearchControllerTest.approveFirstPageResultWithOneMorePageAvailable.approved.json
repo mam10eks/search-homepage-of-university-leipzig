@@ -7,12 +7,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d0\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d0\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d0\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d0\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -22,12 +22,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d1\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d1\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d1\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d1\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -37,12 +37,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d2\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d2\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d2\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d2\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -52,12 +52,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d3\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d3\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d3\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d3\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -67,12 +67,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d4\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d4\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d4\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d4\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -82,12 +82,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d5\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d5\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d5\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d5\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -97,12 +97,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d6\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d6\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d6\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d6\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -112,12 +112,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d7\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d7\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d7\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d7\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -127,12 +127,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d8\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d8\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d8\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d8\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -142,12 +142,12 @@
       "targetUrl": {
         "displayLink": "www.example-link.com",
         "rel": "self",
-        "href": "http://www.example.com/url?documentId\u003d9\u0026duplicate\u003d-1",
+        "href": "http://www.example.com/api/v1/url?documentId\u003d9\u0026duplicate\u003d-1",
         "template": {
           "variables": {
             "variables": []
           },
-          "baseUri": "http://www.example.com/url?documentId\u003d9\u0026duplicate\u003d-1"
+          "baseUri": "http://www.example.com/api/v1/url?documentId\u003d9\u0026duplicate\u003d-1"
         }
       },
       "linksToDuplicates": []
@@ -156,24 +156,24 @@
   "totalHits": 11,
   "nextPage": {
     "rel": "next",
-    "href": "http://www.example.com/?originalQuery\u003dqueryDoesNotMatter\u0026currentPage\u003d2",
+    "href": "http://www.example.com/api/v1/search?q\u003dqueryDoesNotMatter\u0026p\u003d2",
     "template": {
       "variables": {
         "variables": []
       },
-      "baseUri": "http://www.example.com/?originalQuery\u003dqueryDoesNotMatter\u0026currentPage\u003d2"
+      "baseUri": "http://www.example.com/api/v1/search?q\u003dqueryDoesNotMatter\u0026p\u003d2"
     }
   },
   "namedPageLinksBefore": [],
   "namedPageLinksAfter": [
     {
       "rel": "2",
-      "href": "http://www.example.com/?originalQuery\u003dqueryDoesNotMatter\u0026currentPage\u003d2",
+      "href": "http://www.example.com/api/v1/search?q\u003dqueryDoesNotMatter\u0026p\u003d2",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?originalQuery\u003dqueryDoesNotMatter\u0026currentPage\u003d2"
+        "baseUri": "http://www.example.com/api/v1/search?q\u003dqueryDoesNotMatter\u0026p\u003d2"
       }
     }
   ]

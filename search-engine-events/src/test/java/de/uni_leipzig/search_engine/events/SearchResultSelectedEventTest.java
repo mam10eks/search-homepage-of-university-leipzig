@@ -38,15 +38,15 @@ public class SearchResultSelectedEventTest
 	{
 		return Arrays.asList
 			(
-				new Object[] {"Medien,Gameboy,Youtube", 1, 1362, "http://localhost:7777/url?documentId=1362&documentId=1362",  "http://www.bla.de/?originalQuery=Medien&originalQuery=Gameboy&originalQuery=Youtube"},
-				new Object[] {"Medien,Gameboy,Youtube", 1, 1362, "http://localhost:7777/url?documentId=1362&documentId=111", "http://www.bla.de?originalQuery=Medien,Gameboy,Youtube"},
-				new Object[] {"Medien,Youtube", 1, 1, "http://localhost:7777/url?documentId=1&documentId=111", "http://www.bla.de/?originalQuery=Medien&originalQuery=Youtube"},
-				new Object[] {"Medien,Youtube", 1, 1, "http://localhost:7777/url?documentId=1&documentId=111", "http://www.bla.de?originalQuery=Medien,Youtube"},
-				new Object[] {"Medien,Youtube", 2, 1, "http://localhost:7777/url?documentId=1&documentId=111", "http://www.bla.de/?originalQuery=Medien&originalQuery=Youtube&currentPage=2&currentPage=4"},
-				new Object[] {"Medien,Youtube", 2, 1, "http://localhost:7777/url?documentId=1&documentId=111", "http://www.bla.de/?originalQuery=Medien,Youtube&currentPage=2&currentPage=4"},
-				new Object[] {"Medien", 2, 1, "http://localhost:7777/url?documentId=1","http://www.bla.de?originalQuery=Medien&currentPage=2"},
-				new Object[] {"Medien", 1, 1, "http://localhost:7777/url?documentId=1", "http://www.bla.de?originalQuery=Medien"},
-				new Object[] {"Medien", 1, 1, "http://localhost:7777/url?documentId=1", "http://www.bla.de?originalQuery=Medien&currentPage=drei"}
+				new Object[] {"Medien,Gameboy,Youtube", 1, 1362, "http://localhost:7777/api/v1/url?documentId=1362&documentId=1362",  "http://www.bla.de/api/v1/search?q=Medien&q=Gameboy&q=Youtube"},
+				new Object[] {"Medien,Gameboy,Youtube", 1, 1362, "http://localhost:7777/api/v1/url?documentId=1362&documentId=111", "http://www.bla.de/api/v1/search?q=Medien,Gameboy,Youtube"},
+				new Object[] {"Medien,Youtube", 1, 1, "http://localhost:7777/api/v1/url?documentId=1&documentId=111", "http://www.bla.de/api/v1/search?q=Medien&q=Youtube"},
+				new Object[] {"Medien,Youtube", 1, 1, "http://localhost:7777/api/v1/url?documentId=1&documentId=111", "http://www.bla.de/api/v1/search?q=Medien,Youtube"},
+				new Object[] {"Medien,Youtube", 2, 1, "http://localhost:7777/api/v1/url?documentId=1&documentId=111", "http://www.bla.de/api/v1/search?q=Medien&q=Youtube&p=2&p=4"},
+				new Object[] {"Medien,Youtube", 2, 1, "http://localhost:7777/api/v1/url?documentId=1&documentId=111", "http://www.bla.de/api/v1/search?q=Medien,Youtube&p=2&p=4"},
+				new Object[] {"Medien", 2, 1, "http://localhost:7777/api/v1/url?documentId=1","http://www.bla.de/api/v1/search?q=Medien&p=2"},
+				new Object[] {"Medien", 1, 1, "http://localhost:7777/api/v1/url?documentId=1", "http://www.bla.de/api/v1/search?q=Medien"},
+				new Object[] {"Medien", 1, 1, "http://localhost:7777/api/v1/url?documentId=1", "http://www.bla.de/api/v1/search?q=Medien&p=drei"}
 			);
 	}
 	

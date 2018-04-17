@@ -3,85 +3,85 @@
   "totalHits": 70,
   "nextPage": {
     "rel": "next",
-    "href": "http://www.example.com/?currentPage\u003d5",
+    "href": "http://www.example.com/api/v1/search?p\u003d5",
     "template": {
       "variables": {
         "variables": []
       },
-      "baseUri": "http://www.example.com/?currentPage\u003d5"
+      "baseUri": "http://www.example.com/api/v1/search?p\u003d5"
     }
   },
   "previousPage": {
     "rel": "prev",
-    "href": "http://www.example.com/?currentPage\u003d3",
+    "href": "http://www.example.com/api/v1/search?p\u003d3",
     "template": {
       "variables": {
         "variables": []
       },
-      "baseUri": "http://www.example.com/?currentPage\u003d3"
+      "baseUri": "http://www.example.com/api/v1/search?p\u003d3"
     }
   },
   "namedPageLinksBefore": [
     {
       "rel": "1",
-      "href": "http://www.example.com/?currentPage\u003d1",
+      "href": "http://www.example.com/api/v1/search?p\u003d1",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d1"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d1"
       }
     },
     {
       "rel": "2",
-      "href": "http://www.example.com/?currentPage\u003d2",
+      "href": "http://www.example.com/api/v1/search?p\u003d2",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d2"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d2"
       }
     },
     {
       "rel": "3",
-      "href": "http://www.example.com/?currentPage\u003d3",
+      "href": "http://www.example.com/api/v1/search?p\u003d3",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d3"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d3"
       }
     }
   ],
   "namedPageLinksAfter": [
     {
       "rel": "5",
-      "href": "http://www.example.com/?currentPage\u003d5",
+      "href": "http://www.example.com/api/v1/search?p\u003d5",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d5"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d5"
       }
     },
     {
       "rel": "6",
-      "href": "http://www.example.com/?currentPage\u003d6",
+      "href": "http://www.example.com/api/v1/search?p\u003d6",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d6"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d6"
       }
     },
     {
       "rel": "7",
-      "href": "http://www.example.com/?currentPage\u003d7",
+      "href": "http://www.example.com/api/v1/search?p\u003d7",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d7"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d7"
       }
     }
   ]

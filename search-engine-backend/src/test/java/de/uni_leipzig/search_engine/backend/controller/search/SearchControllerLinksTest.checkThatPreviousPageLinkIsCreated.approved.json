@@ -3,23 +3,23 @@
   "totalHits": 11,
   "previousPage": {
     "rel": "prev",
-    "href": "http://www.example.com/?currentPage\u003d1",
+    "href": "http://www.example.com/api/v1/search?p\u003d1",
     "template": {
       "variables": {
         "variables": []
       },
-      "baseUri": "http://www.example.com/?currentPage\u003d1"
+      "baseUri": "http://www.example.com/api/v1/search?p\u003d1"
     }
   },
   "namedPageLinksBefore": [
     {
       "rel": "1",
-      "href": "http://www.example.com/?currentPage\u003d1",
+      "href": "http://www.example.com/api/v1/search?p\u003d1",
       "template": {
         "variables": {
           "variables": []
         },
-        "baseUri": "http://www.example.com/?currentPage\u003d1"
+        "baseUri": "http://www.example.com/api/v1/search?p\u003d1"
       }
     }
   ],
