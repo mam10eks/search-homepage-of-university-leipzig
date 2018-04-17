@@ -1,4 +1,4 @@
-# Backend of the Searchengine for University Leipzig (WIP!)
+# Backend of the Searchengine for University Leipzig
 
 **GOAL:** At the end, this project will contain a seachengine to retrieve informations from the homepage of the university leipzig.
 It was created during the 
@@ -7,12 +7,12 @@ It was created during the
 ## Start It
 
 You could start the development version of the search engine by leveraging one of the commands:
-* `./scripts/run_me.sh`
-  * If you have a bash shell, this will compile the project, execute all unit tests and starting the jar after that.
 * `mvn clean install spring-boot:run`
-  * For a arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that.
+  * For an arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that.
 
-Then you could point your browser to `localhost:8080` to see the user interface of the search engine.
+Then you could point your browser to `localhost:8080/api/v1/search` to see the debug user interface of the search engine.
+This debug user interface has all functionalities of the production ui, but it is rendered in a more rudimentary fashion using a small thymeleaf template.
+If you use this setup solely log-messages are not published to kafka, but to the console.
 
 ## Onboarding
 
