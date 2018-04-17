@@ -21,6 +21,22 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Handles the content negotiation with a client.
+ * <p>
+ * There are are those cases:
+ * <p>
+ * <ul>
+ * 		<li>A client {@link EnrichResponsesWithViewAspect#JSON_TYPES wants to retrive json}:
+ * 			In that case the model is returned as json.</li>
+ * 		<li>Else: The client gets the response parsed into html: In that case the model is rendered into an
+ * 			thymeleaf template which is specified by the method name which creates the response model.</li>
+ * 		<li>Redirects are not touched at all (since those methods doesnt deliver content in their response).</li>
+ * 		<li>All methods anotated with {@link ResponseBody} are not touched at all (since those methods deliver their responses in their own defined way)</li>
+ * </ul>
+ * @author Maik Fröbe
+ *
+ */
 @Aspect
 @Component
 @Order(2)

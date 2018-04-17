@@ -19,6 +19,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import de.uni_leipzig.search_engine.events.SearchResultSelectedEvent;
 import de.uni_leipzig.search_engine.events.WebResponseEvent;
 
+/**
+ * An aspect which logs all requests which are pointing to any endpoint which is delivered by this software.
+ * Ensures also that a client is always identifyable by leveraging session cookies.
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @Aspect
 @Component
 @Order(1)

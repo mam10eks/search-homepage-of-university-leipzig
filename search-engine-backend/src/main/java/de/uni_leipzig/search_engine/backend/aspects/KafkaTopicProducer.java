@@ -12,6 +12,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import lombok.Data;
 
+/**
+ * Writes log messages to kafka topics. Could work asynchronous.
+ * 
+ * @author Maik Fröbe
+ *
+ * @param <V>
+ */
 @Data
 public class KafkaTopicProducer<V>
 {

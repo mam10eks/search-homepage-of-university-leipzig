@@ -15,8 +15,8 @@
 		<div class="container-fluid" style="padding: 0px 15% 25px 15%; background-color: white;">
 			<div class="row">
 				<h1 class="text-center">Search University Leipzig</h1>
-				<form class="input-group col-md-12" action="/" method="get">
-					<input type="text" class="form-control" placeholder="Search" id="search-input" autocomplete="off" name="originalQuery" th:value="${originalQuery}"/>
+				<form class="input-group col-md-12" action="/api/v1/search" method="get">
+					<input type="text" class="form-control" placeholder="Search" id="search-input" autocomplete="off" name="q" th:value="${originalQuery}"/>
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="submit">
 							<span class="glyphicon glyphicon-search"></span>
