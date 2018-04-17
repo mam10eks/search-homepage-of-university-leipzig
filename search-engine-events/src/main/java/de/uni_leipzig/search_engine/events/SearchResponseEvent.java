@@ -41,14 +41,14 @@ public class SearchResponseEvent extends WebResponseEvent
 	
 	static String extractQueryParameter(List<NameValuePair> params)
 	{
-		return RequestParameterUtil.extractAllPairsWithName("originalQuery", params).stream()
+		return RequestParameterUtil.extractAllPairsWithName("q", params).stream()
 				.map(pair -> pair.getValue())
 				.collect(Collectors.joining(","));
 	}
 	
 	static int extractResultPage(List<NameValuePair> params)
 	{
-		NameValuePair resultPageParameter = RequestParameterUtil.extractFirstPairWithName("currentPage", params);
+		NameValuePair resultPageParameter = RequestParameterUtil.extractFirstPairWithName("p", params);
 		
 		if(resultPageParameter != null && resultPageParameter.getValue() != null)
 		{
@@ -76,6 +76,6 @@ public class SearchResponseEvent extends WebResponseEvent
 		URI uri = RequestParameterUtil.parseUriFailsave(request.getRequestUrl());
 		
 		return uri != null
-			&& StringUtils.removeAll(uri.getPath(), "/").isEmpty();
+			&& StringUtils.removeAll(uri.getPath(), "/api/v1/search").isEmpty();
 	}
 }
