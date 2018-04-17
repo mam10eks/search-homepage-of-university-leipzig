@@ -7,10 +7,9 @@ var LunseHeader;
 var LunseContent;
 var LunseProgressBar = null;
 
-var LunseAPIURL = 'http://lunse.bitlium.com/api/v1/';
-var LunseTrackingURL = 'http://lunse.bitlium.com/r/';
-var LunseBaseURL = 'http://lunse.bitlium.com/';
+var LunseAPIURL = '/api/v1/';
 
+var autocompleteFocusIndex;
 
 function lunseInit() {
     LunseSearchForm = document.getElementById("search_form");
@@ -18,10 +17,44 @@ function lunseInit() {
     LunseSearchInput = LunseSearchForm.querySelector("#q");
     LunseHeader = document.getElementById("header_center");
     LunseContent = document.getElementById("content_center");
-    LunseSearchInput.addEventListener("keyup", LunseGUI.updateSuggestions);
-    LunseSearchInput.addEventListener("change", LunseGUI.updateSuggestions);
-    LunseSearchInput.addEventListener("focus", LunseGUI.updateSuggestions);
-    LunseSearchInput.addEventListener("focusout", LunseGUI.clearSuggestions);
+    
+    // based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
+    LunseSearchInput.addEventListener("input", function(e) {
+        LunseGUI.hideSuggestions();
+        if (!this.value) { return false;}
+        autocompleteFocusIndex = -1;
+        if (this.value.length > 1) {
+            LunseGUI.updateSuggestions();
+        } else {
+            LunseGUI.hideSuggestions();
+        }
+    });
+
+    LunseSearchInput.addEventListener("keydown", function(e) {
+        var x = LunseSuggestions;
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) { // down
+            autocompleteFocusIndex++;
+            LunseGUI.selectSuggestion(x);
+        } else if (e.keyCode == 38) { // up
+            autocompleteFocusIndex--;
+            LunseGUI.selectSuggestion(x);
+        } else if (e.keyCode == 13) {
+            // if the enter is pressed, prevent the form from being submitted
+            if (x.length > 0) {
+                e.preventDefault();
+                if (autocompleteFocusIndex > -1) {
+                    if (x) x[autocompleteFocusIndex].click(); 
+                }
+            }
+        } else if (e.keyCode == 27) { // escape
+            LunseGUI.hideSuggestions();
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        LunseGUI.hideSuggestions();
+    });
 }
 
 // handle history API actions
@@ -35,12 +68,24 @@ window.onpopstate = function (event) {
 };
 
 class LunseRouter {
-
+    
+    /**
+     * Navigates to a given URL and uses history API if possible.
+     * @param {string} url The URL to navigate to.
+     * @param {boolean} replace Whether to replace an existing state or create a new one.
+     */
     static goTo(url, replace = false) {
         console.log('goTo: ' + url);
+
         // extract the path
         var urlData = LunseTools.getURLInfo(url);
-        var path = url.replace(LunseBaseURL, '');
+
+        var path = url;
+
+		if(url.includes(LunseAPIURL)) {
+			path = url.split(LunseAPIURL)[1];
+			url = url.replace(LunseAPIURL, "/");
+		}
 
         var state = {};
         switch (path) {
@@ -48,12 +93,6 @@ class LunseRouter {
                 // about page
                 state.pageID = 'about';
                 state.title = 'About the Leipzig University Search Engine Project';
-                LunseRouter.goFinish(state, url, replace);
-                break;
-            case 'statistics':
-                // statistics page
-                state.pageID = 'statistics';
-                state.title = 'Statistics - Leipzig University Search';
                 LunseRouter.goFinish(state, url, replace);
                 break;
             default:
@@ -75,7 +114,12 @@ class LunseRouter {
                         }
                     }
                     LunseProgressBar = new ProgressBar();
-                    request.open('GET', LunseAPIURL + 'results?q=' + urlData.parameters['q'] + '&p=' + urlData.parameters['p']);
+                    var pageNum = 1;
+                    if (urlData.parameters['p']) {
+                        pageNum = urlData.parameters['p'];
+                    }
+                    request.open('GET', LunseAPIURL + 'search?q=' + urlData.parameters['q'] + '&p=' + pageNum);
+                    request.setRequestHeader('Content-Type', 'application/json');
                     request.send();
                 } else {
                     // error 404 page
@@ -87,6 +131,12 @@ class LunseRouter {
         return false;
     }
 
+    /**
+     * Finalizes the navigation process.
+     * @param {*} state 
+     * @param {*} url 
+     * @param {*} replace 
+     */
     static goFinish(state, url, replace) {
         // replace the state if it was a history navigation
         if (replace) {
@@ -112,7 +162,7 @@ class LunseRouter {
             query = queryString;
         }
         if (query != "") {
-            LunseRouter.goTo(LunseBaseURL + "search?q=" + encodeURIComponent(query));
+            LunseRouter.goTo("search?q=" + encodeURIComponent(query));
         }
     }
 
@@ -122,8 +172,6 @@ class LunseRouter {
      * @param {*} title 
      */
     static displayPage(state, title) {
-        //console.log("Display: " + JSON.stringify(state));
-
         // clear page and header content
         while (LunseHeader.firstChild) {
             LunseHeader.removeChild(LunseHeader.firstChild);
@@ -137,48 +185,27 @@ class LunseRouter {
             case "search":
                 LunseHeader.appendChild(LunseSearchForm);
                 if (state.apiData != null) {
-                    title = state.apiData.query + " - Leipzig University Search (unofficial)";
+                    title = state.apiData.originalQuery + " - Leipzig University Search (unofficial)";
 
-                    // did you mean...
-                    if (state.apiData.alternativeQuery != null) {
-                        // ONCLICK MISSING
-                        LunseContent.appendChild(LunseGUI.renderBox('content_hint', 'Did you mean <i><a href="./search?q=' + state.apiData.alternativeQuery + '">' + decodeURIComponent(state.apiData.alternativeQuery) + '</i></a>?'));
-                    }
                     // render all the results
                     var frag = document.createDocumentFragment();
-                    for (var i = 0; i < state.apiData.queryResults.length; i++) {
-                        switch (state.apiData.queryResults[i].type) {
-                            case 'website':
-                                frag.appendChild(Results.renderWebsite(state.apiData.queryResults[i]));
-                                break;
-                            default:
-                            // handle different result types
-                        }
+                    for (var i = 0; i < state.apiData.resultsOnPage.length; i++) {
+                        frag.appendChild(Results.renderWebsite(state.apiData.resultsOnPage[i]));
                     }
                     LunseContent.appendChild(frag);
-                    LunseContent.appendChild(LunseGUI.renderPagination(state.apiData.currentPage, state.apiData.pageCount));
-                    // performance metrics
-                    if (state.apiData.performance != null) {
-                        LunseContent.appendChild(LunseGUI.renderBox('content_note', 'Got ' + state.apiData.performance.totalResultCount + ' results within ' + state.apiData.performance.retrievalTime + 'ms.'));
-                    }
+                    LunseContent.appendChild(LunseGUI.renderPagination(state.apiData));
+                    LunseContent.appendChild(LunseGUI.renderBox('content_note', 'Found ' + state.apiData.totalHits + ' results within ' + state.apiData.durationInMilliseconds + 'ms'));
                 }
                 break;
 
             case "about":
                 LunseContent.appendChild(LunseGUI.renderBox("content_link", '<a href="Javascript:void(0);" onclick="window.history.back();">&lt;&lt; back</a>'));
-                LunseContent.appendChild(LunseGUI.renderBox("content_article", "<h1>About the Leipzig University Search Engine Project</h1><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>"));
-                break;
-
-            case "statistics":
-                LunseContent.appendChild(LunseGUI.renderBox("content_link", '<a href="Javascript:void(0);" onclick="window.history.back();">&lt;&lt; back</a>'));
-                LunseContent.appendChild(LunseGUI.renderBox("content_mid", "<h1>Statistics</h1>"));
-                LunseContent.appendChild(LunseGUI.renderTable({ "head": ["Metric", "Value"], body: [["Indexed pages", "300.000"]] }));
+                LunseContent.appendChild(LunseGUI.renderBox("content_article", "<h1>About the Leipzig University Search Engine Project</h1><p>This website is the result of the information retrieval internship (October '17 - March '18). Students were tasked to learn about how search engines generally work and apply their gained knowledge in projects like this one. A <a href=\"https://github.com/mam10eks/search-homepage-of-university-leipzig/blob/master/ausarbeitung/output/document.pdf\">summary report</a> as well as a <a href=\"/presentation/index.html\">final presentation</a> are available online.</p>"));
                 break;
 
             case "home":
             default:
                 LunseContent.appendChild(LunseGUI.renderBox("content_mid", "<h1>Leipzig University Search</h1>"));
-                LunseContent.appendChild(LunseGUI.renderBox("content_logo", "<img src=\"./static/logo.svg\" />"));
                 LunseContent.appendChild(LunseSearchForm);
                 break;
         }
@@ -196,7 +223,7 @@ class LunseGUI {
 
         // hide if empty
         if (!LunseSearchInput.value) {
-            LunseGUI.clearSuggestions();
+            LunseGUI.hideSuggestions();
             return;
         }
 
@@ -208,40 +235,77 @@ class LunseGUI {
                 LunseGUI.showSuggestions(JSON.parse(request.responseText));
             }
         }
-        request.open('GET', LunseAPIURL + 'suggestions?q=' + encodeURIComponent(LunseSearchInput.value));
+        request.open('GET', LunseAPIURL + 'suggest?query=' + encodeURIComponent(LunseSearchInput.value));
         request.send();
     }
 
     static showSuggestions(apiData) {
         var frag = document.createDocumentFragment();
 
-        for (var i = 0; i < apiData.suggestions.length; i++) {
-            var sug = document.createElement('a');
-            sug.innerHTML = apiData.suggestions[i];
-            frag.appendChild(sug);
-        }
+        if (apiData.recommendations.length > 0) {
+            for (var i = 0; i < apiData.recommendations.length; i++) {
+                var sug = document.createElement('div');
+                sug.innerHTML = apiData.recommendations[i].split(LunseSearchInput.value).join('<b>' + LunseSearchInput.value + '</b>') + '<input type="hidden" value="' + apiData.recommendations[i] + '">';
+                frag.appendChild(sug);
+                sug.addEventListener("click", function(e) {
+                    LunseSearchInput.value = this.getElementsByTagName("input")[0].value;
+                    LunseGUI.hideSuggestions();
+                    LunseRouter.search();
+                });
+            }
 
-        // show the new results
-        LunseSuggestions.innerHTML = "";
-        LunseSuggestions.style.display = "block";
-        LunseSuggestions.appendChild(frag);
+            // show the new results
+            LunseSuggestions.innerHTML = "";
+            LunseSuggestions.style.display = "block";
+            LunseSuggestions.appendChild(frag);
+        } else {
+            LunseGUI.hideSuggestions();
+        }
     }
 
-    static clearSuggestions() {
+    static hideSuggestions() {
         LunseSuggestions.innerHTML = '';
         LunseSuggestions.style.display = 'none';
     }
 
+    static selectSuggestion(x) {
+        if (!x) return false;
+        LunseGUI.unselectSuggestions(x);
+        if (autocompleteFocusIndex >= x.length) autocompleteFocusIndex = 0;
+        if (autocompleteFocusIndex < 0) autocompleteFocusIndex = (x.length - 1);
+        x[autocompleteFocusIndex].classList.add("active");
+        if (x[autocompleteFocusIndex]) {
+            LunseSearchInput.value = x[autocompleteFocusIndex].getElementsByTagName("input")[0].value;
+        }
+    }
+
+    static unselectSuggestions(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("active");
+        }
+    }
+
+    /**
+     * Returns the value entered in the search form.
+     */
     static getQueryString() {
         return LunseSearchForm.querySelector("#q").value.trim();
     }
 
+    /**
+     * Allows to use cookies and removes the cookies hint.
+     */
     static acceptCookies() {
         document.cookie = 'cookies=accepted';
         var cookieNote = document.getElementById('cookie_wrapper');
         document.getElementsByTagName("BODY")[0].removeChild(cookieNote);
     }
 
+    /**
+     * Creates a div box with the given classname(s).
+     * @param {*} className The classes to use for this element.
+     * @param {*} message The text content of the box.
+     */
     static renderBox(className, message) {
         var hint = document.createElement("div");
         hint.setAttribute("class", className);
@@ -249,106 +313,125 @@ class LunseGUI {
         return hint;
     }
 
-    static renderPagination(current, max) {
+    /**
+     * Creates a DOM tree with the pagination links.
+     * @param {*} result An object representing a single result.
+     */
+    static renderPagination(result) {
         var container = document.createElement("div");
         container.setAttribute("class", "content_pagination");
 
-        var limit = (current > 10 ? 4 : 11);
-
-        for (var i = 1; i <= max; i++) {
-            // only render if we're in the proximity of the result or top10
-            if ((i < limit) || (Math.abs(i - current) < 3)) {
-                var num;
-                if (i == current) {
-                    num = document.createElement("span");
-                } else {
-                    num = document.createElement("a");
-                    var pageLink = LunseBaseURL + "search?q=" + encodeURIComponent(LunseGUI.getQueryString()) + "&p=" + i;
-                    num.href = pageLink;
-                    num.addEventListener('click', function () { event.preventDefault(); return LunseRouter.goTo(this.href); });
-                }
-                num.innerHTML = i;
-                container.appendChild(num);
-            } else {
-                // append "...""
-                var num = document.createElement("span");
-                num.innerHTML = "...";
-                container.appendChild(num);
-                if (i > current) {
-                    // we can stop if we're out of top10 and (far) above current
-                    return container;
-                } else {
-                    i = current - 3;
-                }
+        if (result.previousPage) {
+            container.appendChild(LunseGUI.getPaginationLink(result.previousPage));
+        }
+        if (result.firstPageLink) {
+            container.appendChild(LunseGUI.getPaginationLink(result.firstPageLink));
+        }
+        if (result.namedPageLinksBefore.length > 0) {
+            for (var i = 0; i < result.namedPageLinksBefore.length; i++) {
+                container.appendChild(LunseGUI.getPaginationLink(result.namedPageLinksBefore[i]));
             }
+        }
+        var currentPage = document.createElement('span');
+        currentPage.innerHTML = result.page;
+        container.appendChild(currentPage);
+        if (result.namedPageLinksAfter.length > 0) {
+            for (var i = 0; i < result.namedPageLinksAfter.length; i++) {
+                container.appendChild(LunseGUI.getPaginationLink(result.namedPageLinksAfter[i]));
+            }
+        }
+        if (result.nextPage) {
+            container.appendChild(LunseGUI.getPaginationLink(result.nextPage));
         }
 
         return container;
     }
 
-    static renderTable(jsonTable) {
-        var table = document.createElement('table');
-        if (jsonTable.head) {
-            var line = document.createElement('tr');
-            for (var i = 0; i < jsonTable.head.length; i++) {
-                var cell = document.createElement('th');
-                cell.innerHTML = jsonTable.head[i];
-                line.appendChild(cell);
-            }
-            table.appendChild(line);
-        }
-        if (jsonTable.body) {
-            for (var j = 0; j < jsonTable.body.length; j++) {
-                var line = document.createElement('tr');
-                for (var i = 0; i < jsonTable.body[j].length; i++) {
-                    var cell = document.createElement('td');
-                    cell.innerHTML = jsonTable.body[j][i];
-                    line.appendChild(cell);
-                }
-                table.appendChild(line);
-            }
-        }
-        return table;
+    /**
+     * Creates a HTML link from JSON.
+     * @param {*} link An object with href and link attribute.
+     */
+    static getPaginationLink(linkObj) {
+        var link = document.createElement('a');
+        var url = LunseGUI.apiURLtoFrontend(linkObj.href);
+        link.setAttribute('href', url);
+        link.addEventListener('click', function(e){ LunseRouter.goTo(linkObj.href); e.preventDefault(); e.stopPropagation();}, false);
+        link.innerHTML = linkObj.rel;
+        return link;
+    }
+
+    static apiURLtoFrontend(url) {
+        return url.replace('/api/v1/', '/');
     }
 }
 
 class Results {
+
+    /**
+     * Returns a DOM tree as the UI representation of this result.
+     * @param {*} result An object containing the data of a result. 
+     */
     static renderWebsite(result) {
         var container = document.createElement("div");
         container.setAttribute("class", "content_result_website");
 
+        // add title of the document
         var title = document.createElement("a");
-        title.setAttribute("href", Results.getTrackingURL(result.url));
-        title.innerHTML = result.title;
+        title.setAttribute("href", result.targetUrl.href);
+        if (result.title) {
+            title.innerHTML = result.title;
+        } else {
+            // FIXME: can cut through entities, tags
+            title.innerHTML = result.snippet.substring(0, 40);
+        }
         container.appendChild(title);
 
+        // add the URL display
         var urlfield = document.createElement("div");
-        urlfield.innerHTML = Results.getDisplayURL(result.url);
-        if (result.mimeType != null) {
-            var tag = document.createElement("div");
-            tag.innerHTML = result.mimeType;
-            urlfield.insertAdjacentElement('afterbegin', tag);
-        }
+        urlfield.innerHTML = Results.getDisplayURL(result.targetUrl.displayLink);
         container.appendChild(urlfield);
 
+        // add the snippet
         var text = document.createElement("p");
         text.innerHTML = result.snippet;
         container.appendChild(text);
 
+        // add duplicates-links
+        if (result.linksToDuplicates.length > 0) {
+            var duplicatesList = document.createElement("ul");
+            var duplicateLabelItem = document.createElement("li");
+            duplicateLabelItem.innerHTML = "Similar results:";
+            duplicatesList.appendChild(duplicateLabelItem);
+
+            for (var i = 0; i < result.linksToDuplicates.length; i++) {
+                var duplicateItem = document.createElement("li");
+                var duplicateLink = document.createElement("a");
+                duplicateLink.setAttribute("href", result.linksToDuplicates[i].href);
+                duplicateLink.innerHTML = Results.getDisplayURL(result.linksToDuplicates[i].displayLink);
+                duplicateItem.appendChild(duplicateLink);
+                duplicatesList.appendChild(duplicateItem);
+            }
+
+            container.appendChild(duplicatesList);
+        }
+
         return container;
     }
 
+    /**
+     * Removes "http://" from URLs and decodes them.
+     * @param {*} url The encoded URL to parse.
+     */
     static getDisplayURL(url) {
         var decoded = decodeURIComponent(url);
         return (decoded.startsWith("http://") ? decoded.substring(7) : decoded);
     }
-
-    static getTrackingURL(url) {
-        return (LunseTrackingURL + url);
-    }
 }
 
 class ProgressBar {
+    /**
+     * Displays a visual indicator for background activity.
+     */
     constructor() {
         this.uiElement = document.createElement('div');
         this.uiElement.setAttribute('class', 'progress_bar');
@@ -365,6 +448,9 @@ class ProgressBar {
         }, 50);
     }
 
+    /**
+     * Removes the visual indicator.
+     */
     stop() {
         if (this.intervalID != null) {
             clearInterval(this.intervalID);
@@ -378,6 +464,10 @@ class ProgressBar {
 }
 
 class LunseTools {
+    /**
+     * Provides structured info about the given URL.
+     * @param {*} url The URL to parse.
+     */
     static getURLInfo(url) {
         // create a temporary anchor element
         var anchor = document.createElement('a');
