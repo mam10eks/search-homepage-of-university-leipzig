@@ -276,6 +276,54 @@
 
 			<div class="step slide" id="evaluation" data-x="1500" data-y="1000" data-z="0">
 				<h1>Evaluation</h1>
+				<ul>
+					<li>Ergebnisqualität und Trefferrate bestimmen den Nutzen</li>
+					<li>Daher Monitoring von Nutzerinteraktionen, Systemmetriken</li>
+					<ul>
+						<li>Erlaubt Identifikation von Schwächen/Problemen</li>
+						<li>Sammeln von Nutzerfeedback (z.B. Suggestions)</li>
+						<li>Ermöglicht Überprüfung von Tuningmaßnahmen</li>
+					</ul>
+					<li>Einsatz aspektorientierter Programmierung</li>
+					<ul>
+						<li>Aspekte: Effizienz, User-Identification und Logging</li>
+					</ul>
+					<li>Apache Kafka als Sammelstelle für Logging-Daten</li>
+					<li>Auswertung z.B. durch Stream Processor "online"</li>
+				</ul>
+			</div>
+
+
+			<div class="step slide" data-x="1500" data-y="1000" data-z="-1500">
+				<h1>Logauswertung (1)</h1>
+				<ul>
+					<li>Zwei simple und wichtige Metriken:</li>
+					<ul>
+						<li>Precision: Was von dem Gefundenen ist relevant?</li>
+						<li>Lösung: nachschauen und zählen!</li>
+						<li>Recall: Wie viel von dem Relevanten habe ich gefunden?</li>
+						<li>Lösung: <i>Was ist denn alles relevant?</i></li>
+					</ul>
+					<li>Approximative Lösung: Werte die Top-n aus und sammle alle relevanten Treffer</li>
+				</ul>
+			</div>
+
+
+			<div class="step slide" data-x="1500" data-y="1000" data-z="-3000">
+				<h1>Logauswertung (2)</h1>
+				<ul>
+					<li>Realisierung der Evaluation:</li>
+					<ul>
+						<li>Erstelle 50 Topics</li>
+						<li>Bewerte jew. die Top30-Ergebnisse nach Relevanz</li>
+						<li>MRR- und Nicht-MRR-Szenarien</li>
+					</ul>
+					<li>Ergebnis:</li>
+					<ul>
+						<li>MRR: das gesuchte Dokument liegt zu ~63% in den Top10; sonst >Top30</li>
+						<li>Nicht-MRR: sehr variable Verteilung der Trefferquoten (MAP: ~0,535)</li>
+					</ul>
+				</ul>
 			</div>
 
 
