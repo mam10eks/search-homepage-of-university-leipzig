@@ -1,14 +1,12 @@
 # Backend of the Searchengine for University Leipzig
 
-**GOAL:** At the end, this project will contain a seachengine to retrieve informations from the homepage of the university leipzig.
-It was created during the 
-[information retrieval internship in winter semester 2017](https://www.informatik.uni-leipzig.de/ifi/professuren/angewandteinf/temir/teaching/information-retrieval/).
+*The backend of the search engine with a small thymeleaf ui.
 
 ## Start It
 
-You could start the development version of the search engine by leveraging one of the commands:
+You could start the backend by leveraging the command:
 * `mvn clean install spring-boot:run`
-  * For an arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that.
+  * For an arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that (with the [example-index](../example_indices/lips_informatik_uni_leipzig)).
 
 Then you could point your browser to `localhost:8080/api/v1/search` to see the debug user interface of the search engine.
 This debug user interface has all functionalities of the production ui, but it is rendered in a more rudimentary fashion using a small thymeleaf template.
