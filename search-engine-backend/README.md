@@ -6,7 +6,7 @@
 
 You could start the backend by leveraging the command:
 * `mvn clean install spring-boot:run`
-  * For an arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that (with the [example-index](../example_indices/lips_informatik_uni_leipzig).
+  * For an arbitrary operating system will this command compile the project, execute all unit tests and starting the jar after that (with the [example-index](../example_indices/lips_informatik_uni_leipzig)).
 
 Then you could point your browser to `localhost:8080/api/v1/search` to see the debug user interface of the search engine.
 This debug user interface has all functionalities of the production ui, but it is rendered in a more rudimentary fashion using a small thymeleaf template.
