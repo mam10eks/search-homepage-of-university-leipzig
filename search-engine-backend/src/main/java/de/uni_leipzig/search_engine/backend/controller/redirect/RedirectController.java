@@ -11,6 +11,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import de.uni_leipzig.search_engine.backend.controller.search.dto.SearchResult;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 
+/**
+ * A controller which takes a tracking link as input and
+ * redirects a client to the target location.
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @Controller
 public class RedirectController
 {

@@ -25,6 +25,12 @@ import de.uni_leipzig.search_engine.backend.lucene.HighlightComponent;
 import de.uni_leipzig.search_engine.backend.lucene.SearcherComponent;
 import lombok.SneakyThrows;
 
+/**
+ * Handles search-requests from a client.
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @Controller
 public class SearchController
 {

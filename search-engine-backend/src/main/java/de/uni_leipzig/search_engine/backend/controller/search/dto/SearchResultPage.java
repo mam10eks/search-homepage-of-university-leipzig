@@ -7,6 +7,12 @@ import org.springframework.hateoas.Link;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * A DataTransferObject for a full search result page.
+ * 
+ * @author Maik Fröbe
+ *
+ */
 @Data
 @Accessors(chain=true)
 public class SearchResultPage

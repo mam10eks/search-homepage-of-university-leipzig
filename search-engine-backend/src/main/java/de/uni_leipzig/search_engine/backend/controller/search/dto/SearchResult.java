@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
+ * A DataTransferObject for a single search result element.
  * 
  * @author Maik Fröbe
  *
