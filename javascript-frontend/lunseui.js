@@ -71,15 +71,19 @@ function getSearchForm(query = '') {
 }
 
 /**
- * 
- * @param {*} url 
+ * Removes "http://" from URLs and decodes them.
+ * @param {*} url The encoded URL to parse.
  */
 function getDisplayURL(url) {
     var decoded = decodeURIComponent(url);
     return (decoded.startsWith("http://") ? decoded.substring(7) : decoded);
 }
 
-// renders pagination links according to API data
+/**
+ * renders pagination links according to API data
+ * @param {*} res The response object.
+ * @param {*} result JSON object with result data from API.
+ */
 function renderPagination(res, result) {
     res.write('<div class="content_pagination">');
 
@@ -117,8 +121,8 @@ function getPaginationLink(link) {
 
 /**
  * Outputs performance metrics for a request.
- * @param {*} res 
- * @param {*} apiData 
+ * @param {*} res The response object.
+ * @param {*} apiData JSON object with result data from API.
  */
 function renderPerformance(res, apiData) {
     res.write('<div class="content_note">Found ' + apiData.totalHits + ' results within ' + apiData.durationInMilliseconds + 'ms</div>'); 
@@ -126,8 +130,8 @@ function renderPerformance(res, apiData) {
 
 /**
  * Outputs code for a single website result.
- * @param {*} res 
- * @param {*} result 
+ * @param {*} res The response object.
+ * @param {*} result JSON object with result data from API.
  */
 function renderResultWebsite(res, result) {
     res.write('<div class="content_result_website"><a href="' + result.targetUrl.href + '">');

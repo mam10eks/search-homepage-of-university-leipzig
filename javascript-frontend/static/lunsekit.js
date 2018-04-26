@@ -11,6 +11,9 @@ var LunseAPIURL = '/api/v1/';
 
 var autocompleteFocusIndex;
 
+/**
+ * Sets up global references and event handlers
+ */
 function lunseInit() {
     LunseSearchForm = document.getElementById("search_form");
     LunseSuggestions = document.getElementById("search_suggestions");
@@ -133,9 +136,9 @@ class LunseRouter {
 
     /**
      * Finalizes the navigation process.
-     * @param {*} state 
-     * @param {*} url 
-     * @param {*} replace 
+     * @param {*} state The page state to use for rendering.
+     * @param {*} url The URL to navigate to.
+     * @param {*} replace Whether to replace an existing state or create a new one.
      */
     static goFinish(state, url, replace) {
         // replace the state if it was a history navigation
@@ -168,8 +171,8 @@ class LunseRouter {
 
     /**
      * Renders the specified page given all the data required to do so.
-     * @param {*} state 
-     * @param {*} title 
+     * @param {*} state The page state with all the data.
+     * @param {*} title The title of the page.
      */
     static displayPage(state, title) {
         // clear page and header content
@@ -218,6 +221,9 @@ class LunseRouter {
 
 class LunseGUI {
 
+    /**
+     * Initiates an update of the suggestions.
+     */
     static updateSuggestions() {
         console.log();
 
@@ -239,6 +245,10 @@ class LunseGUI {
         request.send();
     }
 
+    /**
+     * Displays new suggestions in the frontend.
+     * @param {*} apiData JSON object with new suggestions.
+     */
     static showSuggestions(apiData) {
         var frag = document.createDocumentFragment();
 
@@ -263,11 +273,18 @@ class LunseGUI {
         }
     }
 
+    /**
+     * Hides and clears the suggestions box.
+     */
     static hideSuggestions() {
         LunseSuggestions.innerHTML = '';
         LunseSuggestions.style.display = 'none';
     }
 
+    /**
+     * Selects a certain suggestion element in the UI.
+     * @param {*} x The element to select.
+     */
     static selectSuggestion(x) {
         if (!x) return false;
         LunseGUI.unselectSuggestions(x);
@@ -279,6 +296,10 @@ class LunseGUI {
         }
     }
 
+    /**
+     * Deselects all suggestions.
+     * @param {*} x Array with all UI-suggestion-elements.
+     */
     static unselectSuggestions(x) {
         for (var i = 0; i < x.length; i++) {
             x[i].classList.remove("active");
