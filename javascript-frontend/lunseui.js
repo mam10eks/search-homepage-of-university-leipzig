@@ -44,7 +44,7 @@ function process(req, res, pageID) {
             data.query = (req.query.q != null) ? req.query.q.trim() : '';
             data.page = (req.query.p != null) ? parseInt(req.query.p.trim()) : 1;
             if (data.page < 1) data.page = 1;
-            requestPromise({ uri: apiURL+"search", qs: { q: data.query, p: data.page }, headers: { 'Cookie': 'client_id=' + data.session.client_id + ';', 'Content-Type': 'application/json' }, json: true })
+            requestPromise({ uri: apiURL+"search", qs: { q: data.query, p: data.page }, headers: { 'Cookie': 'client_id=' + data.session.client_id + ';', 'Content-Type': 'application/json' , 'X-Forwarded-Port': req.port, 'Host': req.hostname}, json: true })
                 .then((resData) => {
                     data.apiData = resData;
                     render(res, pageID, data);
