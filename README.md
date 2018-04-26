@@ -3,6 +3,7 @@
 **GOAL:** This project contains a seachengine to retrieve informations from the homepage of the university leipzig.
 It was created during the 
 [information retrieval internship in winter semester 2017](https://www.informatik.uni-leipzig.de/ifi/professuren/angewandteinf/temir/teaching/information-retrieval/).
+There exists a [Step-By-Step-Tutorial](Step-By-Step-Guide.md) for all things associated with this search engine.
 
 ## Run It
 
