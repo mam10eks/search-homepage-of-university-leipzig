@@ -103,7 +103,7 @@ The repository already contains a small subset of the data that could be crawled
 http://uni-leipzig.de (namely the domain http://lips.informatik.uni-leipzig.de/).
 If you want to use a different index, you need to mount the root directory of the index into the
 `searchEngineBackend` service which is declared within [docker-compose.yml](docker-compose.yml).
-E.g. if you have the index at `/opt/full-index`, you would need to add a line: `/opt/full-index:/opt/search-engine/index`.
+E.g. if you have the index at `/opt/full-index`, you would need to add a line: `volumes: [ "/opt/full-index:/opt/search-engine/index" ]`.
 The service description of `searchEngineBackend` would look like:
 ```
 searchEngineBackend:
