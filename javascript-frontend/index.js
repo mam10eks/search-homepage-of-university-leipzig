@@ -1,7 +1,7 @@
 /* CONFIG */
 var port = 7531;
 
-exports.apiURL = 'http://localhost:8080/api/v1/';
+exports.apiURL = 'http://localhost:7777/api/v1/';
 /* CONFIG END */
 
 // load dependencies
